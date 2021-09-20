@@ -1,0 +1,8 @@
+name = "RIXSCalculator"
+uuid = "6536fc2c-db61-11e8-39b1-39c6a5bcb6de"
+authors = ["Jan Attig <jattig@thp.Uni-Koeln.DE>"]
+version = "0.1.0"
+
+[deps]
+LinearAlgebra = "37e2e46d-f89d-539d-b4ee-838fcccc9c8e"
+Combinatorics = "861a8166-3701-5b0c-9a16-15d98fcdc6aa"
