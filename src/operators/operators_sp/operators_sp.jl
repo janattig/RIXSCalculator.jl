@@ -23,7 +23,7 @@
 ##############################################################
 
 # included in subfile
-include("operators_sp_basics.jl")
+include("operators_sp_basic.jl")
 
 
 
