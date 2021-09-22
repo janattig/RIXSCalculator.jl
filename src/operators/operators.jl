@@ -51,7 +51,7 @@ include("operators_mp/operators_mp.jl")
 # summing two single site operators, included in subfile
 # include("operators_sum.jl")
 
-# skalar factor in front of operator
+# scalar factor in front of operator
 # include("operators_factor.jl")
 
 # zero element of operators

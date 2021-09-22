@@ -47,6 +47,7 @@ mutable struct MPElectron2PScatteringOperator{
         return op
     end
 end
+export MPElectron2PScatteringOperator
 
 # define a MP operator for 2 particle scattering interactions of HOLES
 mutable struct MPHole2PScatteringOperator{
@@ -76,6 +77,7 @@ mutable struct MPHole2PScatteringOperator{
         return op
     end
 end
+export MPHole2PScatteringOperator
 
 
 import Base.show
@@ -211,7 +213,7 @@ function fill_orbital_contribution!(operator :: MPHole2PScatteringOperator{MPB},
 end
 
 
-
+export fill_orbital_contribution!
 
 ##############################################################
 #   Convenience functions for generating suitable terms
@@ -258,6 +260,7 @@ function generate2PScatteringElectronInteractionSpinFlip(basis :: MPB, site :: I
     # return the finished operator
     return op
 end
+export generate2PScatteringElectronInteractionSpinFlip
 
 # generate a term of the spin conserving exchange form for site i (ELECTRON)
 function generate2PScatteringElectronInteractionSpinConserve(basis :: MPB, site :: Int64, prefactor :: Real) where {
@@ -300,7 +303,7 @@ function generate2PScatteringElectronInteractionSpinConserve(basis :: MPB, site 
     # return the finished operator
     return op
 end
-
+export generate2PScatteringElectronInteractionSpinConserve
 
 # generate a term of the spin flip exchange form for site i (ELECTRON)
 function generate2PScatteringHoleInteractionSpinFlip(basis :: MPB, site :: Int64, prefactor :: Real) where {
@@ -343,6 +346,8 @@ function generate2PScatteringHoleInteractionSpinFlip(basis :: MPB, site :: Int64
     # return the finished operator
     return op
 end
+export generate2PScatteringHoleInteractionSpinFlip
+
 
 # generate a term of the spin conserving exchange form for site i (ELECTRON)
 function generate2PScatteringHoleInteractionSpinConserve(basis :: MPB, site :: Int64, prefactor :: Real) where {
@@ -385,3 +390,4 @@ function generate2PScatteringHoleInteractionSpinConserve(basis :: MPB, site :: I
     # return the finished operator
     return op
 end
+export generate2PScatteringHoleInteractionSpinConserve

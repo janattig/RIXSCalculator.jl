@@ -45,6 +45,7 @@ mutable struct MPElectronDensityDensityOperator{
         return op
     end
 end
+export MPElectronDensityDensityOperator
 
 # define a MP operator for density density interactions of HOLES ((1-n)*(1-n))
 mutable struct MPHoleDensityDensityOperator{
@@ -73,6 +74,7 @@ mutable struct MPHoleDensityDensityOperator{
         return op
     end
 end
+export MPHoleDensityDensityOperator
 
 
 import Base.show
@@ -202,7 +204,7 @@ function orbital_contribution(operator :: MPHoleDensityDensityOperator{MPB}, sta
     return interaction
 end
 
-
+export orbital_contribution
 
 ##############################################################
 #   Convenience functions for generating suitable terms
@@ -237,6 +239,7 @@ function generateDensityDensityElectronInteractionSameOrbital(basis :: MPB, site
     # return the finished operator
     return op
 end
+export generateDensityDensityElectronInteractionSameOrbital
 
 # generate a term of the form n_aup n_apup + n_adown n_apdown for site i (ELECTRON)
 function generateDensityDensityElectronInteractionSameSpin(basis :: MPB, site :: Int64, prefactor :: Real) where {
@@ -267,6 +270,7 @@ function generateDensityDensityElectronInteractionSameSpin(basis :: MPB, site ::
     # return the finished operator
     return op
 end
+export generateDensityDensityElectronInteractionSameSpin
 
 # generate a term of the form n_aup n_apdown  for site i (ELECTRON)
 function generateDensityDensityElectronInteractionRemainder(basis :: MPB, site :: Int64, prefactor :: Real) where {
@@ -297,6 +301,7 @@ function generateDensityDensityElectronInteractionRemainder(basis :: MPB, site :
     # return the finished operator
     return op
 end
+export generateDensityDensityElectronInteractionRemainder
 
 
 
@@ -329,6 +334,7 @@ function generateDensityDensityHoleInteractionSameOrbital(basis :: MPB, site :: 
     # return the finished operator
     return op
 end
+export generateDensityDensityHoleInteractionSameOrbital
 
 # generate a term of the form n_aup n_apup + n_adown n_apdown for site i (HOLE)
 function generateDensityDensityHoleInteractionSameSpin(basis :: MPB, site :: Int64, prefactor :: Real) where {
@@ -359,6 +365,7 @@ function generateDensityDensityHoleInteractionSameSpin(basis :: MPB, site :: Int
     # return the finished operator
     return op
 end
+export generateDensityDensityHoleInteractionSameSpin
 
 # generate a term of the form n_aup n_apdown  for site i (HOLE)
 function generateDensityDensityHoleInteractionRemainder(basis :: MPB, site :: Int64, prefactor :: Real) where {
@@ -389,3 +396,4 @@ function generateDensityDensityHoleInteractionRemainder(basis :: MPB, site :: In
     # return the finished operator
     return op
 end
+export generateDensityDensityHoleInteractionRemainder

@@ -41,6 +41,7 @@ mutable struct MPGeneralizedSPOperator{
         return op
     end
 end
+export MPGeneralizedSPOperator
 
 import Base.show
 function Base.show(io::IO, op::MPGeneralizedSPOperator{SPBS, MPB, SPO}) where {
@@ -198,3 +199,4 @@ function add_diagonal_hopping!(operator :: MPGeneralizedSPOperator{SPMSBS, MPB, 
     return nothing
 end
 
+export add_hopping!, add_diagonal_hopping!

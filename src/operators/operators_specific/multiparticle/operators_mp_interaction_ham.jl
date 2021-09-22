@@ -72,6 +72,7 @@ mutable struct MPElectronPerkinsWoelfleHamiltonian{
         return op
     end
 end
+export MPElectronPerkinsWoelfleHamiltonian
 
 # define a Perkins Woelfe Hamiltonian for 2 particle interation of ELECTRONS
 mutable struct MPHolePerkinsWoelfleHamiltonian{
@@ -119,6 +120,7 @@ mutable struct MPHolePerkinsWoelfleHamiltonian{
         return op
     end
 end
+export MPHolePerkinsWoelfleHamiltonian
 
 import Base.show
 function Base.show(io::IO, op::MPHolePerkinsWoelfleHamiltonian{MPB}) where {
