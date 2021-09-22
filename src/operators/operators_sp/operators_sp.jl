@@ -37,13 +37,13 @@ include("operators_sp_basic.jl")
 ##############################################################
 
 # spin orbit operator in subfile
-include("singleparticle_singlesite/operators_sp_ss_spin_orbit.jl")
+include("../operators_specific/singleparticle_singlesite/operators_sp_ss_spin_orbit.jl")
 
 # distortion operator in subfile
-include("singleparticle_singlesite/operators_sp_ss_distortion.jl")
+include("../operators_specific/singleparticle_singlesite/operators_sp_ss_distortion.jl")
 
 # magnetic field operator in subfile
-include("singleparticle_singlesite/operators_sp_ss_magnetic_field.jl")
+include("../operators_specific/singleparticle_singlesite/operators_sp_ss_magnetic_field.jl")
 
 
 
@@ -55,7 +55,7 @@ include("singleparticle_singlesite/operators_sp_ss_magnetic_field.jl")
 ##############################################################
 
 # included in subfile
-include("single_particle_multisite/operators_sp_ms.jl")
+include("../operators_specific/single_particle_multisite/operators_sp_ms.jl")
 
 
 
@@ -68,4 +68,4 @@ include("single_particle_multisite/operators_sp_ms.jl")
 ##############################################################
 
 # included in subfile
-include("operators_sp_hopping.jl")
+include("../operators_specific/operators_sp_hopping.jl")
