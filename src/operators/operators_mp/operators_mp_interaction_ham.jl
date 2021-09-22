@@ -106,7 +106,7 @@ mutable struct MPHolePerkinsWoelfleHamiltonian{
     end
 end
 
-
+import Base.show
 function Base.show(io::IO, op::MPHolePerkinsWoelfleHamiltonian{MPB}) where {
             N, SPBS <: AbstractSPBasisState,
             MPB <: MPBasis{N,SPBS}

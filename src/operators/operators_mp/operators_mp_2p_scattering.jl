@@ -78,7 +78,7 @@ mutable struct MPHole2PScatteringOperator{
 end
 
 
-
+import Base.show
 function Base.show(io::IO, op::MPHole2PScatteringOperator{MPB}) where {
             N,
             SPBS <: AbstractSPBasisState,

@@ -75,7 +75,7 @@ mutable struct MPHoleDensityDensityOperator{
 end
 
 
-
+import Base.show
 function Base.show(io::IO, op::MPHoleDensityDensityOperator{MPB}) where {
             N,
             SPBS <: AbstractSPBasisState,
