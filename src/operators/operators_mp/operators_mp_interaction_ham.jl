@@ -13,6 +13,20 @@
 ##############################################################
 
 # define a Perkins Woelfe Hamiltonian for 2 particle interation of ELECTRONS
+"""
+    mutable struct MPElectronPerkinsWoelfleHamiltonian{MPB <: MPBasis{N,SPBS} where {N,SPBS}} <: AbstractMPInteractionHamiltonian{2,MPB}
+
+This object defines the interaction Hamiltonian described in the Perskin-Sizyuk-Woelfle "paper" [https://arxiv.org/abs/1311.0852v2].
+
+The hamiltonian is defined as follows in the electron picture:
+
+`` \\sum_{i,\\alpha} n_{i\\alpha\\uparrow}n_{i\\alpha\\downarrow} +  
+   \\sum_{i, \\sigma,\\alpha \\neq \\alpha^\\prime} n_{i\\alpha\\sigma}n_{i\\alpha^\\prime\\sigma} +
+   \\sum_{i,\\alpha\\neq\\alpha^\\prime} n_{i\\alpha\\uparrow}n_{i\\alpha^\\prime\\downarrow} +
+   \\sum_{i,\\alpha\\neq\\alpha^\\prime} d^\\dagger_{i\\alpha\\uparrow} d^\\dagger_{i\\alpha\\downarrow}d_{i\\alpha^\\prime\\downarrow}d_{i\\alpha^\\prime\\uparrow} + 
+   \\sum_{i,\\alpha\\neq\\alpha^\\prime} d^\\dagger_{i\\alpha\\uparrow} d_{i\\alpha\\downarrow}d^\\dagger_{i\\alpha^\\prime\\downarrow}d_{i\\alpha^\\prime\\uparrow}``
+
+"""
 mutable struct MPElectronPerkinsWoelfleHamiltonian{
         MPB <: MPBasis{N,SPBS} where {N,SPBS}
     } <: AbstractMPInteractionHamiltonian{2,MPB}
