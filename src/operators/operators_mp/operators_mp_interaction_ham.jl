@@ -144,6 +144,9 @@ function Base.show(io::IO, op::MPHolePerkinsWoelfleHamiltonian{MPB}) where {
         print(io, "Multi-particle basis contains "*string(length(basis(op)))*" states in total, with "*string(N)*" particles per state\n")
     end
 end
+
+
+import Base.show
 function Base.show(io::IO, op::MPElectronPerkinsWoelfleHamiltonian{MPB}) where {
             N, SPBS <: AbstractSPBasisState,
             MPB <: MPBasis{N,SPBS}
