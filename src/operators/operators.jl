@@ -19,11 +19,6 @@ include("operators_abstract_type.jl")
 #
 ################################################################################
 
-# include("operators_specific/multiparticle/operators_mp_1p_general_sp.jl")
-# include("operators_specific/multiparticle/operators_mp_2p_scattering.jl")
-# include("operators_specific/multiparticle/operators_mp_interaction_ham.jl")
-
-
 
 # included in subfile
 include("operators_sp/operators_sp.jl")
