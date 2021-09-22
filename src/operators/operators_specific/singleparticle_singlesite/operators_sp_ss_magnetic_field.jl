@@ -295,3 +295,18 @@ function getMatrixElementBDotS(state_1::BasisStateLS, state_2::BasisStateLS, B_d
         operatorSz(state_1.s, state_1.ms, state_2.ms, cf) *  B_dir[3]
     ) * delta(state_1.l,state_2.l) * delta(state_1.ml,state_2.ml) * delta(state_1.s,state_2.s)
 end
+
+
+
+
+##############################################################
+#   Convenience functions for SS SP operators
+##############################################################
+
+# creating a magnetic field operator on a multi site basis
+function MagneticFieldOperator(basis::MPB, site::Int64, B::Real, B_dir::Vector{<:Real}=[0,0,1]) where {SPSSBS<:AbstractSPSSBasisState, N,MPB<:MPBasis{N,SPMSBasisState{SPSSBS}}}
+    # construct new single site operator
+    op = MagneticFieldOperator(basis.single_particle_basis, site, B, B_dir)
+    # construct new multi particle operator out of that
+    return MPGeneralizedSPOperator(basis, op)
+end
