@@ -43,7 +43,7 @@ include("operators_mp_abstract_type.jl")
 
 
 # everything else included in subfile
-include("..operators_specific/multiparticle/operators_mp_1p_general_sp.jl")
+include("../operators_specific/multiparticle/operators_mp_1p_general_sp.jl")
 
 
 
@@ -59,7 +59,7 @@ include("..operators_specific/multiparticle/operators_mp_1p_general_sp.jl")
 
 
 # included in subfile
-include("..operators_specific/multiparticle/operators_mp_2p_density.jl")
+include("../operators_specific/multiparticle/operators_mp_2p_density.jl")
 
 
 
@@ -74,7 +74,7 @@ include("..operators_specific/multiparticle/operators_mp_2p_density.jl")
 ##############################################################
 
 # included in subfile
-include("..operators_specific/multiparticle/operators_mp_2p_scattering.jl")
+include("../operators_specific/multiparticle/operators_mp_2p_scattering.jl")
 
 
 
@@ -93,4 +93,4 @@ include("..operators_specific/multiparticle/operators_mp_2p_scattering.jl")
 
 
 # included in subfile
-include("..operators_specific/multiparticle/operators_mp_interaction_ham.jl")
+include("../operators_specific/multiparticle/operators_mp_interaction_ham.jl")

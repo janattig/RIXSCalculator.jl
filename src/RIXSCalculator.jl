@@ -20,7 +20,7 @@ module RIXSCalculator
 
     # INCLUDE EVERTHING FROM SUBFILES
     include("basis/basis.jl")
-    #include("operators/operators.jl")
+    include("operators/operators.jl")
 
 
 # end of module
