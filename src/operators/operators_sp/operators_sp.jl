@@ -55,7 +55,7 @@ include("../operators_specific/singleparticle_singlesite/operators_sp_ss_magneti
 ##############################################################
 
 # included in subfile
-include("../operators_specific/single_particle_multisite/operators_sp_ms.jl")
+include("../operators_specific/singleparticle_multisite/operators_sp_ms.jl")
 
 
 
