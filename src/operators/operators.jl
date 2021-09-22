@@ -52,10 +52,10 @@ include("operators_mp/operators_mp.jl")
 include("operators_sum.jl")
 
 # scalar factor in front of operator
-# include("operators_factor.jl")
+include("operators_factor.jl")
 
 # zero element of operators
-# include("operators_zero.jl")
+include("operators_zero.jl")
 
 
 
@@ -67,7 +67,7 @@ include("operators_sum.jl")
 ################################################################################
 
 # included in subfile
-# include("operators_projectors.jl")
+include("operators_projectors.jl")
 
 
 
@@ -84,4 +84,4 @@ include("operators_sum.jl")
 ################################################################################
 
 # included in subfile
-# include("operators_eigensystem.jl")
+include("operators_eigensystem.jl")
