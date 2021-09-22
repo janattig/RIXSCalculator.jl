@@ -61,6 +61,7 @@ export ProjectorOperator
 
 
 # overwritten show function
+import Base.show
 function Base.show(io::IO, op::OP) where {
             SPSSBS_IN  <: AbstractSPSSBasisState,
             SPSSBS_OUT <: AbstractSPSSBasisState,
@@ -241,6 +242,7 @@ export ProjectorOperator
 
 
 # overwritten show function
+import Base.show
 function Base.show(io::IO, op::OP) where {
             SPMSB_IN   <: SPBasis{SPMSBS_IN} where {SPMSBS_IN<:Union{SPMSBasisState{BS} where BS, SPMSCompositeBasisState{B} where B}},
             SPMSB_OUT  <: SPBasis{SPMSBS_OUT} where {SPMSBS_OUT<:Union{SPMSBasisState{BS} where BS, SPMSCompositeBasisState{B} where B}},
@@ -613,6 +615,7 @@ export ProjectorOperator
 
 
 # overwritten show function
+import Base.show
 function Base.show(io::IO, op::OP) where {
             AB_IN  <: AbstractBasis,
             AB_OUT <: AbstractBasis,
