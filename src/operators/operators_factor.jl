@@ -196,7 +196,7 @@ end
 # export operator type
 export SettableScalarProductOperator
 
-
+import Base.show
 function Base.show(io::IO, op::SettableScalarProductOperator{B, O}) where {BS<:AbstractBasisState, B<:AbstractBasis{BS}, O<:AbstractOperator{B}}
     if haskey(io, :compact)
         print(io, "($(op.label)=$(op.factor)) * {")

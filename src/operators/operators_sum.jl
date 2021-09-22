@@ -42,7 +42,7 @@ end
 # export operator type
 export  SumOperator
 
-
+import Base.show
 function Base.show(io::IO, op::SumOperator{B, O1, O2}) where {BS<:AbstractBasisState, B<:AbstractBasis{BS}, O1<:AbstractOperator{B}, O2<:AbstractOperator{B}}
     if haskey(io, :compact)
         show(io, op.op_1)
