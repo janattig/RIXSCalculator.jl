@@ -41,7 +41,7 @@ end
 # export operator type
 export ScalarProductOperator
 
-
+import Base.show
 function Base.show(io::IO, op::ScalarProductOperator{B, O}) where {BS<:AbstractBasisState, B<:AbstractBasis{BS}, O<:AbstractOperator{B}}
     if haskey(io, :compact)
         print(io, "($(op.factor)) * {")
@@ -145,7 +145,7 @@ end
 
 ################################################################################
 #
-#   Skalar OPERATOR with settable prefactor
+#   Scalar OPERATOR with settable prefactor
 #
 #   - type definition
 #   - interface functions
@@ -194,7 +194,7 @@ mutable struct SettableScalarProductOperator{B, O<:AbstractOperator{B}} <: Abstr
 end
 
 # export operator type
-export ScalarProductOperator
+export SettableScalarProductOperator
 
 
 function Base.show(io::IO, op::SettableScalarProductOperator{B, O}) where {BS<:AbstractBasisState, B<:AbstractBasis{BS}, O<:AbstractOperator{B}}
