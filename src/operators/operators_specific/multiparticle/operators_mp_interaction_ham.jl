@@ -16,7 +16,7 @@
 """
     mutable struct MPElectronPerkinsWoelfleHamiltonian{MPB <: MPBasis{N,SPBS} where {N,SPBS}} <: AbstractMPInteractionHamiltonian{2,MPB}
 
-This object defines the interaction Hamiltonian described in the Perskin-Sizyuk-Woelfle "paper" [https://arxiv.org/abs/1311.0852v2].
+This object defines the interaction Hamiltonian described in the Perskin-Sizyuk-Woelfle "paper" [ https://arxiv.org/abs/1311.0852v2 ].
 
 The hamiltonian is defined as follows in the electron picture:
 
