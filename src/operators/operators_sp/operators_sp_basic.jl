@@ -17,7 +17,7 @@ function get_rotation_matrix(Vec :: Vector{<:Real}, Angle :: Real) :: Matrix{Flo
     R[3, 3] = Axis[3]^2 + (1.0 - Axis[3]^2) * cos(Angle)
     return R
 end
-
+export get_rotation_matrix
 
 
 
@@ -51,6 +51,9 @@ function CoordinateFrame(
     )
     return CoordinateFrame(position, [1,0,0],[0,1,0],[0,0,1])
 end
+
+# export
+export CoordinateFrame
 
 
 function get_in_inner_coordinates(s :: CoordinateFrame, v :: Vector{<:Real})
