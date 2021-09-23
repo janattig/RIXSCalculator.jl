@@ -1,11 +1,3 @@
-# IMPORTS FOR LATER USE
-# function for inheritance of AbstractArray
-# import Base.size
-# import Base.getindex
-# import Base.setindex
-# import Base.IndexStyle
-
-
 # using Linear algebra package
 using LinearAlgebra
 using Combinatorics
