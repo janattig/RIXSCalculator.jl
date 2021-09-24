@@ -42,7 +42,7 @@ end
 """
     MagneticFieldOperator(basis::SPB, B::Vector{<:Real}) where {SPSSBS<:AbstractSPSSBasisState, SPB<:SPBasis{SPSSBS}}
 
-This function computes the matrix representation of the Magnetic Field Operator projected over the given `basis`. 
+This function computes the matrix representation of the Magnetic Field Operator projected over the given `basis`.
 """
 function MagneticFieldOperator(basis::SPB, B::Vector{<:Real}) where {SPSSBS<:AbstractSPSSBasisState, SPB<:SPBasis{SPSSBS}}
     # construct new operator
@@ -88,6 +88,16 @@ function MagneticFieldOperator(basis::SPB, B::Real, B_dir::Vector{<:Real}=[0,0,1
     # return the operator
     return op
 end
+
+
+# creating a magnetic field operator on a multi site basis
+function MagneticFieldOperator(basis::SPMSB, site::Int64, B::Real, B_dir::Vector{<:Real}=[0,0,1]) where {SPSSBS<:AbstractSPSSBasisState, SPMSB<:SPBasis{SPMSBasisState{SPSSBS}}}
+    # construct new single site operator
+    op = MagneticFieldOperator(getSingleSiteBasis(basis, site), B, B_dir)
+    # construct new multi site operator and return it
+    return SPLocalMSOperator(basis, op, site)
+end
+
 
 
 # export operator type

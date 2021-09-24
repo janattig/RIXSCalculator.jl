@@ -38,6 +38,17 @@ end
 # export operator type
 export SPOrbitalHoppingOperator
 
+# creating a magnetic field operator on a multi site basis
+function SPOrbitalHoppingOperator(basis::MPB) where {SPSSBS<:AbstractSPSSBasisState, N,MPB<:MPBasis{N,SPMSBasisState{SPSSBS}}}
+    # construct new single site operator
+    op = SPOrbitalHoppingOperator(basis.single_particle_basis)
+    # construct new multi particle operator out of that
+    return MPGeneralizedSPOperator(basis, op)
+end
+
+
+
+
 
 # show function
 function Base.show(io::IO, op::SPOrbitalHoppingOperator{SPMSB}) where {SPSSBS <: AbstractSPSSBasisState, SPMSBS <: SPMSBasisState{SPSSBS}, SPMSB <: SPBasis{SPMSBS}}
@@ -239,18 +250,22 @@ function add_diagonal_hopping!(operator :: SPOrbitalHoppingOperator{SPMSB}, site
     return nothing
 end
 
-
 ##############################################################
-#   Convenience functions for SS SP operators
+#   Convenience functions for SP MS hopping operators
 ##############################################################
 
-# creating a magnetic field operator on a multi site basis
-function SPOrbitalHoppingOperator(basis::MPB) where {SPSSBS<:AbstractSPSSBasisState, N,MPB<:MPBasis{N,SPMSBasisState{SPSSBS}}}
-    # construct new single site operator
-    op = SPOrbitalHoppingOperator(basis.single_particle_basis)
-    # construct new multi particle operator out of that
-    return MPGeneralizedSPOperator(basis, op)
+# overwrite all add_hopping functions
+function add_hopping!(operator :: MPGeneralizedSPOperator{SPMSBS, MPB, SPOHO}, args...) where {SPSSBS <: AbstractSPSSBasisState, SPMSBS <: SPMSBasisState{SPSSBS}, SPMSB <: SPBasis{SPMSBS}, SPOHO<:SPOrbitalHoppingOperator{SPMSB}, N,MPB<:MPBasis{N,SPMSBasisState{SPSSBS}}}
+    # pass further into the hopping operator
+    add_hopping!(operator.operator, args...)
+    # return nothing
+    return nothing
+end
+function add_diagonal_hopping!(operator :: MPGeneralizedSPOperator{SPMSBS, MPB, SPOHO}, args...) where {SPSSBS <: AbstractSPSSBasisState, SPMSBS <: SPMSBasisState{SPSSBS}, SPMSB <: SPBasis{SPMSBS}, SPOHO<:SPOrbitalHoppingOperator{SPMSB}, N,MPB<:MPBasis{N,SPMSBasisState{SPSSBS}}}
+    # pass further into the hopping operator
+    add_diagonal_hopping!(operator.operator, args...)
+    # return nothing
+    return nothing
 end
 
-
-
+export add_hopping!, add_diagonal_hopping!

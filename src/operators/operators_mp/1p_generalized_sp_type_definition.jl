@@ -1,17 +1,3 @@
-##############################################################
-#
-#   MP operators of SP operators
-#   - type definition
-#   - interface functions
-#   - convenience functions
-#
-##############################################################
-
-
-##############################################################
-#   Type definition
-##############################################################
-
 # define a generalized SP operator type for MP basis states
 mutable struct MPGeneralizedSPOperator{
         SPBS <: AbstractSPBasisState,
@@ -42,6 +28,9 @@ mutable struct MPGeneralizedSPOperator{
     end
 end
 export MPGeneralizedSPOperator
+
+
+
 
 import Base.show
 function Base.show(io::IO, op::MPGeneralizedSPOperator{SPBS, MPB, SPO}) where {
@@ -178,25 +167,3 @@ function get_parameters(operator :: MPGeneralizedSPOperator{SPBS, MPB, SPO}; sit
     # pass on to containing operator
     return get_parameters(operator.operator; site=site, kwargs...)
 end
-
-
-
-##############################################################
-#   Convenience functions for SP MS hopping operators
-##############################################################
-
-# overwrite all add_hopping functions
-function add_hopping!(operator :: MPGeneralizedSPOperator{SPMSBS, MPB, SPOHO}, args...) where {SPSSBS <: AbstractSPSSBasisState, SPMSBS <: SPMSBasisState{SPSSBS}, SPMSB <: SPBasis{SPMSBS}, SPOHO<:SPOrbitalHoppingOperator{SPMSB}, N,MPB<:MPBasis{N,SPMSBasisState{SPSSBS}}}
-    # pass further into the hopping operator
-    add_hopping!(operator.operator, args...)
-    # return nothing
-    return nothing
-end
-function add_diagonal_hopping!(operator :: MPGeneralizedSPOperator{SPMSBS, MPB, SPOHO}, args...) where {SPSSBS <: AbstractSPSSBasisState, SPMSBS <: SPMSBasisState{SPSSBS}, SPMSB <: SPBasis{SPMSBS}, SPOHO<:SPOrbitalHoppingOperator{SPMSB}, N,MPB<:MPBasis{N,SPMSBasisState{SPSSBS}}}
-    # pass further into the hopping operator
-    add_diagonal_hopping!(operator.operator, args...)
-    # return nothing
-    return nothing
-end
-
-export add_hopping!, add_diagonal_hopping!

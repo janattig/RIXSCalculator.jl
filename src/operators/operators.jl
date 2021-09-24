@@ -3,77 +3,43 @@ using LinearAlgebra
 using Combinatorics
 
 
-include("operators_abstract_type.jl")
 
-################################################################################
-#
-#   DEFINITION OF SP OPERATORS AND FUNCTIONS
-#
-################################################################################
+# abstract type
+include("operator_abstract_type.jl")
 
 
-# included in subfile
+
+# single particle operators
 include("operators_sp/operators_sp.jl")
 
-
-
-
-
-################################################################################
-#
-#   DEFINITION OF MP OPERATORS AND FUNCTIONS
-#
-################################################################################
-
-# included in subfile
+# multi particle operators
 include("operators_mp/operators_mp.jl")
 
 
 
+# projectors
+include("projector_operators/operators_projectors.jl")
+
+
+
+# specific operators
+include("specific_operators/fundamental_operators.jl")
+
+include("specific_operators/spin_orbit_coupling.jl")
+include("specific_operators/magnetic_field.jl")
+include("specific_operators/crystal_field_distortion.jl")
+
+include("specific_operators/hopping.jl")
+
+include("specific_operators/hubbard_interaction.jl")
 
 
 
 
-################################################################################
-#
-#   DEFINITION OF SUMMING TWO OPERATORS
-#
-################################################################################
-
-# summing two single site operators, included in subfile
-include("operators_sum.jl")
-
-# scalar factor in front of operator
-include("operators_factor.jl")
-
-# zero element of operators
-include("operators_zero.jl")
+# math functions for operators
+include("operator_math/operator_math.jl")
 
 
 
-
-################################################################################
-#
-#   DEFINITION OF SP OPERATORS THAT TRANSFORM TO DIFFERENT BASES
-#
-################################################################################
-
-# included in subfile
-include("operators_projectors.jl")
-
-
-
-
-
-
-
-
-
-################################################################################
-#
-#   DEFINITION OF UTILITY FUNCTIONS FOR EIGENSYSTEMS
-#
-################################################################################
-
-# included in subfile
+# eigensystem of an operator
 include("operators_eigensystem.jl")

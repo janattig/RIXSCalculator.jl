@@ -64,6 +64,14 @@ function SpinOrbitOperator(basis::SPB, lambda::Real) where {SPSSBS<:AbstractSPSS
     return op_proj
 end
 
+# creating a spin orbit operator on a multi site basis
+function SpinOrbitOperator(basis::SPMSB, site::Int64, lambda::Real) where {SPSSBS<:AbstractSPSSBasisState, SPMSB<:SPBasis{SPMSBasisState{SPSSBS}}}
+    # construct new single site operator
+    op = SpinOrbitOperator(getSingleSiteBasis(basis, site), lambda)
+    # construct new multi site operator and return it
+    return SPLocalMSOperator(basis, op, site)
+end
+
 # export operator type
 export  SpinOrbitOperator
 

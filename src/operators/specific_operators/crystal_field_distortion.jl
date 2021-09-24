@@ -63,8 +63,20 @@ function DistortionOperator(basis::SPB, Delta::Real, n::Vector{<:Real}=[0,0,1]) 
     return op
 end
 
+# creating a distortion operator on a multi site basis
+function DistortionOperator(basis::SPMSB, site::Int64, Delta::Real, n::Vector{<:Real}=[0,0,1]) where {SPSSBS<:AbstractSPSSBasisState, SPMSB<:SPBasis{SPMSBasisState{SPSSBS}}}
+    # construct new single site operator
+    op = DistortionOperator(getSingleSiteBasis(basis, site), Delta, n)
+    # construct new multi site operator and return it
+    return SPLocalMSOperator(basis, op, site)
+end
+
+
 # export operator type
 export  DistortionOperator
+
+
+
 
 import Base.show
 function Base.show(io::IO, op::OP) where {SPBS<:AbstractSPSSBasisState, SPB<:SPBasis{SPBS}, OP <: DistortionOperator{SPB}}

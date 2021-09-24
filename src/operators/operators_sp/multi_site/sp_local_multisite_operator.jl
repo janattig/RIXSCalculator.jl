@@ -1,32 +1,3 @@
-##############################################################
-#
-#   SINGLE PARTICLE OPERATORS ON MULTIPLE SITES
-#   FILE STRUCTURE
-#
-#   1) local multi site operators (SPSS operator acting on one single site of many)
-#
-##############################################################
-
-
-
-
-
-
-##############################################################
-#
-#   1) local multi site operators (SS on single site of many)
-#   - type definition
-#   - interface functions
-#   - convenience functions for easy access to elementary operators
-#
-##############################################################
-
-
-
-################################################################################
-#   Type definition
-################################################################################
-
 # Type definition of local MS operators (SPSS operator only acting on a single site of many)
 """
     SPLocalMSOperator{
@@ -63,7 +34,7 @@ end
 """
     SPLocalMSOperator(basis :: SPMSB, operator :: SPO, site :: Int64) where {SPSSBS <: AbstractSPSSBasisState, SPMSBS <: SPMSBasisState{SPSSBS}, SPMSB <: SPBasis{SPMSBS}, SPO <: AbstractSPSSOperator{SPBasis{SPSSBS}}}
 
-This function computes the matrix representation of the single particle - multi site local Operator. 
+This function computes the matrix representation of the single particle - multi site local Operator.
 """
 function SPLocalMSOperator(basis :: SPMSB, operator :: SPO, site :: Int64) where {SPSSBS <: AbstractSPSSBasisState, SPMSBS <: SPMSBasisState{SPSSBS}, SPMSB <: SPBasis{SPMSBS}, SPO <: AbstractSPSSOperator{SPBasis{SPSSBS}}}
     # create a new operator
@@ -185,37 +156,4 @@ function get_parameters(operator :: SPLocalMSOperator{SPSSBS, SPMSB, SPO}; site:
     else
         return Symbol[]
     end
-end
-
-
-
-
-
-
-################################################################################
-#   Convenience functions
-################################################################################
-
-# creating a spin orbit operator on a multi site basis
-function SpinOrbitOperator(basis::SPMSB, site::Int64, lambda::Real) where {SPSSBS<:AbstractSPSSBasisState, SPMSB<:SPBasis{SPMSBasisState{SPSSBS}}}
-    # construct new single site operator
-    op = SpinOrbitOperator(getSingleSiteBasis(basis, site), lambda)
-    # construct new multi site operator and return it
-    return SPLocalMSOperator(basis, op, site)
-end
-
-# creating a distortion operator on a multi site basis
-function DistortionOperator(basis::SPMSB, site::Int64, Delta::Real, n::Vector{<:Real}=[0,0,1]) where {SPSSBS<:AbstractSPSSBasisState, SPMSB<:SPBasis{SPMSBasisState{SPSSBS}}}
-    # construct new single site operator
-    op = DistortionOperator(getSingleSiteBasis(basis, site), Delta, n)
-    # construct new multi site operator and return it
-    return SPLocalMSOperator(basis, op, site)
-end
-
-# creating a magnetic field operator on a multi site basis
-function MagneticFieldOperator(basis::SPMSB, site::Int64, B::Real, B_dir::Vector{<:Real}=[0,0,1]) where {SPSSBS<:AbstractSPSSBasisState, SPMSB<:SPBasis{SPMSBasisState{SPSSBS}}}
-    # construct new single site operator
-    op = MagneticFieldOperator(getSingleSiteBasis(basis, site), B, B_dir)
-    # construct new multi site operator and return it
-    return SPLocalMSOperator(basis, op, site)
 end
