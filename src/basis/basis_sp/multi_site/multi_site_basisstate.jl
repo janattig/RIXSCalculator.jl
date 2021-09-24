@@ -18,6 +18,17 @@ function Base.show(io::IO, state::SPMSBasisState{BS}) where {BS}
     show(io, state.state)
     print(io, " @ site(" * string(state.site) * ")")
 end
+
+
+# custom print function
+import Base.summary
+function Base.summary(io::IO, basis::SPBasis{SPMSBasisState{BS}}) where {BS}
+    print(io, string(length(basis))*"-element SP multi-site basis for states of type "*string(BS))
+end
+
+
+
+
 # custom summary function
 function summary(bs::SPMSBasisState{BS}, brackets="()") where {BS}
     spssbss = summary(bs.state, brackets)
@@ -25,11 +36,7 @@ function summary(bs::SPMSBasisState{BS}, brackets="()") where {BS}
     return spssbss
 end
 
-# custom print function
-import Base.summary
-function Base.summary(io::IO, basis::SPBasis{SPMSBasisState{BS}}) where {BS}
-    print(io, string(length(basis))*"-element SP multi-site basis for states of type "*string(BS))
-end
+# get the sites on which a state is defined
 function get_sites(basis::SPBasis{BS}) where {SPSSBS, BS <: SPMSBasisState{SPSSBS}}
     return unique([s.site for s in states(basis)])
 end

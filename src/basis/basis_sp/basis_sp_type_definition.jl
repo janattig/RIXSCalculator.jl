@@ -8,7 +8,9 @@ mutable struct SPBasis{BS <: AbstractSPBasisState} <: AbstractBasis{BS}
     # only contains a list of basis elements
     states :: Vector{BS}
 end
-export  SPBasis
+export SPBasis
+
+
 
 
 
@@ -16,10 +18,14 @@ export  SPBasis
 function states(basis :: SPBasis{BS}) where {BS}
     return basis.states
 end
+export states
+
+
 function get_sites(basis::SPBasis{BS}) where {BS <: AbstractSPSSBasisState}
     return Int64[-1, ]
 end
-export states, get_sites
+export get_sites
+
 
 
 
@@ -29,7 +35,6 @@ import Base.summary
 function Base.summary(io::IO, basis::SPBasis{BS}) where {BS}
     print(io, string(length(basis))*"-element SP basis for states of type "*string(BS))
 end
-
 
 
 

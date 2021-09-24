@@ -17,14 +17,14 @@ export SPMSCompositeBasisState
 function SPMSCompositeBasisState(prefactors :: Vector{<:Number}, basis :: B) where {B <: SPBasis{<:SPMSBasisState{SPSS}} where SPSS<:AbstractSPSSBasisState}
     return SPMSCompositeBasisState{B}(prefactors, basis)
 end
+
 function CompositeBasisState(prefactors :: Vector{<:Number}, basis :: B) where {B <: SPBasis{<:SPMSBasisState{SPSS}} where SPSS<:AbstractSPSSBasisState}
     return SPMSCompositeBasisState(prefactors, basis)
 end
-export SPMSCompositeBasisState,CompositeBasisState
+export CompositeBasisState
+
 
 function get_sites(basis::SPBasis{BS}) where {SPSSBS, BS <: SPMSCompositeBasisState{B} where B}
     return unique(vcat([get_sites(s.basis) for s in states(basis)]))
 end
 export get_sites
-
-

@@ -1,24 +1,25 @@
 # abstract SP basis state types
-include("sp_basisstate_abstract_type.jl")
+include("basisstate_abstract_type_sp.jl")
+include("basisstate_abstract_type_sp_single_site.jl")
 # abstract SP basis types
-include("sp_basis_type.jl")
+include("basis_sp_type_definition.jl")
 
 
 # include all t2g bases definitions
-include("sp_t2g_basisstate/t2g_basis_LS.jl")
-include("sp_t2g_basisstate/t2g_basis_J.jl")
-include("sp_t2g_basisstate/t2g_basis_XYZ.jl")
-include("sp_t2g_basisstate/t2g_basis_A1G.jl")
+include("basisstate_types_for_t2g/t2g_basis_LS.jl")
+include("basisstate_types_for_t2g/t2g_basis_J.jl")
+include("basisstate_types_for_t2g/t2g_basis_XYZ.jl")
+include("basisstate_types_for_t2g/t2g_basis_A1G.jl")
 
 
 
 # include single particle - multi site description
-include("sp_multi_site/multi_site_basisstate.jl")
-include("sp_multi_site/multi_site_functions.jl")
+include("multi_site/multi_site_basisstate.jl")
+include("multi_site/multi_site_functions.jl")
 
 # include composite basis state definitions and functions
-include("sp_composite_basisstate/single_site_composite_basisstate.jl")
-include("sp_composite_basisstate/multi_site_composite_basisstate.jl")
+include("composite_basisstate/single_site_composite_basisstate.jl")
+include("composite_basisstate/multi_site_composite_basisstate.jl")
 
 
 # include overlap definitions
