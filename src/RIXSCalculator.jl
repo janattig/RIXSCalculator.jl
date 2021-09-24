@@ -19,6 +19,7 @@ module RIXSCalculator
 
 
     # INCLUDE EVERTHING FROM SUBFILES
+    include("coordinate_frames/coordinate_frames.jl")
     include("basis/basis.jl")
     include("operators/operators.jl")
 
