@@ -10,6 +10,7 @@ function states(basis::B) where {BS, B<:AbstractBasis{BS}}
     error("function 'states' not implemented for basis of type "*string(B))
 end
 export states
+
 # Interface function for obtaining a list of sites on which the states are defined
 function get_sites(basis::B) where {BS, B<:AbstractBasis{BS}}
     error("function 'get_sites' not implemented for basis of type "*string(B))

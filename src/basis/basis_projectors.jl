@@ -1,12 +1,3 @@
-################################################################################
-#
-#   DEFINITION OF PROJECTORS
-#
-################################################################################
-
-
-
-
 # General projector as MATRICES
 
 # projection matrix P: |basis_to> = P |basis_from>
@@ -27,6 +18,7 @@ function projector_matrix(
     # return the matrix
     return matrix
 end
+export projector_matrix
 
 
 # projection matrix P: |basis_to> = P |basis_from>
@@ -47,6 +39,4 @@ function projector_matrix(
     # return the matrix
     return matrix
 end
-
-# export
 export projector_matrix
