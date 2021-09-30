@@ -38,10 +38,10 @@ This function computes the matrix representation of the single particle - multi 
 """
 function SPLocalMSOperator(basis :: SPMSB, operator :: SPO, site :: Int64) where {SPSSBS <: AbstractSPSSBasisState, SPMSBS <: SPMSBasisState{SPSSBS}, SPMSB <: SPBasis{SPMSBS}, SPO <: AbstractSPSSOperator{SPBasis{SPSSBS}}}
     # create a new operator
-    op = new{SPSSBS, SPMSB, SPO}(basis, operator, site, getSingleSiteBasis(basis, site), Int64[i     for i in 1:length(basis) if basis[i].site == site], zeros(length(basis), length(basis)))
-        # recalculate the matrix representation
-        recalculate!(op, true)
-        # return the operator
+    op = SPLocalMSOperator{SPSSBS, SPMSB, SPO}(basis, operator, site, getSingleSiteBasis(basis, site), Int64[i     for i in 1:length(basis) if basis[i].site == site], zeros(length(basis), length(basis)))
+    # recalculate the matrix representation
+    recalculate!(op, true)
+    # return the operator
     return op
 end
 
