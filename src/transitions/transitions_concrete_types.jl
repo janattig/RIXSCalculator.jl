@@ -36,9 +36,11 @@ function intensity(spectrum :: Spectrum{T}, energy :: Real) :: Float64 where {T<
     # return value
     return intensity
 end
+export intensity
 
 
 # Function to add two spectra
+import Base.+
 function +(spectrum_1::Spectrum{T}, spectrum_2::Spectrum{T}) :: Spectrum{T} where {T<:AbstractTransition}
     # return a new spectrum object
     return Spectrum{T}(Base.vcat(spectrum_1.transitions, spectrum_2.transitions))
