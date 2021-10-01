@@ -33,6 +33,8 @@ include("specific_operators/hopping.jl")
 
 include("specific_operators/hubbard_interaction.jl")
 
+include("specific_operators/dipole_operator.jl")
+
 
 
 
