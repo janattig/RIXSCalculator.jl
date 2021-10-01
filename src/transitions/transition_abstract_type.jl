@@ -1,18 +1,15 @@
 ################################################################################
 #
-#   DEFINITION OF SPECTRUM ABSTRACT TYPES
+#   DEFINITION OF TRANSITION ABSTRACT TYPES
 #
 ################################################################################
 
 # transition
 abstract type AbstractTransition end
 
-# spectrum
-abstract type AbstractSpectrum{T<:AbstractTransition} end
-
 
 # export the abstract types
-export AbstractTransition, AbstractSpectrum
+export AbstractTransition
 
 
 
@@ -21,8 +18,6 @@ export AbstractTransition, AbstractSpectrum
 #   INTERFACING ABSTRACT TYPES
 #
 ################################################################################
-
-# TRANSITION
 
 # get the transition weight
 function weight(transition :: T) :: Float64 where {T<:AbstractTransition}
@@ -42,17 +37,3 @@ end
 
 # export the interface
 export weight, linewidth, frequency
-
-
-
-
-# SPECTRUM
-
-# get the intensity at a certain energy
-function intensity(spectrum :: S, energy :: Real) :: Float64 where {S<:AbstractSpectrum{T} where T<:AbstractTransition}
-    error("not implemented function 'intensity' for spectrum type " * S)
-end
-
-
-# export the interface
-export intensity
