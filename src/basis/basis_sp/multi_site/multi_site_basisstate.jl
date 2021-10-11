@@ -2,7 +2,11 @@
 # Definition of SINGLE PARTICLE MULTI SITE Basis states #
 #########################################################
 
+"""
+    SPMSBasisState{B<:AbstractSPSSBasisState} <: AbstractSPBasisState
 
+This object defines a single particle multi-site basis state through a state `state :: B` and a site `site :: Int64`.
+"""
 struct SPMSBasisState{B<:AbstractSPSSBasisState} <: AbstractSPBasisState
     # the basis state itself
     state :: B
