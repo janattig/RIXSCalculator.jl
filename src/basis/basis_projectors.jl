@@ -2,6 +2,16 @@
 
 # projection matrix P: |basis_to> = P |basis_from>
 # |basis_to><basis_from|
+"""
+    projector_matrix(
+        basis_to   :: B1,
+        basis_from :: B2
+    ) :: Matrix{Complex{Float64}} where {BS1<:AbstractSPBasisState, BS2<:AbstractSPBasisState, B1 <: AbstractBasis{BS1}, B2 <: AbstractBasis{BS2}}
+
+This function computes the matrix projector P, defined as:
+
+`` \\left| basis_{to} \\right> = P \\left| basis_{from} \\right> \\longrightarrow P=\\left|basis_{to} \\right> \\left< basis_{from} \\right| ``
+"""
 function projector_matrix(
             basis_to   :: B1,
             basis_from :: B2
