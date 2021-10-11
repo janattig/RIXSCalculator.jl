@@ -5,14 +5,12 @@
 ##############################################################
 
 
-
+# DEFINITION OF TRANSITION
+include("transition_abstract_type.jl")
 
 # DEFINITION OF SPECTRUM
 include("spectrum_abstract_type.jl")
 include("transitions_spectrum.jl")
-
-# DEFINITION OF TRANSITION
-include("transition_abstract_type.jl")
 
 # INCLUDE VARIOUS FUNCTIONS
 include("transitions_calculations.jl")
