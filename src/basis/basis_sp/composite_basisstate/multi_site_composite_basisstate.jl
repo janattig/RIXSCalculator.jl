@@ -4,6 +4,11 @@
 
 
 # basis state build on superposition
+"""
+    SPMSCompositeBasisState{SPB <: SPBasis{SPMSBasisState{SPSS}} where SPSS<:AbstractSPSSBasisState} <: AbstractSPBasisState
+
+This object defines a single particle composite basis state through the prefactors of the basis states `prefactors :: Vector{Complex{Float64}}` and its original basis `basis :: SPB`. 
+"""
 struct SPMSCompositeBasisState{SPB <: SPBasis{SPMSBasisState{SPSS}} where SPSS<:AbstractSPSSBasisState} <: AbstractSPBasisState
     # the prefactors of basis states
     prefactors :: Vector{Complex{Float64}}
