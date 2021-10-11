@@ -14,11 +14,11 @@
 
 With the electron A1G basis defined in terms of the XYZ basis as follows:
 
-``\\left| a_{1g} \\right>= \frac{1}{\\sqrt{3}} ( \\left| x \\right> + \\left| y \\right> + \\left| z \\right> ) ``
+``\\left| a_{1g} \\right>= \\frac{1}{\\sqrt{3}} ( \\left| x \\right> + \\left| y \\right> + \\left| z \\right> ) ``
 
-``\\left| e_{g+}^\\pi \\right>=+\frac{1}{\\sqrt{3}} ( e^{-i 2\\pi/3}\\left| x \\right> + e^{+i 2\\pi/3}\\left| y \\right>  + \\left| z \\right>) ``
+``\\left| e_{g+}^\\pi \\right>=+\\frac{1}{\\sqrt{3}} ( e^{-i 2\\pi/3}\\left| x \\right> + e^{+i 2\\pi/3}\\left| y \\right>  + \\left| z \\right>) ``
 
-``\\left| e_{g-}^\\pi \\right>=-\frac{1}{\\sqrt{3}} ( e^{+i 2\\pi/3}\\left| x \\right> + e^{-i 2\\pi/3}\\left| y \\right>  + \\left| z \\right>)``
+``\\left| e_{g-}^\\pi \\right>=-\\frac{1}{\\sqrt{3}} ( e^{+i 2\\pi/3}\\left| x \\right> + e^{-i 2\\pi/3}\\left| y \\right>  + \\left| z \\right>)``
 
 See also D. Khomskii "Transition Metal Compounds", Equation (3.13), and transform to the hole picture (cc).
 
