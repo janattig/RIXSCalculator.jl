@@ -1,4 +1,9 @@
 # Abstract super type for all bases
+"""
+    AbstractBasis{BS <: AbstractBasisState} <: AbstractArray{BS,1}
+
+Abstract supertype for all bases. 
+"""
 abstract type AbstractBasis{BS <: AbstractBasisState} <: AbstractArray{BS,1} end
 export  AbstractBasis
 
@@ -6,12 +11,22 @@ export  AbstractBasis
 
 
 # Interface function for accessing states that has to be overwritten by all bases
+"""
+    states(basis::B) where {BS, B<:AbstractBasis{BS}}
+
+Interface function for accessing states.
+"""
 function states(basis::B) where {BS, B<:AbstractBasis{BS}}
     error("function 'states' not implemented for basis of type "*string(B))
 end
 export states
 
 # Interface function for obtaining a list of sites on which the states are defined
+"""
+    get_sites(basis::B) where {BS, B<:AbstractBasis{BS}}
+
+Interface function for obtaining a list of sites on which the states are defined.
+"""
 function get_sites(basis::B) where {BS, B<:AbstractBasis{BS}}
     error("function 'get_sites' not implemented for basis of type "*string(B))
 end
