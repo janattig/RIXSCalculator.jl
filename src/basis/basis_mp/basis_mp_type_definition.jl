@@ -3,6 +3,11 @@
 ##########################
 
 # Type definition
+"""
+    MPBasis{N,SPBS<:AbstractSPBasisState} <: AbstractBasis{MPBasisState{N}}
+
+Multi particle basis defined by its states `states :: Vector{MPBasisState{N}}` and a single particle basis `single_particle_basis :: SPBasis{SPBS}`.
+"""
 mutable struct MPBasis{N,SPBS<:AbstractSPBasisState} <: AbstractBasis{MPBasisState{N}}
     # states of the many particle basis
     states :: Vector{MPBasisState{N}}

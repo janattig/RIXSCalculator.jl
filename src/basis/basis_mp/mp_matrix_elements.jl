@@ -4,6 +4,11 @@
 
 # <state1| c_a^dagger c_b |state2>
 # creation annihilation
+"""
+    expectation_value_ca(basis :: MPBasis{N,SPBS}, state_1 :: MPBasisState{N}, a::Int64, b::Int64, state_2 :: MPBasisState{N}) :: Complex{Float64} where {N,SPBS<:AbstractSPBasisState}
+
+This function computes the element `` \\left< state_1 \\left| c_a^\\dagger c_b \\right| state_2 \\right> ``.
+"""
 function expectation_value_ca(basis :: MPBasis{N,SPBS}, state_1 :: MPBasisState{N}, a::Int64, b::Int64, state_2 :: MPBasisState{N}) :: Complex{Float64} where {N,SPBS<:AbstractSPBasisState}
     # check all elements of state 2 explicitly
     if b in state_2.occupation
@@ -19,6 +24,11 @@ export expectation_value_ca
 # <state1| c_a^dagger c_b |state2>
 # creation annihilation
 # including buffer state
+"""
+    expectation_value_ca!(basis :: MPBasis{N,SPBS}, state_1 :: MPBasisState{N}, a::Int64, b::Int64, state_2 :: MPBasisState{N}, state_buffer :: MPBasisState{N}) :: Complex{Float64} where {N,SPBS<:AbstractSPBasisState}
+
+This function computes the element `` \\left< state_1 \\left| c_a^\\dagger c_b \\right| state_2 \\right> ``, including the buffer state.
+"""
 function expectation_value_ca!(basis :: MPBasis{N,SPBS}, state_1 :: MPBasisState{N}, a::Int64, b::Int64, state_2 :: MPBasisState{N}, state_buffer :: MPBasisState{N}) :: Complex{Float64} where {N,SPBS<:AbstractSPBasisState}
     # if no replace takes place, basis index is > 0
     # therefore sign will be returned in the overlap function
@@ -59,6 +69,11 @@ export expectation_value_ca!
 
 # <state1| c_a^dagger c_b  c_c^dagger c_d |state2>
 # creation annihilation
+"""
+    expectation_value_caca(basis :: MPBasis{N,SPBS}, state_1 :: MPBasisState{N}, a::Int64, b::Int64, c::Int64, d::Int64, state_2 :: MPBasisState{N}) :: Complex{Float64} where {N,SPBS<:AbstractSPBasisState}
+
+This function computes the element `` \\left< state_1 \\left| c_a^\\dagger c_b c_c^\\dagger c_d \\right| state_2 \\right> ``, including the buffer state.
+"""
 function expectation_value_caca(basis :: MPBasis{N,SPBS}, state_1 :: MPBasisState{N}, a::Int64, b::Int64, c::Int64, d::Int64, state_2 :: MPBasisState{N}) :: Complex{Float64} where {N,SPBS<:AbstractSPBasisState}
     # check all elements of state 2 explicitly
     if b == c && d in state_2.occupation
