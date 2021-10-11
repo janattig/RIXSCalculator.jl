@@ -135,3 +135,107 @@ end
 function basis(ls::LabSystem)
     return basis(ls.hamiltonian)
 end
+
+
+################################################################################################################################
+
+
+# obtaining a spectrum
+function get_spectrum(
+            ls :: LabSystem,
+            args...
+            ;
+            kwargs...
+        ) :: Spectrum where {B <: AbstractBasis}
+
+    # construct spectrum
+    return get_spectrum(ls.eigensys, ls.dipole_hor, args...; kwargs...) + get_spectrum(ls.hamiltonian, ls.dipole_ver, args...; kwargs...)
+end
+
+
+
+
+
+function get_dq_eps(line :: AbstractString; factor :: Real = 1.0)
+    parts = split(line, "\t")
+    return (
+        [
+            Meta.eval(Meta.parse(parts[1])),
+            Meta.eval(Meta.parse(parts[2])),
+            Meta.eval(Meta.parse(parts[3]))
+        ] .* factor, [
+            Meta.eval(Meta.parse(parts[4])),
+            Meta.eval(Meta.parse(parts[5])),
+            Meta.eval(Meta.parse(parts[6]))
+        ]
+    )
+end
+function get_dq_eps(fn :: AbstractString, linenumber :: Integer; factor :: Real = 1.0)
+    # open file and extract values
+    f = open(fn, "r")
+    lines = strip.(readlines(f))
+    lines = [l for l in lines if !startswith(l, "#") && isdigit(l[1])]
+    close(f)
+    parts = split(lines[linenumber], "\t")
+    return (
+        [
+            Meta.eval(Meta.parse(parts[1])),
+            Meta.eval(Meta.parse(parts[2])),
+            Meta.eval(Meta.parse(parts[3]))
+        ] .* factor, [
+            Meta.eval(Meta.parse(parts[4])),
+            Meta.eval(Meta.parse(parts[5])),
+            Meta.eval(Meta.parse(parts[6]))
+        ]
+    )
+end
+
+
+
+
+################################################################################################################################
+
+
+
+# set a parameter (returns (found parameter?, changed matrix?))
+function set_parameter!(ls :: LabSystem, parameter :: Symbol, value; print_result::Bool=false, recalculate::Bool=true, site=:all, relative_to::Symbol=:sample, rediagonalize::Bool=true, kwargs...)
+    # check if it can be set in 1
+    if site == :all
+        # define dfault parameters
+        found_param, changed_matrix = false, false
+        # go through all sites
+        for s in 1:length(ls.sites)
+            # set the value on site s
+            found_param_s, changed_matrix_s = set_parameter!(ls, parameter, value; print_result=print_result, recalculate=false, site=s, relative_to=relative_to, kwargs...)
+            # process parameters
+            found_param_s, changed_matrix_s = (found_param || found_param_s), (changed_matrix || changed_matrix_s)
+        end
+        # recalculate everything
+        recalculate_hamiltonian!(ls, false, found_param && rediagonalize)
+        # return
+        return (found_param, changed_matrix)
+    elseif typeof(site) <: Integer
+        # transform maybe to local axis
+        if typeof(value) <: Vector{<:Any} && length(value) == 3
+            if relative_to == :site
+                # no transformation needed
+            elseif relative_to == :sample
+                # transform to site coordinates
+                value = get_in_inner_coordinates(ls.sites[site], value)
+            elseif relative_to == :global || relative_to == :lab
+                # transform to site coordinates
+                value = get_in_inner_coordinates(ls.sites[site], get_in_inner_coordinates(ls.sample, value))
+            else
+                error("relative orientation unknown: $(relative_to)")
+            end
+        end
+        # set parameter
+        found_param, changed_matrix = set_parameter!(ls.hamiltonian, parameter, value, print_result=print_result, recalculate=true; site=site, kwargs...)
+        return (found_param, changed_matrix)
+    else
+        error("specify a corret site: $(site)")
+    end
+end
+
+
+
