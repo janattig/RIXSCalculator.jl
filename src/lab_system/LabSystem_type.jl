@@ -1,7 +1,30 @@
-###########################
-#  LAB SYSTEM DEFINITION  #
-###########################
+################################
+#  LAB SYSTEM TYPE DEFINITION  #
+################################
 
+"""
+    mutable struct LabSystem
+
+Object describing the current lab implementation.
+
+# Fields
+
+- `hamiltonian :: AbstractOperator`, hamiltonian
+- `eigensys :: Dict{Symbol,Any}`, its eigensystem
+- `dipole_hor :: AbstractOperator`,  complete dipole operator with horizontal outgoing polarization
+- `dipole_ver :: AbstractOperator` complete dipole operator, vertical outgoing polarization
+- `dipoles_hor :: Vector{DipoleOperator}`,list of horizontal dipole operators of the individual sites
+- `dipoles_ver :: Vector{DipoleOperator}`, list of vertical dipole operators of the individual sites
+- `sites :: Vector{CoordinateFrame}`, the individual sites as coordinate frames
+- `sample :: CoordinateFrame`, the sample orientation as a coordinate frame
+- `edge :: Int64`, the global edge
+- `spin_quantization :: Symbol`, spin quantization frame (description)
+- `q_in :: Vector{Float64}`, global incoming wavevector
+- `epsilon_in :: Vector{Float64}`
+- `q_out :: Vector{Float64}`, global outgoing wavevector
+- `epsilon_out_hor :: Vector{Float64}`, horizontal polarization (relative to q_out)
+- `epsilon_out_ver :: Vector{Float64}`, vertical polarization   (relative to q_out)
+"""
 mutable struct LabSystem
 
     # Hamiltonian
