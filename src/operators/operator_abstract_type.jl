@@ -43,6 +43,14 @@ end
 export matrix_element
 
 # possibly recalculate the matrix representation
+"""
+    recalculate!(operator :: OP,
+                 recursive::Bool=true, 
+                 basis_change::Bool=true) 
+                 where {BS<:AbstractBasisState, B<:AbstractBasis{BS}, OP<:AbstractOperator{B}}
+
+The function recalculates the matrix representation.
+"""
 function recalculate!(operator :: OP, recursive::Bool=true, basis_change::Bool=true) where {BS<:AbstractBasisState, B<:AbstractBasis{BS}, OP<:AbstractOperator{B}}
     @error "Interface function 'recalculate!' not implemented for operator of type $(OP)" stacktrace()
 end
@@ -52,6 +60,15 @@ export recalculate!
 
 
 # set a parameter (returns (found parameter?, changed matrix?))
+"""
+    set_parameter!(operator :: OP, 
+                   parameter :: Symbol, value; 
+                   print_result::Bool=false, 
+                   recalculate::Bool=true, kwargs...) 
+                   where {BS<:AbstractBasisState, B<:AbstractBasis{BS}, OP<:AbstractOperator{B}}
+
+The function sets the given parameter to the given value.
+"""
 function set_parameter!(operator :: OP, parameter :: Symbol, value; print_result::Bool=false, recalculate::Bool=true, kwargs...) where {BS<:AbstractBasisState, B<:AbstractBasis{BS}, OP<:AbstractOperator{B}}
     @error "Interface function 'set_parameter' not implemented for operator of type $(OP)" stacktrace()
 end

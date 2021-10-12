@@ -1,4 +1,4 @@
-# using Linear algebra package
+# using packages
 using LinearAlgebra
 using Combinatorics
 
