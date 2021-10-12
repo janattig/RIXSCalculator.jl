@@ -4,6 +4,15 @@
 
 
 # set the site positions
+"""
+    set_site_position!(
+        lab      :: LabSystem,
+        site     :: Integer,
+        position :: Vector{<:Real}
+    )
+
+The function sets the position of the site to the input vector `position`.
+"""
 function set_site_position!(
             lab      :: LabSystem,
             site     :: Integer,
@@ -13,7 +22,18 @@ function set_site_position!(
     # set the position
     lab.sites[site].position = position
 end
+export set_site_position!
 
+"""
+    rotate_site_in_sample!(
+       lab   :: LabSystem,
+       site  :: Integer,
+       axis  :: Vector{<:Real},
+       angle :: Real
+    )
+
+The function rotates the site of an `angle` around the given `axis`.
+"""
 function rotate_site_in_sample!(
             lab   :: LabSystem,
             site  :: Integer,
@@ -26,6 +46,17 @@ function rotate_site_in_sample!(
     # apply rotation matrix to coordinate system
     set_coordinates!(lab.sites[site], R*lab.sites[site].X, R*lab.sites[site].Y, R*lab.sites[site].Z)
 end
+
+"""
+    rotate_site_in_sample_deg!(
+        lab   :: LabSystem,
+        site  :: Integer,
+        axis  :: Vector{<:Real},
+        angle :: Real
+    )
+
+The function rotates the site of an `angle` around the given `axis`. The angle must be given in arc degrees.
+"""
 function rotate_site_in_sample_deg!(
             lab   :: LabSystem,
             site  :: Integer,
@@ -36,6 +67,9 @@ function rotate_site_in_sample_deg!(
     # pass to the rotation function
     rotate_site_in_sample!(lab, site, axis, angle * pi / 180)
 end
+export export rotate_site_in_sample!, rotate_site_in_sample_deg!
+
+
 function rotate_site_z_axis_to_sample_axis!(
             lab   :: LabSystem,
             site  :: Integer,
@@ -49,6 +83,8 @@ function rotate_site_z_axis_to_sample_axis!(
     # rotate
     rotate_site_in_sample!(lab, site, rotation_axis, angle)
 end
+export rotate_site_z_axis_to_sample_axis!
+
 function rotate_site_axis_to_sample_axis!(
             lab   :: LabSystem,
             site  :: Integer,
@@ -122,8 +158,17 @@ function rotate_sample_axis_to_global_axis!(
         end
     end
 end
+export rotate_site_axis_to_sample_axis!, rotate_sample_axis_to_global_axis!
 
+"""
+    rotate_sample!(
+       lab   :: LabSystem,
+       axis  :: Vector{<:Real},
+       angle :: Real
+   )
 
+The function rotates the sample of an `angle` around `axis`. The angle must be in radians.
+"""
 function rotate_sample!(
             lab   :: LabSystem,
             axis  :: Vector{<:Real},
@@ -135,6 +180,15 @@ function rotate_sample!(
     # apply rotation matrix to coordinate system
     set_coordinates!(lab.sample, R*lab.sample.X, R*lab.sample.Y, R*lab.sample.Z)
 end
+"""
+    rotate_sample_deg!(
+       lab   :: LabSystem,
+       axis  :: Vector{<:Real},
+       angle :: Real
+   )
+
+The function rotates the sample of an `angle` around `axis`. The angle must be in arc degrees.
+"""
 function rotate_sample_deg!(
             lab   :: LabSystem,
             axis  :: Vector{<:Real},
@@ -144,7 +198,19 @@ function rotate_sample_deg!(
     # pass to the rotation function
     rotate_sample!(lab, axis, angle * pi / 180)
 end
+export rotate_sample!, rotate_sample_deg!
 
+"""
+    set_site_in_sample_facesharing_towards!(
+       ls :: LabSystem,
+       site_to_orient :: Integer,
+       site_reference :: Integer,
+       face_of_reference :: Vector{<:Real} = [1,1,1],
+       face_to_orient :: Vector{<:Real} = [1,1,1]
+   )
+
+The function sets a site `site_to_orient` so that it faces `site_referece` in a face-sharing configuration.
+"""
 function set_site_in_sample_facesharing_towards!(
             ls :: LabSystem,
             site_to_orient :: Integer,
@@ -186,7 +252,13 @@ function set_site_in_sample_facesharing_towards!(
     end
     rotate_site_axis_to_sample_axis!(ls, site_to_orient, p_orient, get_in_global_coordinates(ls.sites[site_reference], p_ref))
 end
+export set_site_in_sample_facesharing_towards!
 
+"""
+    center_sites!(ls :: LabSystem)
+
+The function returns the chosen configuration of sites but centered in the mean position.
+"""
 function center_sites!(
             ls :: LabSystem
         )
@@ -201,11 +273,17 @@ function center_sites!(
         s.position .-= pos_mean
     end
 end
+export center_sites!
 
 
 
 
 # convenience functions
+"""
+    setup_sites_facesharing!(ls :: LabSystem)
+
+The function returns a face-sharing configuration of the given lab system.
+"""
 function setup_sites_facesharing!(
             ls :: LabSystem
         )
@@ -228,3 +306,4 @@ function setup_sites_facesharing!(
     # return nothing
     return nothing
 end
+export setup_sites_facesharing!
