@@ -19,11 +19,18 @@
 
 # Type Definition of BS / Magnetic field Operator
 """
-    MagneticFieldOperator{SPB} <: AbstractSPSSOperator{SPB}
+    mutable struct MagneticFieldOperator{SPB} <: AbstractSPSSOperator{SPB}
 
 This object refers to the Magnetic Field Operator.
 
-It is characterized by the single particle `basis::SPB` it refers to, its `matrix_rep :: Matrix{Complex{Float64}}`, the field strength `B::Float64`, its direction `B_dir::Vector{Float64}` and the spin quantization axis `spin_quantization :: CoordinateFrame`.
+# Fields
+
+- `basis :: SPB`, the single particle basis;
+- `matrix_rep :: Matrix{Complex{Float64}}`, the matrix representation of the operator;
+- `B :: Float64`, the magnetic field strength;
+- `B_dir :: Vector{Float64}`, the field direction (normalized);
+- `spin_quantization :: CoordinateFrame`, the spin quantization axis.
+
 """
 mutable struct MagneticFieldOperator{SPB} <: AbstractSPSSOperator{SPB}
     # the basis
