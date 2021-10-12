@@ -1,3 +1,8 @@
+"""
+    set_spin_quantization_to_sample_z!(lab :: LabSystem)
+
+The function sets the spin quantization axis of the object `lab` to the z-axis of the sample.
+"""
 function set_spin_quantization_to_sample_z!(lab :: LabSystem)
     lab.spin_quantization = :sample
     for s in 1:length(get_sites(basis(lab)))
@@ -6,6 +11,11 @@ function set_spin_quantization_to_sample_z!(lab :: LabSystem)
     recalculate!(lab, true, true)
     return nothing
 end
+"""
+    set_spin_quantization_to_local_z!(lab :: LabSystem)
+
+The function sets the spin quantization axis of the object `lab` to the local z-axis.
+"""
 function set_spin_quantization_to_local_z!(lab :: LabSystem)
     lab.spin_quantization = :local
     for s in 1:length(get_sites(basis(lab)))
@@ -14,3 +24,4 @@ function set_spin_quantization_to_local_z!(lab :: LabSystem)
     recalculate!(lab, true, true)
     return nothing
 end
+export set_spin_quantization_to_sample_z!, set_spin_quantization_to_local_z!
