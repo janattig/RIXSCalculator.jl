@@ -4,6 +4,16 @@
 
 
 # Type Definition of zero Operator
+"""
+    mutable struct ZeroOperator{B} <: AbstractOperator{B}
+
+This object defines the zero operator.
+
+# Fields
+- `basis :: B`, the basis;
+- `matrix_rep :: Matrix{Complex{Float64}}`, the matrix representation of the operator.
+
+"""
 mutable struct ZeroOperator{B} <: AbstractOperator{B}
     # the basis
     basis :: B
@@ -22,7 +32,7 @@ end
 # export operator type
 export  ZeroOperator
 
-
+import Base.show
 function Base.show(io::IO, op::ZeroOperator{B}) where {BS<:AbstractBasisState, B<:AbstractBasis{BS}}
     if haskey(io, :compact)
         print(io, "zero operator (0)")
