@@ -1,4 +1,18 @@
 # Type Definition of LS / SpinOrbit Operator
+
+"""
+    mutable struct ScalarProductOperator{B, O<:AbstractOperator{B}} <: AbstractOperator{B}
+
+This object defines the scalar product operator.
+
+# Fields
+
+- `basis :: B`, the basis;
+- `matrix_rep :: Matrix{Complex{Float64}}`, the matrix representation of the operator;
+- `factor :: Complex{Float64}`, the scalar factor;
+- `op :: O`, the contained operator.
+
+"""
 mutable struct ScalarProductOperator{B, O<:AbstractOperator{B}} <: AbstractOperator{B}
     # the basis
     basis :: B
@@ -6,7 +20,7 @@ mutable struct ScalarProductOperator{B, O<:AbstractOperator{B}} <: AbstractOpera
     matrix_rep :: Matrix{Complex{Float64}}
     # the scalar factor
     factor :: Complex{Float64}
-    # the two contained operators
+    # the contained operator
     op :: O
 
     # Custom constructor (without explicit matrix rep)

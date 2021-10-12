@@ -1,4 +1,17 @@
 # Type Definition
+"""
+    mutable struct SettableScalarProductOperator{B, O<:AbstractOperator{B}} <: AbstractOperator{B}
+
+This object defines the (settable) scalar product operator.
+
+# Fields
+
+- `basis :: B`, the basis;
+- `matrix_rep :: Matrix{Complex{Float64}}`, the matrix representation of the operator;
+- `factor :: Complex{Float64}`, `label  :: Symbol`, the scalar factor and its label;
+- `op :: O`, the contained operator
+
+"""
 mutable struct SettableScalarProductOperator{B, O<:AbstractOperator{B}} <: AbstractOperator{B}
     # the basis
     basis :: B
@@ -7,7 +20,7 @@ mutable struct SettableScalarProductOperator{B, O<:AbstractOperator{B}} <: Abstr
     # the scalar factor
     factor :: Complex{Float64}
     label  :: Symbol
-    # the two contained operators
+    # the contained operator
     op :: O
 
     # Custom constructor (without explicit matrix rep)
