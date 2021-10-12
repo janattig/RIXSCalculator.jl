@@ -19,11 +19,17 @@
 
 # Type Definition of LS / SpinOrbit Operator
 """
-    SpinOrbitOperator{SPB} <: AbstractSPSSOperator{SPB}
+    mutable struct SpinOrbitOperator{SPB} <: AbstractSPSSOperator{SPB}
 
 This object refers to the Spin Orbit Operator.
 
-It is characterized by the single particle `basis::SPB` it refers to, its `matrix_rep :: Matrix{Complex{Float64}}`, the coupling strength `lambda::Float64` and the spin quantization axis `spin_quantization :: CoordinateFrame`.
+# Fields
+
+- `basis :: SPB`, the single particle basis;
+- `matrix_rep :: Matrix{Complex{Float64}}`, the matrix representation of the operator;
+- `lambda :: Float64`, the coupling strength;
+- `spin_quantization :: CoordinateFrame`, the spin quantization axis.
+
 """
 mutable struct SpinOrbitOperator{SPB} <: AbstractSPSSOperator{SPB}
     # the basis
