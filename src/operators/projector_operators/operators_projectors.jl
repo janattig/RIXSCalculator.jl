@@ -5,6 +5,25 @@
 ################################################################################
 
 # Type definition of local MS operators (SPSS operator only acting on a single site of many)
+"""
+    mutable struct SPSSProjectorOperator{
+            SPSSBS_IN  <: AbstractSPSSBasisState,
+            SPSSBS_OUT <: AbstractSPSSBasisState,
+            SPSSB_IN   <: SPBasis{SPSSBS_IN},
+            SPSSB_OUT  <: SPBasis{SPSSBS_OUT},
+            SPO <: AbstractSPSSOperator{SPSSB_IN}
+        } <: AbstractSPSSOperator{SPBasis{SPSSBS_OUT}}
+
+This object defines the local multi-site projector operator. This operator only act on a single site of many.
+
+# Fields
+
+- `basis_in  :: SPSSB_IN`, `basis :: SPSSB_OUT`, the multi-site bases
+- `operator  :: SPO`, the single site basis;
+- `projector_in_out :: Matrix{Complex{Float64}}`, the matrix representation of the projector;
+- `matrix_rep :: Matrix{Complex{Float64}}`, the matrix representation.
+
+"""
 mutable struct SPSSProjectorOperator{
         SPSSBS_IN  <: AbstractSPSSBasisState,
         SPSSBS_OUT <: AbstractSPSSBasisState,
@@ -192,6 +211,23 @@ end
 ################################################################################
 
 # Type definition of local MS operators (SPSS operator only acting on a single site of many)
+"""
+    mutable struct SPMSProjectorOperator{
+            SPMSB_IN   <: SPBasis{SPMSBS_IN} where {SPMSBS_IN<:Union{SPMSBasisState{BS} where BS, SPMSCompositeBasisState{B} where B}},
+            SPMSB_OUT  <: SPBasis{SPMSBS_OUT} where {SPMSBS_OUT<:Union{SPMSBasisState{BS} where BS, SPMSCompositeBasisState{B} where B}},
+            SPO <: AbstractSPMSOperator{SPMSB_IN}
+        } <: AbstractSPMSOperator{SPMSB_OUT}
+
+This object defines the local multi-site operator.
+
+# Fields
+
+- `basis_in  :: SPMSB_IN`, `basis :: SPMSB_OUT`, the multi-site bases;
+- `operator  :: SPO`, the single particle multi site operator;
+- `projector_in_out :: Matrix{Complex{Float64}}`, the matrix representation of the projector;
+- `matrix_rep :: Matrix{Complex{Float64}}`, the matrix representation.
+
+"""
 mutable struct SPMSProjectorOperator{
         SPMSB_IN   <: SPBasis{SPMSBS_IN} where {SPMSBS_IN<:Union{SPMSBasisState{BS} where BS, SPMSCompositeBasisState{B} where B}},
         SPMSB_OUT  <: SPBasis{SPMSBS_OUT} where {SPMSBS_OUT<:Union{SPMSBasisState{BS} where BS, SPMSCompositeBasisState{B} where B}},
