@@ -23,7 +23,11 @@
 
 This object refers to the Crystal Distortion Operator.
 
-It is characterized by the single particle `basis::SPB` it refers to, its `matrix_rep :: Matrix{Complex{Float64}}`, the distortion strength `Delta::Float64` and the (normalized) distortion direction `n :: Vector{Float64}`.
+# Fields
+- `basis::SPB`, the single particle basis it refers to;
+- `matrix_rep :: Matrix{Complex{Float64}}`, its matrix representation;
+- `Delta :: Float64`, the distortion strength;
+- `n :: Vector{Float64}`, the (normalized) distortion direction.
 """
 mutable struct DistortionOperator{SPB} <: AbstractSPSSOperator{SPB}
     # the basis
@@ -39,7 +43,10 @@ end
 
 # Custom constructor (without explicit matrix rep) separate strength and direction
 """
-    DistortionOperator(basis::SPB, Delta::Real, n::Vector{<:Real}=[0,0,1]) where {SPSSBS<:AbstractSPSSBasisState, SPB<:SPBasis{SPSSBS}}
+    DistortionOperator(basis::SPB, 
+                       Delta::Real, 
+                       n::Vector{<:Real}=[0,0,1]) 
+                       where {SPSSBS<:AbstractSPSSBasisState, SPB<:SPBasis{SPSSBS}}
 
 This function computes the matrix representation of the Crystal Distortion Operator projected over the given `basis`. The crystal distortion direction `n` is given as [0,0,1] by default.
 """
