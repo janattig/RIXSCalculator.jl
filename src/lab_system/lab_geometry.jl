@@ -46,6 +46,7 @@ function rotate_site_in_sample!(
     # apply rotation matrix to coordinate system
     set_coordinates!(lab.sites[site], R*lab.sites[site].X, R*lab.sites[site].Y, R*lab.sites[site].Z)
 end
+export rotate_site_in_sample!
 
 """
     rotate_site_in_sample_deg!(
@@ -67,7 +68,7 @@ function rotate_site_in_sample_deg!(
     # pass to the rotation function
     rotate_site_in_sample!(lab, site, axis, angle * pi / 180)
 end
-export export rotate_site_in_sample!, rotate_site_in_sample_deg!
+export rotate_site_in_sample_deg!
 
 
 function rotate_site_z_axis_to_sample_axis!(
