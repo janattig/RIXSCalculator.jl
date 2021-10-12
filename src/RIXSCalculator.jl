@@ -23,7 +23,7 @@ module RIXSCalculator
     include("basis/basis.jl")
     include("operators/operators.jl")
     include("transitions/transitions.jl")
-    include("lab_system/LabSystem.jl")
+    include("lab_system/lab_system.jl")
 
 
 # end of module
