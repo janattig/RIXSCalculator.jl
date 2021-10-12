@@ -14,7 +14,9 @@
 
 # define a Perkins Woelfe Hamiltonian for 2 particle interation of ELECTRONS
 """
-    mutable struct MPElectronPerkinsWoelfleHamiltonian{MPB <: MPBasis{N,SPBS} where {N,SPBS}} <: AbstractMPInteractionHamiltonian{2,MPB}
+    mutable struct MPElectronPerkinsWoelfleHamiltonian{
+            MPB <: MPBasis{N,SPBS} where {N,SPBS}
+        } <: AbstractMPInteractionHamiltonian{2,MPB}
 
 This object defines the interaction Hamiltonian described in the Perkins-Sizyuk-Woelfle paper "Interplay of many-body and single-particle interactions in iridates and rhodates"  [ https://arxiv.org/abs/1311.0852v2 ].
 
@@ -25,6 +27,19 @@ The hamiltonian is defined as follows in the electron picture:
    \\sum_{i,\\alpha\\neq\\alpha^\\prime} n_{i\\alpha\\uparrow}n_{i\\alpha^\\prime\\downarrow} +
    \\sum_{i,\\alpha\\neq\\alpha^\\prime} d^\\dagger_{i\\alpha\\uparrow} d^\\dagger_{i\\alpha\\downarrow}d_{i\\alpha^\\prime\\downarrow}d_{i\\alpha^\\prime\\uparrow} + 
    \\sum_{i,\\alpha\\neq\\alpha^\\prime} d^\\dagger_{i\\alpha\\uparrow} d_{i\\alpha\\downarrow}d^\\dagger_{i\\alpha^\\prime\\downarrow}d_{i\\alpha^\\prime\\uparrow}``
+
+# Fields
+- `basis :: MPB`, the multi-particle basis;
+- `matrix_rep :: Matrix{Complex{Float64}}`, the matrix representation of the operator;
+- `site :: Int64`, the site;
+- `u1 :: Float64`, `u2 :: Float64`, `jH :: Float64`, the parameters;
+- `op_den_den_same_orb  :: MPElectronDensityDensityOperator{MPB}`,
+  `op_den_den_same_spin :: MPElectronDensityDensityOperator{MPB}`,
+  `op_den_den_remainder :: MPElectronDensityDensityOperator{MPB}`,
+  the sub-hamiltonians of density-density interaction;
+- `op_2p_sc_spin_cons   :: MPElectron2PScatteringOperator{MPB}`,
+  `op_2p_sc_spin_flip   :: MPElectron2PScatteringOperator{MPB}`,
+  the sub-hamiltonians of two-particle scattering. 
 
 """
 mutable struct MPElectronPerkinsWoelfleHamiltonian{
@@ -74,7 +89,28 @@ mutable struct MPElectronPerkinsWoelfleHamiltonian{
 end
 export MPElectronPerkinsWoelfleHamiltonian
 
-# define a Perkins Woelfe Hamiltonian for 2 particle interation of ELECTRONS
+# define a Perkins Woelfe Hamiltonian for 2 particle interaction of HOLES
+"""
+    mutable struct MPHolePerkinsWoelfleHamiltonian{
+            MPB <: MPBasis{N,SPBS} where {N,SPBS}
+        } <: AbstractMPInteractionHamiltonian{2,MPB}
+
+This object defines the interaction Hamiltonian described in the Perkins-Sizyuk-Woelfle paper "Interplay of many-body and single-particle interactions in iridates and rhodates"  [ https://arxiv.org/abs/1311.0852v2 ]. This hamiltonian concerns the interaction of holes. See `MPElectronPerkinsWoelfleHamiltonian` for more information.
+
+# Fields
+- `basis :: MPB`, the multi-particle basis;
+- `matrix_rep :: Matrix{Complex{Float64}}`, the matrix representation of the operator;
+- `site :: Int64`, the site;
+- `u1 :: Float64`, `u2 :: Float64`, `jH :: Float64`, the parameters;
+- `op_den_den_same_orb  :: MPHoleDensityDensityOperator{MPB}`,
+  `op_den_den_same_spin :: MPHoleDensityDensityOperator{MPB}`,
+  `op_den_den_remainder :: MPHoleDensityDensityOperator{MPB}`
+  the sub-hamiltonians of density-density interaction;
+- `op_2p_sc_spin_cons   :: MPHole2PScatteringOperator{MPB}`,
+  `op_2p_sc_spin_flip   :: MPHole2PScatteringOperator{MPB}`,
+  the sub-hamiltonians of two-particle scattering. 
+
+"""
 mutable struct MPHolePerkinsWoelfleHamiltonian{
         MPB <: MPBasis{N,SPBS} where {N,SPBS}
     } <: AbstractMPInteractionHamiltonian{2,MPB}
