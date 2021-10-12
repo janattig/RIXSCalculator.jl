@@ -140,9 +140,6 @@ function operatorSy(s::Rational, msp::Rational, ms::Rational) :: Complex{Float64
 end
 
 
-# export operators
-export operatorSx, operatorSy, operatorSz, operatorSplus, operatorSminus
-
 
 # Spin operators with respect to local coordinate frames
 # ASSUMING in coordinate frame cf, the quantisation is given by S = (Sx, Sy, Sz)
@@ -166,3 +163,7 @@ function operatorSz(s::Rational, msp::Rational, ms::Rational, cf::CoordinateFram
     # return superposition of operators
     return operatorSx(s,msp,ms)*z_prime[1] + operatorSy(s,msp,ms)*z_prime[2] + operatorSz(s,msp,ms)*z_prime[3]
 end
+
+
+# export operators
+export operatorSx, operatorSy, operatorSz, operatorSplus, operatorSminus

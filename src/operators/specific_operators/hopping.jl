@@ -10,6 +10,19 @@ abstract type AbstractSPHoppingOperator{SPB} <: AbstractSPMSOperator{SPB} end
 
 
 # concrete hopping operator
+"""
+    mutable struct SPOrbitalHoppingOperator{
+            SPMSB <: SPBasis{SPMSBS} where {SPMSBS<:SPMSBasisState{SPSSBS} where SPSSBS <: AbstractSPSSBasisState}
+        } <: AbstractSPHoppingOperator{SPMSB}
+
+The object defines the single particle orbital hopping operator.
+
+# Fields
+- `basis :: SPMSB`, the single-particle multi-site basis;
+- `hopping_processes :: Vector{Tuple{Int64, Int64, Symbol}}`, the list of hopping orbitals;
+- `hopping_strengths :: Dict{Symbol, Complex{Float64}}`, the hopping strengths;
+- `matrix_rep :: Matrix{Complex{Float64}}`, the matrix representation.
+"""
 mutable struct SPOrbitalHoppingOperator{
         SPMSB <: SPBasis{SPMSBS} where {SPMSBS<:SPMSBasisState{SPSSBS} where SPSSBS <: AbstractSPSSBasisState}
     } <: AbstractSPHoppingOperator{SPMSB}
