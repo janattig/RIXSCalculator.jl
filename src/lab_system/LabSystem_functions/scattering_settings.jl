@@ -1,5 +1,10 @@
 # reset the incoming polarization
 # eps_in is perpendicular to q_in and to the axis given (by default the Y axis)
+"""
+    reset_polarization_in!(lab::LabSystem, axis_perpendicular::Vector{<:Real} = [0,1,0])
+
+The function resets the incoming polarization: `eps_in` is perpendicular to `q_in` and to the given `axis` (by default the Y axis).
+"""
 function reset_polarization_in!(lab::LabSystem, axis_perpendicular::Vector{<:Real} = [0,1,0])
     # build the cross product of the given axis and q_in
     eps_direction  = cross(lab.q_in, axis_perpendicular)
@@ -15,6 +20,11 @@ export reset_polarization_in!
 # reset the outgoing polarizations
 # eps_out_horizontal is perpendicular to q_out and to the axis given (by default the Y axis)
 # eps_out_vertical is perpendicular to q_out and to eps_out_horizontal
+"""
+    reset_polarization_out!(lab::LabSystem, axis_perpendicular::Vector{<:Real} = [0,1,0])
+
+The function resets the outgoing polarization: `eps_out_horizontal` is perpendicular to `q_out` and to the given `axis` (by default the Y axis); `eps_out_vertical` is perpendicular to `q_out` and to `eps_out_horizontal`.
+"""
 function reset_polarization_out!(lab::LabSystem, axis_perpendicular::Vector{<:Real} = [0,1,0])
     # build the cross product of the given axis and q_out to determine horizontal polarization
     eps_direction       = cross(lab.q_out, axis_perpendicular)
@@ -36,6 +46,11 @@ export reset_polarization_out!
 
 
 # set the incoming q vector
+"""
+    set_q_in!(lab::LabSystem, q_in::Vector{<:Real}, reset_polarization::Bool=true)
+
+The function sets the incoming `q_in` vector.
+"""
 function set_q_in!(lab::LabSystem, q_in::Vector{<:Real}, reset_polarization::Bool=true)
     # set the q vector
     lab.q_in = q_in
@@ -57,6 +72,11 @@ function set_q_in!(lab::LabSystem, q_in::Vector{<:Real}, axis_perpendicular::Vec
 end
 
 # set the outgoing q vector
+"""
+    set_q_out!(lab::LabSystem, q_out::Vector{<:Real}, reset_polarization::Bool=true)
+
+The function sets the outgoing `q_out` vector.
+"""
 function set_q_out!(lab::LabSystem, q_out::Vector{<:Real}, reset_polarization::Bool=true)
     # set the q vector
     lab.q_out = q_out
@@ -82,6 +102,11 @@ export set_q_in!, set_q_out!
 
 
 # set the outgoing q vector as well as the polarization perp to the axis given
+"""
+    setup_dQ!(lab::LabSystem, dq::Vector{<:Real}, eps_in::Vector{<:Real}, q_beam :: Real)
+
+The function sets the outgoing q vector as well as thye polarization perpendicular to the given axis.
+"""
 function setup_dQ!(lab::LabSystem, dq::Vector{<:Real}, eps_in::Vector{<:Real}, q_beam :: Real)
     # setup sample
     ls.sample.X = [1,0,0]
@@ -119,6 +144,17 @@ export setup_dQ!
 
 
 # set the beams depending on THETA and TWO THETA angles in geometry
+"""
+    set_scattering_angles!(
+        lab             :: LabSystem,
+        angle_theta     :: Real,
+        angle_two_theta :: Real,
+        dQ              :: Real = 1.0,
+        axis_perpendicular::Vector{<:Real} = [0,1,0]
+    )
+
+The function sets the beams depending on angles `angle_theta` and `angle_two_theta` in geometry. The angles must be given in radians.
+"""
 function set_scattering_angles!(
             lab             :: LabSystem,
             angle_theta     :: Real,
@@ -136,6 +172,17 @@ function set_scattering_angles!(
     return nothing
 end
 # set the beams depending on THETA and TWO THETA angles in geometry
+"""
+    set_scattering_angles_deg!(
+        lab             :: LabSystem,
+        angle_theta     :: Real,
+        angle_two_theta :: Real,
+        dQ              :: Real = 1.0,
+        axis_perpendicular::Vector{<:Real} = [0,1,0]
+    )
+
+The function sets the beams depending on angles `angle_theta` and `angle_two_theta` in geometry. The angles must be given in arc degrees.
+"""
 function set_scattering_angles_deg!(
             lab             :: LabSystem,
             angle_theta     :: Real,
@@ -150,6 +197,16 @@ export set_scattering_angles!, set_scattering_angles_deg!
 
 
 # set transferred momentum dq
+"""
+    set_dQ!(
+        lab             :: LabSystem,
+        dQ              :: Real,
+        q_beam          :: Real = 10.0,
+        axis_perpendicular::Vector{<:Real} = [0,1,0]
+    )
+
+The function sets the transfer momentum `dQ`.
+"""
 function set_dQ!(
             lab             :: LabSystem,
             dQ              :: Real,
