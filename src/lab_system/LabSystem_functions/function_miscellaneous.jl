@@ -1,4 +1,4 @@
-# recalculation of diple operator
+# recalculation of dipole operator
 function recalculate_dipole_operators!(lab::LabSystem; new_objects::Bool=false)
     # check if new objects necessary
     if new_objects

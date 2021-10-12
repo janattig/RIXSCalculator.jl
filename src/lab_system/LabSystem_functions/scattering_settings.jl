@@ -10,6 +10,7 @@ function reset_polarization_in!(lab::LabSystem, axis_perpendicular::Vector{<:Rea
     # return nothing
     return nothing
 end
+export reset_polarization_in!
 
 # reset the outgoing polarizations
 # eps_out_horizontal is perpendicular to q_out and to the axis given (by default the Y axis)
@@ -30,6 +31,7 @@ function reset_polarization_out!(lab::LabSystem, axis_perpendicular::Vector{<:Re
     # return nothing
     return nothing
 end
+export reset_polarization_out!
 
 
 
@@ -75,6 +77,9 @@ function set_q_out!(lab::LabSystem, q_out::Vector{<:Real}, axis_perpendicular::V
     return nothing
 end
 
+# export them
+export set_q_in!, set_q_out!
+
 
 # set the outgoing q vector as well as the polarization perp to the axis given
 function setup_dQ!(lab::LabSystem, dq::Vector{<:Real}, eps_in::Vector{<:Real}, q_beam :: Real)
@@ -105,6 +110,7 @@ function setup_dQ!(lab::LabSystem, dq::Vector{<:Real}, eps_in::Vector{<:Real}, q
     # return nothing
     return nothing
 end
+export setup_dQ!
 
 
 
@@ -140,6 +146,7 @@ function set_scattering_angles_deg!(
     # pass to the normal function
     set_scattering_angles!(lab, angle_theta*pi/180, angle_two_theta*pi/180, dQ, axis_perpendicular)
 end
+export set_scattering_angles!, set_scattering_angles_deg!
 
 
 # set transferred momentum dq
@@ -159,3 +166,4 @@ function set_dQ!(
     # return nothing
     return nothing
 end
+export set_dQ!
