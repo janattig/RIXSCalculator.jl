@@ -1,28 +1,36 @@
 # Type Definition of Dipole Operator
 """
-    DipoleOperator <: AbstractSPMSOperator{SPBasis{SPMSBasisState{BasisStateXYZ}}}
+    mutable struct DipoleOperator <: AbstractSPMSOperator{SPBasis{SPMSBasisState{BasisStateXYZ}}}
 
-`DipoleOperator` is a `mutable struct` defined by:
+`DipoleOperator` refers to the dipole operator.
 
-a single particle basis `basis :: SPBasis{SPMSBasisState{BasisStateXYZ}}` 
+# Fields
 
-the current edge `edge :: Int64`
+- `basis :: SPBasis{SPMSBasisState{BasisStateXYZ}}`, a single particle basis ;
 
-the core hole basis `basis_core :: SPBasis{SPMSBasisState{SPSSCompositeBasisState{SPBasis{BasisStateLS}}}}` (p orbitals or core with j=1/2 or j=3/2)
+- `edge :: Int64`, the current edge;
 
-the spin quantization frame `spin_quantization:: CoordinateFrame` 
+- `basis_core :: SPBasis{SPMSBasisState{SPSSCompositeBasisState{SPBasis{BasisStateLS}}}}`, the core hole basis  (p orbitals or core with j=1/2 or j=3/2);
 
-the core- hole projection `core_hole_projection :: Matrix{Complex{Float64}}`
+- `spin_quantization:: CoordinateFrame`, the spin quantization frame;
 
-the site `site :: Int64` and its position `position :: Vector{Float64}`
+- `core_hole_projection :: Matrix{Complex{Float64}}`, the core-hole projection;
 
-the ingoing polarization `eps_in :: Vector{Float64}`, the ingoing momentum `q_in :: Vector{Float64}`
+- `site :: Int64`, the site;  
 
-the out going polarization `eps_out :: Vector{Float64}`, the ingoing momentum `q_out :: Vector{Float64}`
+- `position :: Vector{Float64}`, its position;
 
-dipole matrices `D_x`, `D_y`, `D_z`, all of type `Matrix{Complex{Float64}}`
+- `eps_in :: Vector{Float64}`, the ingoing polarization;
 
-and the current matrix representation `matrix_rep :: Matrix{Complex{Float64}}` without prefactor.
+- `q_in :: Vector{Float64}`, the ingoing momentum;
+
+- `eps_out :: Vector{Float64}`, the outgoing polarization;
+
+- `q_out :: Vector{Float64}`, the ingoing momentum;
+
+- `D_x`, `D_y`, `D_z`, dipole matrices all of type `Matrix{Complex{Float64}}`;
+
+- `matrix_rep :: Matrix{Complex{Float64}}`, the current matrix representation without prefactor.
 """
 mutable struct DipoleOperator <: AbstractSPMSOperator{SPBasis{SPMSBasisState{BasisStateXYZ}}}
 
@@ -136,7 +144,7 @@ function DipoleOperator(
     # return the 1p generalization of projection to that basis
     return MPGeneralizedSPOperator(basis, ProjectorOperator(DipoleOperator(;kwargs...), basis.single_particle_basis))
 end
-
+export DipoleOperator
 
 
 

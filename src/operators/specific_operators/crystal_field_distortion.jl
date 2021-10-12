@@ -19,7 +19,7 @@
 
 # Type Definition of Ln^2 / Distortion Operator
 """
-    DistortionOperator{SPB} <: AbstractSPSSOperator{SPB}
+   mutable struct DistortionOperator{SPB} <: AbstractSPSSOperator{SPB}
 
 This object refers to the Crystal Distortion Operator.
 
