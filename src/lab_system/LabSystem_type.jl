@@ -87,6 +87,7 @@ function LabSystem(hamiltonian :: AbstractOperator)
     recalculate_hamiltonian!(ls, true, true)
     return ls
 end
+export LabSystem
 
 
 
