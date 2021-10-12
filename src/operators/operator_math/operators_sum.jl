@@ -4,6 +4,18 @@
 
 
 # Type Definition of LS / SpinOrbit Operator
+"""
+    mutable struct SumOperator{B, O1<:AbstractOperator{B}, O2<:AbstractOperator{B}} <: AbstractOperator{B}
+
+This object defines the sum operator.
+
+# Fields
+
+- `basis :: B`, the basis;
+- `matrix_rep :: Matrix{Complex{Float64}}`, the matrix representation of operator;
+- `op_1 :: O1`, `op_2 :: O2`, the two contained operators.
+
+"""
 mutable struct SumOperator{B, O1<:AbstractOperator{B}, O2<:AbstractOperator{B}} <: AbstractOperator{B}
     # the basis
     basis :: B
