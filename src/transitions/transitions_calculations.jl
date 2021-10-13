@@ -29,6 +29,7 @@ function get_amplitude(
     # build amplitude like <to|D|from>
     return get_amplitude(dipole_operator, eigensys[:vectors][i_from], eigensys[:vectors][i_to])
 end
+export get_amplitude
 
 
 # Calculate a spectrum based on a RIXSSample object
@@ -131,4 +132,4 @@ function get_spectrum(
 end
 
 # export the function
-export getSpectrum
+export get_spectrum
