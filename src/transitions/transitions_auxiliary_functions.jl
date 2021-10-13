@@ -104,3 +104,4 @@ function identify_peaks(
     return sort(unique(peak_list))
 
 end
+export identify_peaks
