@@ -165,12 +165,6 @@ end
 # import of base function
 import Base.(+)
 
-# Define the (+) function for any operators with different basis type
-function +(op_1 :: O1, op_2 :: O2)  where {BS1<:AbstractBasisState, B1<:AbstractBasis{BS1}, BS2<:AbstractBasisState, B2<:AbstractBasis{BS2}, O1<:AbstractOperator{B1}, O2<:AbstractOperator{B2}}
-    # throw error
-    @error "cannot add two operators in different basis representations" stacktrace()
-end
-
 # Define the (+) function for any operators with same basis type
 function +(op_1 :: O1, op_2 :: O2) :: SumOperator{B, O1, O2}  where {BS<:AbstractBasisState, B<:AbstractBasis{BS}, O1<:AbstractOperator{B}, O2<:AbstractOperator{B}}
     # build a new operator and return it
