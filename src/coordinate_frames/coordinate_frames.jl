@@ -38,6 +38,7 @@ end
 function get_in_global_coordinates(s :: CoordinateFrame, v :: Vector{<:Real})
     return (s.X .* v[1]) .+ (s.Y .* v[2]) .+ (s.Z .* v[3])
 end
+export get_in_inner_coordinates, get_in_global_coordinates
 
 function invert(s :: CoordinateFrame) :: CoordinateFrame
     return CoordinateFrame(
@@ -47,6 +48,7 @@ function invert(s :: CoordinateFrame) :: CoordinateFrame
         get_in_inner_coordinates(s, [0,0,1])
     )
 end
+export invert
 
 
 function set_coordinates!(s :: CoordinateFrame, X::Vector{<:Real}, Y::Vector{<:Real}, Z::Vector{<:Real})
@@ -55,6 +57,7 @@ function set_coordinates!(s :: CoordinateFrame, X::Vector{<:Real}, Y::Vector{<:R
     s.Z = Z ./ norm(X)
     return nothing
 end
+export set_coordinates!
 
 
 
