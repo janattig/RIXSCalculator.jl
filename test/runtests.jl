@@ -4,12 +4,18 @@ using Test
 @testset "RIXSCalculator.jl" begin
 
     # include subfile for abstract type tests
-    include("tests_abstract_types.jl")
+    include("test_type_trees.jl")
 
-    # include subfile for concrete type tests
-    include("tests_concrete_types.jl")
+    # include subfile for constructor tests
+    include("test_constructors.jl")
 
-    # include subfile for eigensysten tests
-    include("tests_eygensystem.jl")
+    # include subfile for interface function tests
+    include("test_interface_functions.jl")
+    
+    # include subfile for all other function tests
+    include("test_functions.jl")
+    
+    # include subfile for physics tests
+    include("test_physics.jl")
 
 end
