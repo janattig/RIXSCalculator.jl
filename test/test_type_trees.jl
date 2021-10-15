@@ -1,18 +1,30 @@
-# TESTSET FOR ALL ABSTRACT TYPES
+# TESTSET FOR ALL ABSTRACT AND CONCRETE TYPES
 # mainly test dependencies of abstract types and availability
-@testset "Abstract Type Definitions" begin
+@testset "Type Definitions" begin
     
-    @testset "Abstract Basis definition" begin
+    @testset "Basis definition" begin
         
-        @test AbstractBasis{BS} <: AbstractArray{BS,1} where {BS}
-        @test AbstractBasisState <: Any
+        @testset "Abstract Basis definitions" begin
+            @test AbstractBasis <: Any
+            @test AbstractBasisState <: Any
+            #@test AbstractBasis{BS} <: AbstractArray{BS,1} where {BS<:AbstractBasisState}
+        end
         
         @testset "Single-Particle Basis State definitions" begin
             
-            @test AbstractSPBasisState <: AbstractBasisState
-            @test AbstractSPSSBasisState <: AbstractSPBasisState
+            @testset "Abstract Single-Paticle Basis State definitions" begin
+                @test AbstractSPBasisState <: AbstractBasisState
+                @test AbstractSPSSBasisState <: AbstractSPBasisState
+            end
+            @testset "Concrete Single-Paticle Basis State definitions" begin
+                
+                @test SPBasis <: AbstractBasis
+                
+                
             
+            end
         end
+            
         
         @testset "Multi-Particle Basis State definitions" begin
         end
@@ -23,15 +35,15 @@
     @testset "Abstract Operator definition" begin
             
 #             @test AbstractOperator{B <: AbstractBasis{BS} where {BS <: AbstractBasisState}}
-        
+            @test AbstractOperator <: Any
             @test AbstractSPOperator <: AbstractOperator
             @test AbstractMPOperator <: AbstractOperator
     end
     
     @testset "Abstract Spectrum and Transition definitions" begin
        
-        @test AbstractTransition
-        @test AbstractSpectrum
+        @test AbstractTransition <: Any
+        @test AbstractSpectrum <: Any
         
     end
         
