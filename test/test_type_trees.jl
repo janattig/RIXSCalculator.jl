@@ -20,6 +20,22 @@
                 
                 @test SPBasis <: AbstractBasis
                 
+                @testset "Concrete t2g basis state types" begin
+                    @test BasisStateA1G <: AbstractSPSSBasisState
+                    @test BasisStateJ <: AbstractSPSSBasisState
+                    @test BasisStateLS <: AbstractSPSSBasisState
+                    @test BasisStateXYZ <: AbstractSPSSBasisState 
+                end
+                
+                @testset "Concrete composite basis state types" begin
+                    @test SPSSCompositeBasisState <: AbstractSPSSBasisState
+                    @test SPMSCompositeBasisState <: AbstractSPBasisState
+                end
+                
+                @testset "Concrete multi-site basis state types" begin
+                    @test SPMSBasisState <: AbstractSPBasisState
+                end
+                
                 
             
             end
