@@ -59,6 +59,57 @@
             @test AbstractOperator <: Any
             @test AbstractSPOperator <: AbstractOperator
             @test AbstractMPOperator <: AbstractOperator
+            
+            @test AbstractSPSSOperator <: AbstractSPOperator
+            @test AbstractSPMSOperator <: AbstractSPOperator
+            
+            @test AbstractMP1POperator <: AbstractMPOperator
+            @test AbstractMP2POperator <: AbstractMPOperator
+            @test AbstractMPInteractionHamiltonian <: AbstractMPOperator
+            
+            @test AbstractMPDensityDensityOperator <: AbstractMP2POperator
+            
+            @test AbstractMP2PScatteringOperator <: AbstractMP2POperator
+        end
+        
+        @testset "Concrete Operator definitions" begin
+            
+            @test SPLocalMSOperator <: AbstractSPMSOperator
+            
+            @testset "Multi-Particle Operators definitions" begin
+                @test MPGeneralizedSPOperator <: AbstractMP1POperator
+                
+                @test MPElectronDensityDensityOperator <: AbstractMPDensityDensityOperator
+                @test MPHoleDensityDensityOperator <: AbstractMPDensityDensityOperator
+                
+                @test MPElectron2PScatteringOperator <: AbstractMP2PScatteringOperator
+                @test MPHole2PScatteringOperator <: AbstractMP2PScatteringOperator 
+            end
+            
+            @testset "Mathematical Operator types" begin
+                @test ScalarProductOperator <: AbstractOperator
+                @test SettableScalarProductOperator <: AbstractOperator
+                @test ZeroOperator <: AbstractOperator
+                @test SumOperator <: AbstractOperator
+            end
+            
+            @testset "Specific Operator types" begin
+                @test DistortionOperator <: AbstractSPSSOperator
+                @test MagneticFieldOperator <: AbstractSPSSOperator
+                @test SpinOrbitOperator <: AbstractSPSSOperator
+                
+                @test DipoleOperator <: AbstractSPMSOperator
+                @test AbstractSPHoppingOperator <: AbstractSPMSOperator
+                
+                @test MPElectronPerkinsWoelfleHamiltonian <: AbstractMPInteractionHamiltonian
+                @test MPHolePerkinsWoelfleHamiltonian <: AbstractMPInteractionHamiltonian
+            end
+            
+            @testset "Projector Operator types" begin
+                
+                ???
+                
+            end
         end
 
             
