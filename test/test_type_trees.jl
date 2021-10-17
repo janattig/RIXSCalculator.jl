@@ -5,56 +5,67 @@
     @testset "Basis definition" begin
         
         @testset "Abstract Basis definitions" begin
-            @test AbstractBasis <: Any
-            @test AbstractBasisState <: Any
-            #@test AbstractBasis{BS} <: AbstractArray{BS,1} where {BS<:AbstractBasisState}
-        end
-        
-        @testset "Single-Particle Basis State definitions" begin
-            
-            @testset "Abstract Single-Paticle Basis State definitions" begin
+            @testset "Abstract Single-Particle Basis definitions" begin
+                @test AbstractBasis <: Any
+                @test AbstractBasisState <: Any
+
                 @test AbstractSPBasisState <: AbstractBasisState
                 @test AbstractSPSSBasisState <: AbstractSPBasisState
-            end
-            @testset "Concrete Single-Paticle Basis State definitions" begin
-                
+
                 @test SPBasis <: AbstractBasis
+            end
+        end
+        
+        @testset "Concrete Basis State definitions" begin
+            
+            @testset "Single-Particle Basis State definitions" begin
                 
-                @testset "Concrete t2g basis state types" begin
+                @testset "t2g basis state types" begin
                     @test BasisStateA1G <: AbstractSPSSBasisState
                     @test BasisStateJ <: AbstractSPSSBasisState
                     @test BasisStateLS <: AbstractSPSSBasisState
                     @test BasisStateXYZ <: AbstractSPSSBasisState 
                 end
                 
-                @testset "Concrete composite basis state types" begin
+                @testset "composite basis state types" begin
                     @test SPSSCompositeBasisState <: AbstractSPSSBasisState
                     @test SPMSCompositeBasisState <: AbstractSPBasisState
                 end
                 
-                @testset "Concrete multi-site basis state types" begin
+                @testset "multi-site basis state types" begin
                     @test SPMSBasisState <: AbstractSPBasisState
                 end
-                
-                
-            
             end
-        end
             
-        
-        @testset "Multi-Particle Basis State definitions" begin
-        end
+            
+            @testset "Multi-Particle Basis State definitions" begin
+                
+                @test MPBasisState <: AbstractBasisState
+                @test MPBasis <: AbstractBasis
+                
+            end
+            
+        end #end concrete basis state definitions
+            
         
     end
+  
+#######################################################################################
     
     
-    @testset "Abstract Operator definition" begin
-            
-#             @test AbstractOperator{B <: AbstractBasis{BS} where {BS <: AbstractBasisState}}
+    @testset "Operator definition" begin
+        
+        @testset "Abstract Operator definitions" begin
             @test AbstractOperator <: Any
             @test AbstractSPOperator <: AbstractOperator
             @test AbstractMPOperator <: AbstractOperator
+        end
+
+            
     end
+    
+    
+#######################################################################################   
     
     @testset "Abstract Spectrum and Transition definitions" begin
        
