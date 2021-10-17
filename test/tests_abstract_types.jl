@@ -5,7 +5,7 @@
     @testset "Abstract Basis definition" begin
         
         @test AbstractBasis{BS} <: AbstractArray{BS,1} where {BS}
-        @test AbstractBasisState <: Any
+        @test_nowarn AbstractBasisState <: Any
         
         @testset "Single-Particle Basis State definitions" begin
             
