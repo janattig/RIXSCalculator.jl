@@ -1,6 +1,6 @@
 using RIXSCalculator
 using Test
-using Pkg
+# using Pkg
 
 @testset "RIXSCalculator.jl" begin
 
