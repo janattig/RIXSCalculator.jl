@@ -106,14 +106,16 @@
             end
             
             @testset "Projector Operator types" begin
-                
-                ???
-                
+                @test SPSSProjectorOperator <: AbstractSPSSOperator
+                @test SPMSProjectorOperator <: AbstractSPMSOperator
+                @test MPProjectorOperator <: AbstractMPOperator
+                @test GeneralProjectorOperator <: AbstractOperator
             end
-        end
-
             
-    end
+        end # end concrete operator type testset
+
+              
+    end # end operator testset
     
     
 #######################################################################################   
