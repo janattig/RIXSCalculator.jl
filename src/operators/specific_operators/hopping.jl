@@ -5,6 +5,8 @@
 # abstract super type for hopping operators
 abstract type AbstractSPHoppingOperator{SPB} <: AbstractSPMSOperator{SPB} end
 
+export AbstractSPHoppingOperator
+
 
 
 
