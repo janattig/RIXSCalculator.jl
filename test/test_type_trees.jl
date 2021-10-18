@@ -67,9 +67,9 @@
             @test AbstractMP2POperator <: AbstractMPOperator
             @test AbstractMPInteractionHamiltonian <: AbstractMPOperator
             
-            @test AbstractMPDensityDensityOperator <: AbstractMP2POperator
+            @test AbstractMPDensityDensityOperator <: AbstractMP2POperator{MPB} where MPB
             
-            @test AbstractMP2PScatteringOperator <: AbstractMP2POperator
+            @test AbstractMP2PScatteringOperator <: AbstractMP2POperator{MPB} where MPB
         end
         
         @testset "Concrete Operator definitions" begin
