@@ -23,15 +23,15 @@
                 end
                 
                 @testset "multi-site basis state constructors" begin
-                    @test SPMSBasisState <: AbstractSPBasisState
+#                     @test SPMSBasisState <: AbstractSPBasisState
                 end
             end
             
             
             @testset "Multi-Particle Basis State Constructors" begin
                 
-                @test MPBasisState <: AbstractBasisState
-                @test MPBasis <: AbstractBasis
+#                 @test MPBasisState <: AbstractBasisState
+#                 @test MPBasis <: AbstractBasis
                 
             end
             
@@ -46,60 +46,60 @@
     @testset "Operator definition" begin
         
         @testset "Abstract Operator definitions" begin
-            @test AbstractOperator <: Any
-            @test AbstractSPOperator <: AbstractOperator
-            @test AbstractMPOperator <: AbstractOperator
+#             @test AbstractOperator <: Any
+#             @test AbstractSPOperator <: AbstractOperator
+#             @test AbstractMPOperator <: AbstractOperator
             
-            @test AbstractSPSSOperator <: AbstractSPOperator
-            @test AbstractSPMSOperator <: AbstractSPOperator
+#             @test AbstractSPSSOperator <: AbstractSPOperator
+#             @test AbstractSPMSOperator <: AbstractSPOperator
             
-            @test AbstractMP1POperator <: AbstractMPOperator
-            @test AbstractMP2POperator <: AbstractMPOperator
-            @test AbstractMPInteractionHamiltonian <: AbstractMPOperator
+#             @test AbstractMP1POperator <: AbstractMPOperator
+#             @test AbstractMP2POperator <: AbstractMPOperator
+#             @test AbstractMPInteractionHamiltonian <: AbstractMPOperator
             
-            @test AbstractMPDensityDensityOperator <: AbstractMP2POperator{MPB} where MPB
+#             @test AbstractMPDensityDensityOperator <: AbstractMP2POperator{MPB} where MPB
             
-            @test AbstractMP2PScatteringOperator <: AbstractMP2POperator{MPB} where MPB
+#             @test AbstractMP2PScatteringOperator <: AbstractMP2POperator{MPB} where MPB
         end
         
         @testset "Concrete Operator definitions" begin
             
-            @test SPLocalMSOperator <: AbstractSPMSOperator
+#             @test SPLocalMSOperator <: AbstractSPMSOperator
             
-            @testset "Multi-Particle Operators definitions" begin
-                @test MPGeneralizedSPOperator <: AbstractMP1POperator
+#             @testset "Multi-Particle Operators definitions" begin
+#                 @test MPGeneralizedSPOperator <: AbstractMP1POperator
                 
-                @test MPElectronDensityDensityOperator <: AbstractMPDensityDensityOperator
-                @test MPHoleDensityDensityOperator <: AbstractMPDensityDensityOperator
+#                 @test MPElectronDensityDensityOperator <: AbstractMPDensityDensityOperator
+#                 @test MPHoleDensityDensityOperator <: AbstractMPDensityDensityOperator
                 
-                @test MPElectron2PScatteringOperator <: AbstractMP2PScatteringOperator
-                @test MPHole2PScatteringOperator <: AbstractMP2PScatteringOperator 
+#                 @test MPElectron2PScatteringOperator <: AbstractMP2PScatteringOperator
+#                 @test MPHole2PScatteringOperator <: AbstractMP2PScatteringOperator 
             end
             
             @testset "Mathematical Operator types" begin
-                @test ScalarProductOperator <: AbstractOperator{B} where B
-                @test SettableScalarProductOperator <: AbstractOperator{B} where B
-                @test ZeroOperator <: AbstractOperator{B} where B
-                @test SumOperator <: AbstractOperator{B} where B
+#                 @test ScalarProductOperator <: AbstractOperator{B} where B
+#                 @test SettableScalarProductOperator <: AbstractOperator{B} where B
+#                 @test ZeroOperator <: AbstractOperator{B} where B
+#                 @test SumOperator <: AbstractOperator{B} where B
             end
             
             @testset "Specific Operator types" begin
-                @test DistortionOperator <: AbstractSPSSOperator{SPB} where SPB
-                @test MagneticFieldOperator <: AbstractSPSSOperator{SPB} where SPB
-                @test SpinOrbitOperator <: AbstractSPSSOperator{SPB} where SPB
+#                 @test DistortionOperator <: AbstractSPSSOperator{SPB} where SPB
+#                 @test MagneticFieldOperator <: AbstractSPSSOperator{SPB} where SPB
+#                 @test SpinOrbitOperator <: AbstractSPSSOperator{SPB} where SPB
                 
-                @test DipoleOperator <: AbstractSPMSOperator
-                @test AbstractSPHoppingOperator <: AbstractSPMSOperator{SPB} where SPB
+#                 @test DipoleOperator <: AbstractSPMSOperator
+#                 @test AbstractSPHoppingOperator <: AbstractSPMSOperator{SPB} where SPB
                 
-                @test MPElectronPerkinsWoelfleHamiltonian <: AbstractMPInteractionHamiltonian{2, MPB} where MPB<:(MPBasis{N, SPBS} where {N, SPBS})
-                @test MPHolePerkinsWoelfleHamiltonian <: AbstractMPInteractionHamiltonian{2, MPB} where MPB<:(MPBasis{N, SPBS} where {N, SPBS})
+#                 @test MPElectronPerkinsWoelfleHamiltonian <: AbstractMPInteractionHamiltonian{2, MPB} where MPB<:(MPBasis{N, SPBS} where {N, SPBS})
+#                 @test MPHolePerkinsWoelfleHamiltonian <: AbstractMPInteractionHamiltonian{2, MPB} where MPB<:(MPBasis{N, SPBS} where {N, SPBS})
             end
             
             @testset "Projector Operator types" begin
-                @test SPSSProjectorOperator <: AbstractSPSSOperator
-                @test SPMSProjectorOperator <: AbstractSPMSOperator
-                @test MPProjectorOperator <: AbstractMPOperator
-                @test GeneralProjectorOperator <: AbstractOperator
+#                 @test SPSSProjectorOperator <: AbstractSPSSOperator
+#                 @test SPMSProjectorOperator <: AbstractSPMSOperator
+#                 @test MPProjectorOperator <: AbstractMPOperator
+#                 @test GeneralProjectorOperator <: AbstractOperator
             end
             
         end # end concrete operator type testset
@@ -112,7 +112,7 @@
     
     @testset "Coordinate Frame definitions" begin
        @testset "Concrete Coordinate Frame types" begin
-            CoordinateFrame <: Any
+#             CoordinateFrame <: Any
         end
     end
     
@@ -122,20 +122,20 @@
     @testset "Transition definitions" begin
         
         @testset "Abstract Spectrum and Transition types" begin
-            @test AbstractTransition <: Any
-            @test AbstractSpectrum <: Any
+#             @test AbstractTransition <: Any
+#             @test AbstractSpectrum <: Any
         end
         
         @testset "Concrete Spectrum and Transition types" begin
-            @test Transition <: AbstractTransition
-            @test Spectrum <: AbstractSpectrum{T} where T
+#             @test Transition <: AbstractTransition
+#             @test Spectrum <: AbstractSpectrum{T} where T
         end
         
     end
     
     @testset "Lab System definitions" begin
         @testset "Concrete Lab System types" begin
-           @test LabSystem <: Any 
+#            @test LabSystem <: Any 
         end
     end
         
