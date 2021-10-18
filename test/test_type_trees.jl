@@ -87,10 +87,10 @@
             end
             
             @testset "Mathematical Operator types" begin
-                @test ScalarProductOperator <: AbstractOperator
-                @test SettableScalarProductOperator <: AbstractOperator
-                @test ZeroOperator <: AbstractOperator
-                @test SumOperator <: AbstractOperator
+                @test ScalarProductOperator <: AbstractOperator{B} where B
+                @test SettableScalarProductOperator <: AbstractOperator{B} where B
+                @test ZeroOperator <: AbstractOperator{B} where B
+                @test SumOperator <: AbstractOperator{B} where B
             end
             
             @testset "Specific Operator types" begin
@@ -138,7 +138,7 @@
         
         @testset "Concrete Spectrum and Transition types" begin
             @test Transition <: AbstractTransition
-            @test Spectrum <: AbstractSpectrum
+            @test Spectrum <: AbstractSpectrum{T} where T
         end
         
     end
