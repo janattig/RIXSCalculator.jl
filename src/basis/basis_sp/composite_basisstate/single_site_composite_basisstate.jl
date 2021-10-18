@@ -19,13 +19,12 @@ struct SPSSCompositeBasisState{SPB <: SPBasis{SPSS} where SPSS<:AbstractSPSSBasi
     # the original basis
     basis      :: SPB
 end
-export SPSSCompositeBasisState
-
-
 
 function SPSSCompositeBasisState(prefactors :: Vector{<:Number}, basis :: B) where {B <: SPBasis{SPSS} where SPSS<:AbstractSPSSBasisState}
     return SPSSCompositeBasisState{B}(prefactors, basis)
 end
+
+export SPSSCompositeBasisState
 
 function CompositeBasisState(prefactors :: Vector{<:Number}, basis :: B) where {B <: SPBasis{SPSS} where SPSS<:AbstractSPSSBasisState}
     return SPSSCompositeBasisState(prefactors, basis)
