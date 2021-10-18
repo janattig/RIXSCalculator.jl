@@ -117,14 +117,36 @@
               
     end # end operator testset
     
+#######################################################################################
+    
+    
+    @testset "Coordinate Frame definitions" begin
+       @testset "Concrete Coordinate Frame types" begin
+            CoordinateFrame <: Any
+        end
+    end
+    
     
 #######################################################################################   
     
-    @testset "Abstract Spectrum and Transition definitions" begin
-       
-        @test AbstractTransition <: Any
-        @test AbstractSpectrum <: Any
+    @testset "Transition definitions" begin
         
+        @testset "Abstract Spectrum and Transition types" begin
+            @test AbstractTransition <: Any
+            @test AbstractSpectrum <: Any
+        end
+        
+        @testset "Concrete Spectrum and Transition types" begin
+            @test Transition <: AbstractTransition
+            @test Spectrum <: AbstractSpectrum
+        end
+        
+    end
+    
+    @testset "Lab System definitions" begin
+        @testset "Concrete Lab System types" begin
+           @test LabSystem <: Any 
+        end
     end
         
     
