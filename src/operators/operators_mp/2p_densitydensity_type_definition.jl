@@ -1,6 +1,8 @@
 # define some abstract density density operator
 abstract type AbstractMPDensityDensityOperator{MPB} <: AbstractMP2POperator{MPB} end
 
+export AbstractMPDensityDensityOperator
+
 # define a MP operator for density density interactions of ELECTRONS (n*n)
 mutable struct MPElectronDensityDensityOperator{
         MPB <: MPBasis{N,SPBS} where {N,SPBS}

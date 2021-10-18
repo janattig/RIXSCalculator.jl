@@ -2,3 +2,5 @@
 abstract type AbstractMP1POperator{
         MPB <: MPBasis{N,SPBS} where {N,SPBS <: AbstractSPBasisState}
 } <: AbstractMPOperator{1,MPB} end
+
+export AbstractMP1POperator

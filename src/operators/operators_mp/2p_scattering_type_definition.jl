@@ -1,6 +1,8 @@
 # abstract supertype for two-particle scattering operators
 abstract type AbstractMP2PScatteringOperator{MPB} <: AbstractMP2POperator{MPB} end
 
+export AbstractMP2PScatteringOperator
+
 # define a MP operator for 2 particle scattering interactions of ELECTRONS
 mutable struct MPElectron2PScatteringOperator{
         MPB <: MPBasis{N,SPBS} where {N,SPBS}
