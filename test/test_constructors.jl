@@ -8,13 +8,13 @@
             
             @testset "Single-Particle Basis State Constructors" begin
                 
-# #                 @testset "t2g basis state constructors" begin
-# #                     @test BasisStateA1G <: AbstractSPSSBasisState
-# #                     @test BasisStateJ <: AbstractSPSSBasisState
-# #                     @test BasisStateLS <: AbstractSPSSBasisState
-# #                     @test BasisStateXYZ <: AbstractSPSSBasisState 
+                @testset "t2g basis state constructors" begin
+#                     @test BasisStateA1G <: AbstractSPSSBasisState
+#                     @test BasisStateJ <: AbstractSPSSBasisState
+#                     @test BasisStateLS <: AbstractSPSSBasisState
+#                     @test BasisStateXYZ <: AbstractSPSSBasisState 
                 end
-                
+             
 #                 @testset "composite basis state constructors" begin
 # #                     @test_nowarn SPSSCompositeBasisState(rand(10), getT2GBasisLS())
 # #                     @test typeof(SPSSCompositeBasisState(rand(10), getT2GBasisLS())) <: SPSSCompositeBasisState
@@ -27,7 +27,7 @@
 # #                     @test SPMSBasisState <: AbstractSPBasisState
 #                 end
             
-#             end
+            end #end Single-Particle Basis State Constructors
             
             
 #             @testset "Multi-Particle Basis State Constructors" begin
