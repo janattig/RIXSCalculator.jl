@@ -15,13 +15,13 @@
 #                     @test BasisStateXYZ <: AbstractSPSSBasisState 
                 end
              
-#                 @testset "composite basis state constructors" begin
-# #                     @test_nowarn SPSSCompositeBasisState(rand(10), getT2GBasisLS())
-# #                     @test typeof(SPSSCompositeBasisState(rand(10), getT2GBasisLS())) <: SPSSCompositeBasisState
+                @testset "composite basis state constructors" begin
+                    @test_nowarn SPSSCompositeBasisState(rand(10), getT2GBasisLS())
+                    @test typeof(SPSSCompositeBasisState(rand(10), getT2GBasisLS())) <: SPSSCompositeBasisState
                         
-# #                     @test_nowarn SPMSCompositeBasisState(rand(10), getMultiSiteBasis(getT2GBasisLS(),3))
-# #                     @test typeof(SPMSCompositeBasisState(rand(10), getMultiSiteBasis(getT2GBasisLS(),3))) <: 
-#                 end
+                    @test_nowarn SPMSCompositeBasisState(rand(10), getMultiSiteBasis(getT2GBasisLS(),3))
+                    @test typeof(SPMSCompositeBasisState(rand(10), getMultiSiteBasis(getT2GBasisLS(),3))) <: 
+                end
                 
 #                 @testset "multi-site basis state constructors" begin
 # #                     @test SPMSBasisState <: AbstractSPBasisState
