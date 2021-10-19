@@ -1,7 +1,8 @@
 # TESTSET FOR ALL CONCRETE TYPES
 # mainly test dependencies of concrete types and availability
 @testset "Constructor Functions" begin
-@testset "Basis Constructors" begin
+    
+    @testset "Basis Constructors" begin
     
         @testset "Basis State Costructors" begin
             
@@ -12,7 +13,7 @@
 #                     @test BasisStateJ <: AbstractSPSSBasisState
 #                     @test BasisStateLS <: AbstractSPSSBasisState
 #                     @test BasisStateXYZ <: AbstractSPSSBasisState 
-#                 end
+                end
                 
                 @testset "composite basis state constructors" begin
 #                     @test_nowarn SPSSCompositeBasisState(rand(10), getT2GBasisLS())
@@ -25,6 +26,7 @@
                 @testset "multi-site basis state constructors" begin
 #                     @test SPMSBasisState <: AbstractSPBasisState
                 end
+            
             end
             
             
@@ -35,32 +37,15 @@
                 
             end
             
-        end #end concrete basis state definitions
+        end #end basis state constructors
             
         
-    end
+    end #end basis constructors
   
 #######################################################################################
     
     
-    @testset "Operator definition" begin
-        
-        @testset "Abstract Operator definitions" begin
-#             @test AbstractOperator <: Any
-#             @test AbstractSPOperator <: AbstractOperator
-#             @test AbstractMPOperator <: AbstractOperator
-            
-#             @test AbstractSPSSOperator <: AbstractSPOperator
-#             @test AbstractSPMSOperator <: AbstractSPOperator
-            
-#             @test AbstractMP1POperator <: AbstractMPOperator
-#             @test AbstractMP2POperator <: AbstractMPOperator
-#             @test AbstractMPInteractionHamiltonian <: AbstractMPOperator
-            
-#             @test AbstractMPDensityDensityOperator <: AbstractMP2POperator{MPB} where MPB
-            
-#             @test AbstractMP2PScatteringOperator <: AbstractMP2POperator{MPB} where MPB
-        end
+    @testset "Operator Constructors" begin
         
         @testset "Concrete Operator definitions" begin
             
@@ -101,11 +86,8 @@
 #                 @test MPProjectorOperator <: AbstractMPOperator
 #                 @test GeneralProjectorOperator <: AbstractOperator
             end
-            
-        end # end concrete operator type testset
 
-              
-    end # end operator testset
+end # end operator constructor testset
     
 #######################################################################################
     
