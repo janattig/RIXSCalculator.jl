@@ -4,16 +4,16 @@
     
     @testset "Basis Constructors" begin
     
-#         @testset "Basis State Costructors" begin
+        @testset "Basis State Costructors" begin
             
-#             @testset "Single-Particle Basis State Constructors" begin
+            @testset "Single-Particle Basis State Constructors" begin
                 
 # #                 @testset "t2g basis state constructors" begin
 # #                     @test BasisStateA1G <: AbstractSPSSBasisState
 # #                     @test BasisStateJ <: AbstractSPSSBasisState
 # #                     @test BasisStateLS <: AbstractSPSSBasisState
 # #                     @test BasisStateXYZ <: AbstractSPSSBasisState 
-#                 end
+                end
                 
 #                 @testset "composite basis state constructors" begin
 # #                     @test_nowarn SPSSCompositeBasisState(rand(10), getT2GBasisLS())
@@ -37,7 +37,7 @@
                 
 #             end
             
-#         end #end basis state constructors
+        end #end basis state constructors
             
         
     end #end basis constructors
