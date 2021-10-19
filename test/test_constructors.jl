@@ -7,16 +7,9 @@
         @testset "Basis State Costructors" begin
             
             @testset "Single-Particle Basis State Constructors" begin
-                
-                @testset "t2g basis state constructors" begin
-#                     @test BasisStateA1G <: AbstractSPSSBasisState
-#                     @test BasisStateJ <: AbstractSPSSBasisState
-#                     @test BasisStateLS <: AbstractSPSSBasisState
-#                     @test BasisStateXYZ <: AbstractSPSSBasisState 
-                end
              
                 @testset "composite basis state constructors" begin
-#                     @test_nowarn SPSSCompositeBasisState(rand(10), getT2GBasisLS())
+                    @test_nowarn SPSSCompositeBasisState(rand(10), getT2GBasisLS())
                     @test typeof(SPSSCompositeBasisState(rand(10), getT2GBasisLS())) == SPSSCompositeBasisState{SPBasis{BasisStateLS}}
                     @test typeof(SPSSCompositeBasisState(rand(10), getT2GBasisLS())) <: SPSSCompositeBasisState
                         
@@ -24,20 +17,16 @@
                     @test typeof(SPMSCompositeBasisState(rand(10), getMultiSiteBasis(getT2GBasisLS(),3))) == SPMSCompositeBasisState{SPBasis{SPMSBasisState{BasisStateLS}}}
                     @test typeof(SPMSCompositeBasisState(rand(10), getMultiSiteBasis(getT2GBasisLS(),3))) <: SPMSCompositeBasisState
                 end
-                
-#                 @testset "multi-site basis state constructors" begin
-# #                     @test SPMSBasisState <: AbstractSPBasisState
-#                 end
             
             end #end Single-Particle Basis State Constructors
             
             
-#             @testset "Multi-Particle Basis State Constructors" begin
+            @testset "Multi-Particle Basis State Constructors" begin
                 
-# #                 @test MPBasisState <: AbstractBasisState
-# #                 @test MPBasis <: AbstractBasis
+                @test MPBasisState <: AbstractBasisState
+#                 @test MPBasis <: AbstractBasis
                 
-#             end
+            end
             
         end #end basis state constructors
             

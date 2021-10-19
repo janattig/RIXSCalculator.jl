@@ -102,7 +102,7 @@
                 @test AbstractSPHoppingOperator <: AbstractSPMSOperator{SPB} where SPB
                 
                 @test MPElectronPerkinsWoelfleHamiltonian <: AbstractMPInteractionHamiltonian{2, MPB} where MPB<:(MPBasis{N, SPBS} where {N, SPBS})
-                @test MPHolePerkinsWoelfleHamiltonian <: AbstractMPInteractionHamiltonian{2, MPB} where MPB<:(MPBasis{N, SPBS} where {N, SPBS})
+                @test MPHolePerkinsWoelfleHamiltonian <: AbstractMPInteractionHamiltonian{2, MPB} where MPB <:(MPBasis{N, SPBS} where {N, SPBS})
             end
             
             @testset "Projector Operator types" begin
