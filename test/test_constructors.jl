@@ -16,10 +16,10 @@
                 end
              
                 @testset "composite basis state constructors" begin
-                    @test_nowarn SPSSCompositeBasisState(rand(10), getT2GBasisLS())
+#                     @test_nowarn SPSSCompositeBasisState(rand(10), getT2GBasisLS())
                     @test typeof(SPSSCompositeBasisState(rand(10), getT2GBasisLS())) <: SPSSCompositeBasisState
                         
-                    @test_nowarn SPMSCompositeBasisState(rand(10), getMultiSiteBasis(getT2GBasisLS(),3))
+#                     @test_nowarn SPMSCompositeBasisState(rand(10), getMultiSiteBasis(getT2GBasisLS(),3))
                     @test typeof(SPMSCompositeBasisState(rand(10), getMultiSiteBasis(getT2GBasisLS(),3))) <: 
                 end
                 
