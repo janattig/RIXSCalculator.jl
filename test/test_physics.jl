@@ -126,6 +126,40 @@ end
             end
             
             
+            end # end BdotS only
+        
+        @testset "LdotS only" begin
+            
+            @testset "1h, 1s" begin
+               
+                h=1
+                s=1
+                lambda=3.0
+
+                # basis construction
+                basis_sp=getT2GBasisLS()        
+                basis_ms=getMultiSiteBasis(basis_sp,s)
+                basis_mp=getMultiParticleBasis(basis_ms,h)
+
+                # hamiltonian construction
+                hamiltonian=SpinOrbitOperator(basis_mp, 1, lambda)
+
+                # obtain eigensystem
+                es=eigensystem(hamiltonian)
+                es[:values]
+
+                # correct results:
+                E1=-lambda
+                E2=+lambda/2
+                energies=zeros(length(es[:values]))
+                energies[1:2]=E1*ones(2)
+                energies[3:6]=E2*ones(4)
+
+                #test
+                @test (es[:values]-energies)<1e-6*ones(length(es[:values]))
+                
+            end
+            
         end
     
     end
