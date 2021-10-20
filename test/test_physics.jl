@@ -70,21 +70,59 @@ end
                 # hamiltonian construction
                 hamiltonian=MagneticFieldOperator(basis_mp, 1, Bstr, Bdir)
 
+                # obtain eigensystem
+                es=eigensystem(hamiltonian)
+                es[:values]
+                
+                
                 # correct results:
-                E1=-1.0
+                E1=-Bstr
                 E2=0.0
-                E3=1.0
+                E3=Bstr
                 energies=zeros(15)
                 energies[1:3]=E1*ones(3)
                 energies[13:15]=E3*ones(3)
+
+                # test 
+                @test (es[:values]-energies)<1e-6*ones(15)
+                
+            end
+            
+            @testset "3h, 1s" begin
+               
+                h=3
+                s=1
+                Bstr=1.0
+                Bdir=generate_rvos()
+                B=Bstr*Bdir
+
+                # basis construction
+                basis_sp=getT2GBasisLS()        
+                basis_ms=getMultiSiteBasis(basis_sp,s)
+                basis_mp=getMultiParticleBasis(basis_ms,h)
+
+                # hamiltonian construction
+                hamiltonian=MagneticFieldOperator(basis_mp, 1, Bstr, Bdir)
 
                 # obtain eigensystem
                 es=eigensystem(hamiltonian)
                 es[:values]
 
+                # correct results:
+                E1=-3*Bstr/2
+                E2=-Bstr/2
+                E3= Bstr/2
+                E4=3*Bstr/2
+
+                energies=zeros(20)
+                energies[1]=E1
+                energies[2:10]=E2*ones(9)
+                energies[11:19]=E3*ones(9)
+                energies[20]=E4
+
                 # test 
-                @test (es[:values]-energies)<1e-6*ones(15)
-                
+                @test (es[:values]-energies)<1e-6*ones(20)
+
             end
             
             
