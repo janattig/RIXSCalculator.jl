@@ -17,6 +17,18 @@ function generate_rvos()
     return [x,y,z]
 end
 
+function theta(lambda, Delta)
+    return 0.5*atan( 2*sqrt(2)*lambda/(lambda-2*Delta) )
+end
+
+function ament_energies(lambda, Delta, theta)
+    Ef=lambda/( sqrt(2)*tan(theta) )
+    Eg=-Delta-lambda/2
+    Eh=-( lambda*tan(theta) )/sqrt(2)
+    # make sure to return sort(list)
+    return (Ef, Eg, Eh)
+end
+
 
 
 @testset "Physics tests" begin
@@ -260,15 +272,14 @@ end
     
     end
 
-
-    @testset "Eigenvector tests" begin
-        
-        
-        
-    end
     
     @testset "Literature tests" begin
         
+        @testset "Comparison with Ament, Khaliullin and van der Brink" begin
+            
+           
+            
+        end
         
         
     end
