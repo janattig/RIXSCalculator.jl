@@ -160,6 +160,39 @@ end
                 
             end
             
+            @testset "2h, 1s" begin
+                
+                h=2
+                s=1
+                lambda=3.0
+
+                # basis construction
+                basis_sp=getT2GBasisLS()        
+                basis_ms=getMultiSiteBasis(basis_sp,s)
+                basis_mp=getMultiParticleBasis(basis_ms,h)
+
+                # hamiltonian construction
+                hamiltonian=SpinOrbitOperator(basis_mp, 1, lambda)
+
+                # obtain eigensystem
+                es=eigensystem(hamiltonian)
+                es[:values]
+
+                # correct results:
+                E1=-2*lambda
+                E2=-lambda/2
+                E3=lambda
+
+                energies=zeros(length(es[:values]))
+                energies[1]=E1
+                energies[2:8]=E2*ones(7)
+                energies[9:15]=E3*ones(7)
+
+                #test
+                @test (es[:values]-energies)<1e-6*ones(length(es[:values])) 
+                
+            end
+            
         end
     
     end
