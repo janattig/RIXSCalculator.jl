@@ -1,5 +1,6 @@
 using RIXSCalculator
 using Test
+using LinearAlgebra
 
 @testset "RIXSCalculator.jl" begin
 
