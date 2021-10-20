@@ -277,7 +277,26 @@ end
         
         @testset "Comparison with Ament, Khaliullin and van der Brink" begin
             
-           
+            # choice of parameters
+            lambda=rand(-10.0:10.0)
+            Delta=rand(-10.0:10.0)
+
+            # basis construction
+            basis_sp=getT2GBasisXYZ()
+            basis_mp=getMultiParticleBasis(getMultiSiteBasis(basis_sp,1),1)
+
+            # hamiltonian construction
+            hamiltonian=DistortionOperator(basis_mp,1,Delta, [0,0,1]) + SpinOrbitOperator(basis_mp, 1, lambda)
+            es=eigensystem(hamiltonian)
+
+            # ament solution
+            energies=zeros(6)
+            energies[1:2]=ament_energies(-lambda, -Delta, theta(-lambda,-Delta))[1]*ones(2)
+            energies[3:4]=ament_energies(-lambda, -Delta, theta(-lambda,-Delta))[2]*ones(2)
+            energies[5:6]=ament_energies(-lambda, -Delta, theta(-lambda,-Delta))[3]*ones(2)
+
+            #test
+            @test (es[:values]-energies)<1e-6*ones(6)
             
         end
         
