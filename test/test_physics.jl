@@ -27,7 +27,7 @@ end
             
             @testset "1h, 1s" begin
                
-                h=2
+                h=1
                 s=1
                 Bstr=1.0
                 Bdir=generate_rvos()
@@ -53,6 +53,8 @@ end
                 @test (es[:values]-[E1,E1,E1,E2,E2,E2])<1e-6*ones(6)
                 
             end
+            
+            
             
         end
     
