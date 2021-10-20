@@ -162,6 +162,11 @@ end
                 # obtain eigensystem
                 es=eigensystem(hamiltonian)
                 es[:values]
+                
+                # consistency tests
+                @test size(matrix_representation(hamiltonian))==(6,6)
+                @test length(es[:values])==6
+                @test length(es[:vectors])==6
 
                 # correct results:
                 E1=-lambda
@@ -192,6 +197,11 @@ end
                 # obtain eigensystem
                 es=eigensystem(hamiltonian)
                 es[:values]
+                
+                # consistency tests
+                @test size(matrix_representation(hamiltonian))==(15,15)
+                @test length(es[:values])==15
+                @test length(es[:vectors])==15
 
                 # correct results:
                 E1=-2*lambda
@@ -202,6 +212,44 @@ end
                 energies[1]=E1
                 energies[2:8]=E2*ones(7)
                 energies[9:15]=E3*ones(7)
+
+                #test
+                @test (es[:values]-energies)<1e-6*ones(length(es[:values])) 
+                
+            end
+            
+            @testset "3h, 1s" begin
+                
+                h=3
+                s=1
+                lambda=3.0
+
+                # basis construction
+                basis_sp=getT2GBasisLS()        
+                basis_ms=getMultiSiteBasis(basis_sp,s)
+                basis_mp=getMultiParticleBasis(basis_ms,h)
+
+                # hamiltonian construction
+                hamiltonian=SpinOrbitOperator(basis_mp, 1, lambda)
+
+                # obtain eigensystem
+                es=eigensystem(hamiltonian)
+                es[:values]
+
+                # consistency tests
+                @test size(matrix_representation(hamiltonian))==(20,20)
+                @test length(es[:values])==20
+                @test length(es[:vectors])==20
+
+                # correct results:
+                E1=-3*lambda/2
+                E2=0.0
+                E3= 3*lambda/2
+
+                energies=zeros(length(es[:values]))
+                energies[1:4]=E1*ones(4)
+                energies[5:16]=E2*ones(12)
+                energies[17:20]=E3*ones(4)
 
                 #test
                 @test (es[:values]-energies)<1e-6*ones(length(es[:values])) 
