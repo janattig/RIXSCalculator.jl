@@ -21,7 +21,7 @@ end
 
 @testset "Physics tests" begin
     
-    @testset "Eigenvalue tests" begin
+    @testset "Sample system tests" begin
     
         @testset "BdotS only" begin
             
@@ -43,6 +43,10 @@ end
                 
                 # obtain eigensystem
                 es=eigensystem(hamiltonian)
+                
+                @test size(matrix_representation(hamiltonian))==(6,6)
+                @test length(es[:values])==6
+                @test length(es[:vectors])==6
                 
                 # correct results:
                 Epm=norm(B)/2
@@ -73,6 +77,12 @@ end
                 # obtain eigensystem
                 es=eigensystem(hamiltonian)
                 es[:values]
+                
+                
+                # consistency tests
+                @test size(matrix_representation(hamiltonian))==(15,15)
+                @test length(es[:values])==15
+                @test length(es[:vectors])==15
                 
                 
                 # correct results:
@@ -107,6 +117,11 @@ end
                 # obtain eigensystem
                 es=eigensystem(hamiltonian)
                 es[:values]
+                
+                # consistency tests
+                @test size(matrix_representation(hamiltonian))==(20,20)
+                @test length(es[:values])==20
+                @test length(es[:vectors])==20
 
                 # correct results:
                 E1=-3*Bstr/2
