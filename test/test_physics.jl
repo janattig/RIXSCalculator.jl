@@ -169,10 +169,9 @@
                 # basis construction
                 basis_sp=getT2GBasisLS()        
                 basis_ms=getMultiSiteBasis(basis_sp,s)
-                basis_mp=getMultiParticleBasis(basis_ms,h)
 
                 # hamiltonian construction
-                hamiltonian=MagneticFieldOperator(basis_mp, 1, Bstr, Bdir)
+                hamiltonian=MagneticFieldOperator(basis_ms, 1, Bstr, Bdir)
 
                 # obtain eigensystem
                 es=eigensystem(hamiltonian)
