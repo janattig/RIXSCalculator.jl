@@ -102,3 +102,5 @@ function generate_rvos()
     
     return [x,y,z]
 end
+
+export generate_rvos
