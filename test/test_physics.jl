@@ -434,6 +434,13 @@
             
             @testset "0h, 1s" begin
                 
+                # analytical results
+                E1h(U2) = 10*U2
+                E0h(U2)=15*U2
+                E2h_1(U2,J_H)=6*U2-J_H
+                E2h_0(U2,J_H)=6*U2+J_H
+                E2h_00(U2,J_H)=6*U2+4*J_H
+                
                 # parameters
                 h=0
                 s=1
