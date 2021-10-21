@@ -26,7 +26,7 @@ function ament_energies(lambda, Delta, theta)
     Eg=-Delta-lambda/2
     Eh=-( lambda*tan(theta) )/sqrt(2)
     # make sure to return sort(list)
-    return (Ef, Eg, Eh)
+    return sort([Ef,Eh,Eg])
 end
 
 
