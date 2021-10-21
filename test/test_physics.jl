@@ -9,37 +9,71 @@
         @testset "BdotS only" begin
             
             @testset "1h, 1s" begin
-               
-                h=1
-                s=1
-                Bstr=1.0
-                Bdir=generate_rvos()
-                B=Bstr*Bdir
                 
-                # basis construction
-                basis_sp=getT2GBasisLS()        
-                basis_ms=getMultiSiteBasis(basis_sp,s)
-                basis_mp=getMultiParticleBasis(basis_ms,h)
-                
-                # hamiltonian construction
-                hamiltonian=MagneticFieldOperator(basis_mp, 1, Bstr, Bdir)
-                
-                # obtain eigensystem
-                es=eigensystem(hamiltonian)
-                
-                @test size(matrix_representation(hamiltonian))==(6,6)
-                @test length(es[:values])==6
-                @test length(es[:vectors])==6
-                
-                # correct results:
-                Epm=norm(B)/2
-                E1=-Epm
-                E2=Epm
-                
-                #test
-                @test abs.(es[:values]-[E1,E1,E1,E2,E2,E2])<1e-6*ones(6)
-                
-            end
+                @testset "1h, 1s: single-particle picture" begin
+
+                    h=1
+                    s=1
+                    Bstr=1.0
+                    Bdir=generate_rvos()
+                    B=Bstr*Bdir
+
+                    # basis construction
+                    basis_sp=getT2GBasisLS()        
+
+                    # hamiltonian construction
+                    hamiltonian=MagneticFieldOperator(basis_sp, Bstr, Bdir)
+
+                    # obtain eigensystem
+                    es=eigensystem(hamiltonian)
+
+                    @test size(matrix_representation(hamiltonian))==(6,6)
+                    @test length(es[:values])==6
+                    @test length(es[:vectors])==6
+
+                    # correct results:
+                    Epm=norm(B)/2
+                    E1=-Epm
+                    E2=Epm
+
+                    #test
+                    @test abs.(es[:values]-[E1,E1,E1,E2,E2,E2])<1e-6*ones(6)
+
+                end
+
+                @testset "1h, 1s: multi-particle picture" begin
+
+                    h=1
+                    s=1
+                    Bstr=1.0
+                    Bdir=generate_rvos()
+                    B=Bstr*Bdir
+
+                    # basis construction
+                    basis_sp=getT2GBasisLS()        
+                    basis_ms=getMultiSiteBasis(basis_sp,s)
+                    basis_mp=getMultiParticleBasis(basis_ms,h)
+
+                    # hamiltonian construction
+                    hamiltonian=MagneticFieldOperator(basis_mp, 1, Bstr, Bdir)
+
+                    # obtain eigensystem
+                    es=eigensystem(hamiltonian)
+
+                    @test size(matrix_representation(hamiltonian))==(6,6)
+                    @test length(es[:values])==6
+                    @test length(es[:vectors])==6
+
+                    # correct results:
+                    Epm=norm(B)/2
+                    E1=-Epm
+                    E2=Epm
+
+                    #test
+                    @test abs.(es[:values]-[E1,E1,E1,E2,E2,E2])<1e-6*ones(6)
+
+                end
+            end # end 1h, 1s
             
             @testset "2h, 1s" begin
                
@@ -129,39 +163,75 @@
         @testset "LdotS only" begin
             
             @testset "1h, 1s" begin
-               
-                h=1
-                s=1
-                lambda=3.0
-
-                # basis construction
-                basis_sp=getT2GBasisLS()        
-                basis_ms=getMultiSiteBasis(basis_sp,s)
-                basis_mp=getMultiParticleBasis(basis_ms,h)
-
-                # hamiltonian construction
-                hamiltonian=SpinOrbitOperator(basis_mp, 1, lambda)
-
-                # obtain eigensystem
-                es=eigensystem(hamiltonian)
-                es[:values]
                 
-                # consistency tests
-                @test size(matrix_representation(hamiltonian))==(6,6)
-                @test length(es[:values])==6
-                @test length(es[:vectors])==6
+                @testset "1h, 1s: single-particle picture" begin
 
-                # correct results:
-                E1=-lambda
-                E2=+lambda/2
-                energies=zeros(length(es[:values]))
-                energies[1:2]=E1*ones(2)
-                energies[3:6]=E2*ones(4)
+                    h=1
+                    s=1
+                    lambda=3.0
 
-                #test
-                @test abs.(es[:values]-energies)<1e-6*ones(length(es[:values]))
-                
-            end
+                    # basis construction
+                    basis_sp=getT2GBasisLS()        
+
+                    # hamiltonian construction
+                    hamiltonian=SpinOrbitOperator(basis_sp, lambda)
+
+                    # obtain eigensystem
+                    es=eigensystem(hamiltonian)
+                    es[:values]
+
+                    # consistency tests
+                    @test size(matrix_representation(hamiltonian))==(6,6)
+                    @test length(es[:values])==6
+                    @test length(es[:vectors])==6
+
+                    # correct results:
+                    E1=-lambda
+                    E2=+lambda/2
+                    energies=zeros(length(es[:values]))
+                    energies[1:2]=E1*ones(2)
+                    energies[3:6]=E2*ones(4)
+
+                    #test
+                    @test abs.(es[:values]-energies)<1e-6*ones(length(es[:values]))
+
+                end
+
+                @testset "1h, 1s: multi-particle picture" begin
+
+                    h=1
+                    s=1
+                    lambda=3.0
+
+                    # basis construction
+                    basis_sp=getT2GBasisLS()        
+                    basis_ms=getMultiSiteBasis(basis_sp,s)
+                    basis_mp=getMultiParticleBasis(basis_ms,h)
+
+                    # hamiltonian construction
+                    hamiltonian=SpinOrbitOperator(basis_mp, 1, lambda)
+
+                    # obtain eigensystem
+                    es=eigensystem(hamiltonian)
+                    es[:values]
+
+                    # consistency tests
+                    @test size(matrix_representation(hamiltonian))==(6,6)
+                    @test length(es[:values])==6
+                    @test length(es[:vectors])==6
+
+                    # correct results:
+                    E1=-lambda
+                    E2=+lambda/2
+                    energies=zeros(length(es[:values]))
+                    energies[1:2]=E1*ones(2)
+                    energies[3:6]=E2*ones(4)
+
+                    #test
+                    @test abs.(es[:values]-energies)<1e-6*ones(length(es[:values]))
+
+                end
+            end # end 1h, 1s 
             
             @testset "2h, 1s" begin
                 
