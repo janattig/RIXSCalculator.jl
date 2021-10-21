@@ -73,6 +73,7 @@
                     @test abs.(es[:values]-[E1,E1,E1,E2,E2,E2])<1e-6*ones(6)
 
                 end
+                
             end # end 1h, 1s
             
             @testset "2h, 1s" begin
@@ -155,6 +156,40 @@
                 # test 
                 @test abs.(es[:values]-energies)<1e-6*ones(20)
 
+            end
+            
+            @testset "1h, 2s, BdotS on one site only" begin
+                
+                h=1
+                s=2
+                Bstr=1.0
+                Bdir=generate_rvos()
+                B=Bstr*Bdir
+
+                # basis construction
+                basis_sp=getT2GBasisLS()        
+                basis_ms=getMultiSiteBasis(basis_sp,s)
+                basis_mp=getMultiParticleBasis(basis_ms,h)
+
+                # hamiltonian construction
+                hamiltonian=MagneticFieldOperator(basis_mp, 1, Bstr, Bdir)
+
+                # obtain eigensystem
+                es=eigensystem(hamiltonian)
+
+                @test size(matrix_representation(hamiltonian))==(12,12)
+                @test length(es[:values])==12
+                @test length(es[:vectors])==12
+
+                # correct results:
+                energies=zeros(12)
+                energies[1:3]=-(Bstr/2)*ones(3)
+                energies[4:9]=zeros(6)
+                energies[10:12]=(Bstr/2)*ones(3)
+
+                # #test
+                @test abs.(es[:values]-energies)<1e-6*ones(12)
+                
             end
             
             
