@@ -343,6 +343,41 @@
                 
             end
             
+            @testset "1h, 2s: LdotS on one site only" begin
+                
+                h=1
+                s=2
+                lambda=3.0
+
+                # basis construction
+                basis_sp=getT2GBasisLS()        
+                basis_ms=getMultiSiteBasis(basis_sp,s)
+
+
+                # hamiltonian construction
+                hamiltonian=SpinOrbitOperator(basis_ms, 1, lambda) #+ SpinOrbitOperator(basis_ms, 2, lambda)
+
+                # obtain eigensystem
+                es=eigensystem(hamiltonian)
+
+                # consistency tests
+                @test size(matrix_representation(hamiltonian))==(12,12)
+                @test length(es[:values])==12
+                @test length(es[:vectors])==12
+
+                # correct results:
+                E1=-lambda
+                E2=+lambda/2
+                energies=zeros(12)
+                energies[1:2]=E1*ones(2)
+                energies[3:8]=zeros(6)
+                energies[9:12]=E2*ones(4)
+
+                #test
+                @test abs.(es[:values]-energies)<1e-6*ones(length(es[:values]))
+                
+            end
+            
         end
     
     end
