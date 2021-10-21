@@ -423,6 +423,106 @@
             
         end
         
+        @testset "Comparison with Perkins, Sizyuk and Woelfle" begin
+            
+            # analytical results
+            E1h(U2) = 10*U2
+            E0h(U2)=15*U2
+            E2h_1(U2,J_H)=6*U2-J_H
+            E2h_0(U2,J_H)=6*U2+J_H
+            E2h_00(U2,J_H)=6*U2+4*J_H
+            
+            @testset "0h, 1s" begin
+                
+                # parameters
+                h=0
+                s=1
+
+                U1=rand(-1.0:10.0)
+                J_H=rand(-1.0:10.0)
+                U2=U1-2*J_H
+
+                # basis construction
+                basis_sp=getT2GBasisXYZ()
+                basis_mp=getMultiParticleBasis(getMultiSiteBasis(basis_sp,s),h)
+
+                # hamiltonian construction
+                for i=1:s
+                    hamiltonian= MPHolePerkinsWoelfleHamiltonian(basis_mp, i, U1,U2,J_H)
+                end
+
+                # eigensystem
+                es=eigensystem(hamiltonian)
+                @test length(es[:values])==1
+    
+                @test abs(es[:values][1]-E0h(U2))<1e-6
+                
+            end
+            
+            @testset "1h, 1s" begin
+                
+                # parameters
+                h=1
+                s=1
+
+                U1=rand(-1.0:10.0)
+                J_H=rand(-1.0:10.0)
+                U2=U1-2*J_H
+
+                # basis construction
+                basis_sp=getT2GBasisXYZ()
+                basis_mp=getMultiParticleBasis(getMultiSiteBasis(basis_sp,s),h)
+
+                # hamiltonian construction
+                for i=1:s
+                    hamiltonian= MPHolePerkinsWoelfleHamiltonian(basis_mp, i, U1,U2,J_H)
+                end
+
+                # eigensystem
+                es=eigensystem(hamiltonian)
+                @test length(es[:values])==6
+    
+                @test abs.(es[:values]-E1h(U2)*ones(6))<1e-6*ones(6)
+                
+            end
+            
+            @testset "2h, 1s" begin
+                
+               # parameters
+                h=2
+                s=1
+
+                U1=rand(-1.0:10.0)
+                J_H=rand(-1.0:10.0)
+                U2=U1-2*J_H
+
+                # basis construction
+                basis_sp=getT2GBasisXYZ()
+                basis_mp=getMultiParticleBasis(getMultiSiteBasis(basis_sp,s),h)
+
+                # hamiltonian construction
+                for i=1:s
+                    hamiltonian= MPHolePerkinsWoelfleHamiltonian(basis_mp, i, U1,U2,J_H)
+                end
+
+                # eigensystem
+                es=eigensystem(hamiltonian) 
+                @test length(es[:values])==15
+                
+                # analytical solutions
+                energies=zeros(15)
+                energies[1:9]=E2h_1(U2,J_H)*ones(9)
+                energies[10:14]=E2h_0(U2,J_H)*ones(5)
+                energies[15]=E2h_00(U2,J_H)
+                
+                # test
+                @test abs.(es[:values]-energies)<1e-6*ones(15) 
+                
+            end
+            
+            
+        end
+        
         
     end
     
