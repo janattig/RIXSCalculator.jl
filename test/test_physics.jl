@@ -434,13 +434,6 @@
             
             @testset "0h, 1s" begin
                 
-                # analytical results
-                E1h(U2) = 10*U2
-                E0h(U2)=15*U2
-                E2h_1(U2,J_H)=6*U2-J_H
-                E2h_0(U2,J_H)=6*U2+J_H
-                E2h_00(U2,J_H)=6*U2+4*J_H
-                
                 # parameters
                 h=0
                 s=1
@@ -454,9 +447,7 @@
                 basis_mp=getMultiParticleBasis(getMultiSiteBasis(basis_sp,s),h)
 
                 # hamiltonian construction
-                for i=1:s
-                    hamiltonian= MPHolePerkinsWoelfleHamiltonian(basis_mp, i, U1,U2,J_H)
-                end
+                hamiltonian= MPHolePerkinsWoelfleHamiltonian(basis_mp, 1, U1,U2,J_H)
 
                 # eigensystem
                 es=eigensystem(hamiltonian)
@@ -481,9 +472,7 @@
                 basis_mp=getMultiParticleBasis(getMultiSiteBasis(basis_sp,s),h)
 
                 # hamiltonian construction
-                for i=1:s
-                    hamiltonian= MPHolePerkinsWoelfleHamiltonian(basis_mp, i, U1,U2,J_H)
-                end
+                hamiltonian= MPHolePerkinsWoelfleHamiltonian(basis_mp, 1, U1,U2,J_H)
 
                 # eigensystem
                 es=eigensystem(hamiltonian)
@@ -508,9 +497,7 @@
                 basis_mp=getMultiParticleBasis(getMultiSiteBasis(basis_sp,s),h)
 
                 # hamiltonian construction
-                for i=1:s
-                    hamiltonian= MPHolePerkinsWoelfleHamiltonian(basis_mp, i, U1,U2,J_H)
-                end
+                hamiltonian= MPHolePerkinsWoelfleHamiltonian(basis_mp, 1, U1,U2,J_H)
 
                 # eigensystem
                 es=eigensystem(hamiltonian) 
