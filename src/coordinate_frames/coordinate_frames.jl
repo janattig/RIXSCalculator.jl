@@ -86,3 +86,19 @@ function get_rotation_matrix(Vec :: Vector{<:Real}, Angle :: Real) :: Matrix{Flo
     return R
 end
 export get_rotation_matrix
+
+
+"""
+    generate_rvos()
+
+Generates a Random Vector On a Sphere.
+"""
+function generate_rvos()
+    theta=rand()*2*pi    #rand(Uniform(0.0,2*pi))
+    z=-1.0+2.0*rand()    #rand(Uniform(0.0,1.0))
+    
+    x=sqrt(1-z^2)*cos(theta)
+    y=sqrt(1-z^2)*sin(theta)
+    
+    return [x,y,z]
+end
