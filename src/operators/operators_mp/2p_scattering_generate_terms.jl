@@ -109,7 +109,7 @@ function generate2PScatteringHoleInteractionSpinFlip(basis :: MPB, site :: Int64
             # find scattering event 2
             for c in 1:length(sp_states)
             for d in 1:length(sp_states)
-                if sp_states[c].state.orbital == sp_states[d].state.orbital && sp_states[c].state.orbital != sp_states[b].state.orbital &&
+                if sp_states[c].state.orbital != sp_states[d].state.orbital && sp_states[c].state.orbital != sp_states[b].state.orbital &&
                     sp_states[c].state.ms < sp_states[d].state.ms && sp_states[c].state.ms == sp_states[b].state.ms
                     push!(op.interacting_orbitals, ((sp_state_indices[a],sp_state_indices[b]),(sp_state_indices[c],sp_state_indices[d])))
                 end

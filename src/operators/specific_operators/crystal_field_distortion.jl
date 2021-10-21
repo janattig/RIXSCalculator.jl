@@ -43,9 +43,9 @@ end
 
 # Custom constructor (without explicit matrix rep) separate strength and direction
 """
-    DistortionOperator(basis::SPB, 
-                       Delta::Real, 
-                       n::Vector{<:Real}=[0,0,1]) 
+    DistortionOperator(basis::SPB,
+                       Delta::Real,
+                       n::Vector{<:Real}=[0,0,1])
                        where {SPSSBS<:AbstractSPSSBasisState, SPB<:SPBasis{SPSSBS}}
 
 This function computes the matrix representation of the Crystal Distortion Operator projected over the given `basis`. The crystal distortion direction `n` is given as [0,0,1] by default.
@@ -253,7 +253,7 @@ function getMatrixElementLDotn(state_1::BasisStateLS, state_2::BasisStateLS, n::
     return (
           operatorLx(state_1.l, state_1.ml, state_2.ml) * n[1]
         + operatorLy(state_1.l, state_1.ml, state_2.ml) * n[2]
-        + operatorLz(state_1.l, state_1.ml, state_2.ml) * n[3]
+        + operatorLx(state_1.l, state_1.ml, state_2.ml) * n[3]
     ) * delta(state_1.l,state_2.l) * delta(state_1.s,state_2.s) * delta(state_1.ms,state_2.ms)
 end
 
