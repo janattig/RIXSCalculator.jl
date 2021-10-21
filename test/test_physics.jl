@@ -1,35 +1,6 @@
 # TEST FOR THE PHYSICS BEHIND THE CODE
 # it mainly tests eigenenergies with specific hamiltonians and consistency in various instances
 
-# Auxiliary functions:
-"""
-    generate_rvos()
-
-Generates a Random Vector On a Sphere.
-"""
-function generate_rvos()
-    theta=rand()*2*pi    #rand(Uniform(0.0,2*pi))
-    z=-1.0+2*rand()    #rand(Uniform(0.0,1.0))
-    
-    x=sqrt(1-z^2)*cos(theta)
-    y=sqrt(1-z^2)*sin(theta)
-    
-    return [x,y,z]
-end
-
-function theta(lambda, Delta)
-    return 0.5*atan( 2*sqrt(2)*lambda/(lambda-2*Delta) )
-end
-
-function ament_energies(lambda, Delta, theta)
-    Ef=lambda/( sqrt(2)*tan(theta) )
-    Eg=-Delta-lambda/2
-    Eh=-( lambda*tan(theta) )/sqrt(2)
-    # make sure to return sort(list)
-    return sort([Ef,Eh,Eg])
-end
-
-
 
 @testset "Physics tests" begin
     
@@ -276,6 +247,18 @@ end
     @testset "Literature tests" begin
         
         @testset "Comparison with Ament et al." begin #Khaliullin and van der Brink
+            
+            # auxiliary functions
+            function theta(lambda, Delta)
+                return 0.5*atan( 2*sqrt(2)*lambda/(lambda-2*Delta) )
+            end
+            function ament_energies(lambda, Delta, theta)
+                Ef=lambda/( sqrt(2)*tan(theta) )
+                Eg=-Delta-lambda/2
+                Eh=-( lambda*tan(theta) )/sqrt(2)
+                # make sure to return sort(list)
+                return sort([Ef,Eh,Eg])
+            end
             
             # choice of parameters
             lambda=rand(-10.0:10.0)
