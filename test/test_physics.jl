@@ -66,7 +66,7 @@ end
                 E2=Epm
                 
                 #test
-                @test (es[:values]-[E1,E1,E1,E2,E2,E2])<1e-6*ones(6)
+                @test abs.(es[:values]-[E1,E1,E1,E2,E2,E2])<1e-6*ones(6)
                 
             end
             
@@ -106,7 +106,7 @@ end
                 energies[13:15]=E3*ones(3)
 
                 # test 
-                @test (es[:values]-energies)<1e-6*ones(15)
+                @test abs.(es[:values]-energies)<1e-6*ones(15)
                 
             end
             
@@ -148,7 +148,7 @@ end
                 energies[20]=E4
 
                 # test 
-                @test (es[:values]-energies)<1e-6*ones(20)
+                @test abs.(es[:values]-energies)<1e-6*ones(20)
 
             end
             
@@ -188,7 +188,7 @@ end
                 energies[3:6]=E2*ones(4)
 
                 #test
-                @test (es[:values]-energies)<1e-6*ones(length(es[:values]))
+                @test abs.(es[:values]-energies)<1e-6*ones(length(es[:values]))
                 
             end
             
@@ -226,7 +226,7 @@ end
                 energies[9:15]=E3*ones(7)
 
                 #test
-                @test (es[:values]-energies)<1e-6*ones(length(es[:values])) 
+                @test abs.(es[:values]-energies)<1e-6*ones(length(es[:values])) 
                 
             end
             
@@ -264,7 +264,7 @@ end
                 energies[17:20]=E3*ones(4)
 
                 #test
-                @test (es[:values]-energies)<1e-6*ones(length(es[:values])) 
+                @test abs.(es[:values]-energies)<1e-6*ones(length(es[:values])) 
                 
             end
             
@@ -275,7 +275,7 @@ end
     
     @testset "Literature tests" begin
         
-        @testset "Comparison with Ament, Khaliullin and van der Brink" begin
+        @testset "Comparison with Ament et al." begin #Khaliullin and van der Brink
             
             # choice of parameters
             lambda=rand(-10.0:10.0)
@@ -286,17 +286,18 @@ end
             basis_mp=getMultiParticleBasis(getMultiSiteBasis(basis_sp,1),1)
 
             # hamiltonian construction
-            hamiltonian=DistortionOperator(basis_mp,1,Delta, [0,0,1]) + SpinOrbitOperator(basis_mp, 1, lambda)
+            hamiltonian=DistortionOperator(basis_mp,1,-Delta, [0,0,1]) + SpinOrbitOperator(basis_mp, 1, -lambda)
             es=eigensystem(hamiltonian)
 
             # ament solution
             energies=zeros(6)
-            energies[1:2]=ament_energies(-lambda, -Delta, theta(-lambda,-Delta))[1]*ones(2)
-            energies[3:4]=ament_energies(-lambda, -Delta, theta(-lambda,-Delta))[2]*ones(2)
-            energies[5:6]=ament_energies(-lambda, -Delta, theta(-lambda,-Delta))[3]*ones(2)
+            E1,E2,E3=ament_energies(lambda, Delta, theta(lambda,Delta))
+            energies[1:2]=E1*ones(2)
+            energies[3:4]=E2*ones(2)
+            energies[5:6]=E3*ones(2)
 
             #test
-            @test (es[:values]-energies)<1e-6*ones(6)
+            @test abs.(es[:values]-energies)<1e-6*ones(6)
             
         end
         
