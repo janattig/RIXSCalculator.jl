@@ -299,7 +299,7 @@ function getMatrixElementBDotS(state_1::BasisStateLS, state_2::BasisStateLS, B_d
     return (
         operatorSx(state_1.s, state_1.ms, state_2.ms) *  B_dir[1] +
         operatorSy(state_1.s, state_1.ms, state_2.ms) *  B_dir[2] +
-        operatorSz(state_1.s, state_1.ms, state_2.ms) *  B_dir[2]
+        operatorSz(state_1.s, state_1.ms, state_2.ms) *  B_dir[3]
     ) * delta(state_1.l,state_2.l) * delta(state_1.ml,state_2.ml) * delta(state_1.s,state_2.s)
 end
 # Term in L,S Basis
@@ -309,7 +309,7 @@ function getMatrixElementBDotS(state_1::BasisStateLS, state_2::BasisStateLS, B_d
     return (
         operatorSx(state_1.s, state_1.ms, state_2.ms, cf) *  B_dir[1] +
         operatorSy(state_1.s, state_1.ms, state_2.ms, cf) *  B_dir[2] +
-        operatorSz(state_1.s, state_1.ms, state_2.ms, cf) *  B_dir[2]
+        operatorSz(state_1.s, state_1.ms, state_2.ms, cf) *  B_dir[3]
     ) * delta(state_1.l,state_2.l) * delta(state_1.ml,state_2.ml) * delta(state_1.s,state_2.s)
 end
 
