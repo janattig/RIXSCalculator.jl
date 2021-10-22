@@ -253,7 +253,7 @@ function getMatrixElementLDotn(state_1::BasisStateLS, state_2::BasisStateLS, n::
     return (
           operatorLx(state_1.l, state_1.ml, state_2.ml) * n[1]
         + operatorLy(state_1.l, state_1.ml, state_2.ml) * n[2]
-        + operatorLx(state_1.l, state_1.ml, state_2.ml) * n[3]
+        + operatorLz(state_1.l, state_1.ml, state_2.ml) * n[3]
     ) * delta(state_1.l,state_2.l) * delta(state_1.s,state_2.s) * delta(state_1.ms,state_2.ms)
 end
 
