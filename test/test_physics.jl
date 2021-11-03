@@ -192,7 +192,7 @@
             end
             
             
-            end # end BdotS only
+        end # end BdotS only
         
         @testset "LdotS only" begin
             
@@ -378,7 +378,19 @@
                 
             end
             
-        end
+        end # end LdotS tests
+        
+        @testset "Hopping" begin
+            
+        
+            @testset "2s, 1h, multisite picture"
+            
+            
+            
+            end
+            
+            
+        end #end hopping tests
     
     end
 
