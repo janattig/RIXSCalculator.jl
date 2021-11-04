@@ -14,7 +14,7 @@
             SPO <: AbstractSPSSOperator{SPSSB_IN}
         } <: AbstractSPSSOperator{SPBasis{SPSSBS_OUT}}
 
-This object defines the local multi-site projector operator. This operator only act on a single site of many.
+This object defines the local multi-site projector operator. This operator only acts on a single site of many.
 
 # Fields
 
