@@ -380,19 +380,20 @@
             
         end # end LdotS tests
         
-        @testset "Hopping" begin
+#         @testset "Hopping" begin
             
         
-            @testset "2s, 1h, multisite picture"
+#             @testset "2s, 1h, multisite picture"
             
             
             
-            end
+#             end
             
             
-        end #end hopping tests
+#         end #end hopping tests
     
     end
+
 
     
     @testset "Literature tests" begin
