@@ -45,7 +45,7 @@ function overlap(state_1::BasisStateXYZ, state_2::BasisStateLS) :: Complex{Float
         # overlap with l=1 orbital
         return +1/sqrt(2.0) * (
               overlap(state_1, BasisStateXYZ(:x,state_2.ms))
-            + overlap(state_1, BasisStateXYZ(:y,state_2.ms))*im
+            - overlap(state_1, BasisStateXYZ(:y,state_2.ms))*im
                )
     elseif state_2.ml == 0
         # overlap with z orbital
