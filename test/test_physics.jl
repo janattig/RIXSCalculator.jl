@@ -568,7 +568,7 @@
                 basis_mp=getMultiParticleBasis(getMultiSiteBasis(basis_sp,s),e)
 
                 # hamiltonian construction
-                hamiltonian= MPHolePerkinsWoelfleHamiltonian(basis_mp, s, U1,U2,J_H)
+                hamiltonian= MPElectronPerkinsWoelfleHamiltonian(basis_mp, s, U1,U2,J_H)
 
                 # eigensystem
                 es=eigensystem(hamiltonian)
@@ -593,7 +593,7 @@
                 basis_mp=getMultiParticleBasis(getMultiSiteBasis(basis_sp,s),e)
 
                 # hamiltonian construction
-                hamiltonian= MPHolePerkinsWoelfleHamiltonian(basis_mp, s, U1,U2,J_H)
+                hamiltonian= MPElectronPerkinsWoelfleHamiltonian(basis_mp, s, U1,U2,J_H)
 
                 # eigensystem
                 es=eigensystem(hamiltonian) 
