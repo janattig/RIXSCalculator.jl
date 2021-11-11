@@ -234,7 +234,7 @@ function getMatrixElementLDotS(state_1::BasisStateLS, state_2::BasisStateLS) :: 
         operatorLx(state_1.l, state_1.ml, state_2.ml) * operatorSx(state_1.s, state_1.ms, state_2.ms) +
         operatorLy(state_1.l, state_1.ml, state_2.ml) * operatorSy(state_1.s, state_1.ms, state_2.ms) +
         operatorLz(state_1.l, state_1.ml, state_2.ml) * operatorSz(state_1.s, state_1.ms, state_2.ms)
-    ) * delta(state_1.l,state_1.l) * delta(state_1.s,state_2.s)
+    ) * delta(state_1.l,state_2.l) * delta(state_1.s,state_2.s)
 end
 
 # Term in L,S Basis
