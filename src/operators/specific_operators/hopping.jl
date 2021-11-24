@@ -27,7 +27,7 @@ The object defines the single particle orbital hopping operator.
 """
 mutable struct SPOrbitalHoppingOperator{
         SPMSB <: SPBasis{SPMSBS} where {
-SPMSBS<:Union{SPMSBasisState{SPSSBS} where SPSSBS <: AbstractSPSSBasisState, DelocalizedBasisStateXYZ <: AbstractSPBasisState} 
+SPMSBS<:Union{SPMSBasisState{SPSSBS} where SPSSBS <: AbstractSPSSBasisState, DelocalizedBasisStateXYZ} 
                                         }
                                         } <: AbstractSPHoppingOperator{SPMSB}
 
