@@ -229,8 +229,8 @@ This object defines the local multi-site operator.
 
 """
 mutable struct SPMSProjectorOperator{
-        SPMSB_IN   <: SPBasis{SPMSBS_IN} where {SPMSBS_IN<:Union{SPMSBasisState{BS} where BS, SPMSCompositeBasisState{B} where B}},
-        SPMSB_OUT  <: SPBasis{SPMSBS_OUT} where {SPMSBS_OUT<:Union{SPMSBasisState{BS} where BS, SPMSCompositeBasisState{B} where B}},
+        SPMSB_IN   <: SPBasis{SPMSBS_IN} where {SPMSBS_IN<:Union{SPMSBasisState{BS} where BS, SPMSCompositeBasisState{B} where B, DelocalizedBasisStateXYZ}},
+        SPMSB_OUT  <: SPBasis{SPMSBS_OUT} where {SPMSBS_OUT<:Union{SPMSBasisState{BS} where BS, SPMSCompositeBasisState{B} where B, DelocalizedBasisStateXYZ}},
         SPO <: AbstractSPMSOperator{SPMSB_IN}
     } <: AbstractSPMSOperator{SPMSB_OUT}
 
@@ -246,8 +246,8 @@ mutable struct SPMSProjectorOperator{
 
     # custom constructor
     function SPMSProjectorOperator(operator :: SPO, basis_to :: SPMSB_OUT) where {
-                SPMSB_IN   <: SPBasis{SPMSBS_IN} where {SPMSBS_IN<:Union{SPMSBasisState{BS} where BS, SPMSCompositeBasisState{B} where B}},
-                SPMSB_OUT  <: SPBasis{SPMSBS_OUT} where {SPMSBS_OUT<:Union{SPMSBasisState{BS} where BS, SPMSCompositeBasisState{B} where B}},
+                SPMSB_IN   <: SPBasis{SPMSBS_IN} where {SPMSBS_IN<:Union{SPMSBasisState{BS} where BS, SPMSCompositeBasisState{B} where B, DelocalizedBasisStateXYZ}},
+                SPMSB_OUT  <: SPBasis{SPMSBS_OUT} where {SPMSBS_OUT<:Union{SPMSBasisState{BS} where BS, SPMSCompositeBasisState{B} where B, DelocalizedBasisStateXYZ}},
                 SPO <: AbstractSPMSOperator{SPMSB_IN}
             }
         # create a new operator
@@ -265,8 +265,8 @@ export  SPMSProjectorOperator
 
 
 function ProjectorOperator(operator :: SPO, basis_to :: SPMSB_OUT) where {
-            SPMSB_IN   <: SPBasis{SPMSBS_IN} where {SPMSBS_IN<:Union{SPMSBasisState{BS} where BS, SPMSCompositeBasisState{B} where B}},
-            SPMSB_OUT  <: SPBasis{SPMSBS_OUT} where {SPMSBS_OUT<:Union{SPMSBasisState{BS} where BS, SPMSCompositeBasisState{B} where B}},
+            SPMSB_IN   <: SPBasis{SPMSBS_IN} where {SPMSBS_IN<:Union{SPMSBasisState{BS} where BS, SPMSCompositeBasisState{B} where B, DelocalizedBasisStateXYZ}},
+            SPMSB_OUT  <: SPBasis{SPMSBS_OUT} where {SPMSBS_OUT<:Union{SPMSBasisState{BS} where BS, SPMSCompositeBasisState{B} where B, DelocalizedBasisStateXYZ}},
             SPO <: AbstractSPMSOperator{SPMSB_IN}
         }
 
@@ -280,8 +280,8 @@ export ProjectorOperator
 # overwritten show function
 import Base.show
 function Base.show(io::IO, op::OP) where {
-            SPMSB_IN   <: SPBasis{SPMSBS_IN} where {SPMSBS_IN<:Union{SPMSBasisState{BS} where BS, SPMSCompositeBasisState{B} where B}},
-            SPMSB_OUT  <: SPBasis{SPMSBS_OUT} where {SPMSBS_OUT<:Union{SPMSBasisState{BS} where BS, SPMSCompositeBasisState{B} where B}},
+            SPMSB_IN   <: SPBasis{SPMSBS_IN} where {SPMSBS_IN<:Union{SPMSBasisState{BS} where BS, SPMSCompositeBasisState{B} where B, DelocalizedBasisStateXYZ}},
+            SPMSB_OUT  <: SPBasis{SPMSBS_OUT} where {SPMSBS_OUT<:Union{SPMSBasisState{BS} where BS, SPMSCompositeBasisState{B} where B, DelocalizedBasisStateXYZ}},
             SPO <: AbstractSPMSOperator{SPMSB_IN},
             OP <: SPMSProjectorOperator{SPMSB_IN,SPMSB_OUT, SPO}
         }
@@ -302,8 +302,8 @@ end
 
 # obtain the current basis
 function basis(operator :: SPMSProjectorOperator{SPMSB_IN,SPMSB_OUT, SPO}) :: SPMSB_OUT  where {
-            SPMSB_IN   <: SPBasis{SPMSBS_IN} where {SPMSBS_IN<:Union{SPMSBasisState{BS} where BS, SPMSCompositeBasisState{B} where B}},
-            SPMSB_OUT  <: SPBasis{SPMSBS_OUT} where {SPMSBS_OUT<:Union{SPMSBasisState{BS} where BS, SPMSCompositeBasisState{B} where B}},
+            SPMSB_IN   <: SPBasis{SPMSBS_IN} where {SPMSBS_IN<:Union{SPMSBasisState{BS} where BS, SPMSCompositeBasisState{B} where B, DelocalizedBasisStateXYZ}},
+            SPMSB_OUT  <: SPBasis{SPMSBS_OUT} where {SPMSBS_OUT<:Union{SPMSBasisState{BS} where BS, SPMSCompositeBasisState{B} where B, DelocalizedBasisStateXYZ}},
             SPO <: AbstractSPMSOperator{SPMSB_IN}
         }
     return operator.basis
@@ -311,8 +311,8 @@ end
 
 # obtain the matrix representation
 function matrix_representation(operator :: SPMSProjectorOperator{SPMSB_IN,SPMSB_OUT, SPO}) :: Matrix{Complex{Float64}}  where {
-            SPMSB_IN   <: SPBasis{SPMSBS_IN} where {SPMSBS_IN<:Union{SPMSBasisState{BS} where BS, SPMSCompositeBasisState{B} where B}},
-            SPMSB_OUT  <: SPBasis{SPMSBS_OUT} where {SPMSBS_OUT<:Union{SPMSBasisState{BS} where BS, SPMSCompositeBasisState{B} where B}},
+            SPMSB_IN   <: SPBasis{SPMSBS_IN} where {SPMSBS_IN<:Union{SPMSBasisState{BS} where BS, SPMSCompositeBasisState{B} where B, DelocalizedBasisStateXYZ}},
+            SPMSB_OUT  <: SPBasis{SPMSBS_OUT} where {SPMSBS_OUT<:Union{SPMSBasisState{BS} where BS, SPMSCompositeBasisState{B} where B, DelocalizedBasisStateXYZ}},
             SPO <: AbstractSPMSOperator{SPMSB_IN}
         }
     return operator.matrix_rep
@@ -320,8 +320,8 @@ end
 
 # possibly recalculate the matrix representation
 function recalculate!(operator :: SPMSProjectorOperator{SPMSB_IN,SPMSB_OUT, SPO}, recursive::Bool=true, basis_change::Bool=true) where {
-            SPMSB_IN   <: SPBasis{SPMSBS_IN} where {SPMSBS_IN<:Union{SPMSBasisState{BS} where BS, SPMSCompositeBasisState{B} where B}},
-            SPMSB_OUT  <: SPBasis{SPMSBS_OUT} where {SPMSBS_OUT<:Union{SPMSBasisState{BS} where BS, SPMSCompositeBasisState{B} where B}},
+            SPMSB_IN   <: SPBasis{SPMSBS_IN} where {SPMSBS_IN<:Union{SPMSBasisState{BS} where BS, SPMSCompositeBasisState{B} where B, DelocalizedBasisStateXYZ}},
+            SPMSB_OUT  <: SPBasis{SPMSBS_OUT} where {SPMSBS_OUT<:Union{SPMSBasisState{BS} where BS, SPMSCompositeBasisState{B} where B, DelocalizedBasisStateXYZ}},
             SPO <: AbstractSPMSOperator{SPMSB_IN}
         }
     # maybe recalculate the inner operator
@@ -340,8 +340,8 @@ end
 
 # set a parameter (returns (found parameter?, changed matrix?))
 function set_parameter!(operator :: SPMSProjectorOperator{SPMSB_IN,SPMSB_OUT, SPO}, parameter :: Symbol, value; print_result::Bool=false, recalculate::Bool=true, kwargs...) where {
-            SPMSB_IN   <: SPBasis{SPMSBS_IN} where {SPMSBS_IN<:Union{SPMSBasisState{BS} where BS, SPMSCompositeBasisState{B} where B}},
-            SPMSB_OUT  <: SPBasis{SPMSBS_OUT} where {SPMSBS_OUT<:Union{SPMSBasisState{BS} where BS, SPMSCompositeBasisState{B} where B}},
+            SPMSB_IN   <: SPBasis{SPMSBS_IN} where {SPMSBS_IN<:Union{SPMSBasisState{BS} where BS, SPMSCompositeBasisState{B} where B, DelocalizedBasisStateXYZ}},
+            SPMSB_OUT  <: SPBasis{SPMSBS_OUT} where {SPMSBS_OUT<:Union{SPMSBasisState{BS} where BS, SPMSCompositeBasisState{B} where B, DelocalizedBasisStateXYZ}},
             SPO <: AbstractSPMSOperator{SPMSB_IN}
         }
     # pass to inner operator
@@ -356,8 +356,8 @@ end
 
 # get a parameter (returns (parameter value or nothing))
 function get_parameter(operator :: SPMSProjectorOperator{SPMSB_IN,SPMSB_OUT, SPO}, parameter :: Symbol; print_result::Bool=false, kwargs...) where {
-            SPMSB_IN   <: SPBasis{SPMSBS_IN} where {SPMSBS_IN<:Union{SPMSBasisState{BS} where BS, SPMSCompositeBasisState{B} where B}},
-            SPMSB_OUT  <: SPBasis{SPMSBS_OUT} where {SPMSBS_OUT<:Union{SPMSBasisState{BS} where BS, SPMSCompositeBasisState{B} where B}},
+            SPMSB_IN   <: SPBasis{SPMSBS_IN} where {SPMSBS_IN<:Union{SPMSBasisState{BS} where BS, SPMSCompositeBasisState{B} where B, DelocalizedBasisStateXYZ}},
+            SPMSB_OUT  <: SPBasis{SPMSBS_OUT} where {SPMSBS_OUT<:Union{SPMSBasisState{BS} where BS, SPMSCompositeBasisState{B} where B, DelocalizedBasisStateXYZ}},
             SPO <: AbstractSPMSOperator{SPMSB_IN}
         }
     # check if parameter can be set
@@ -366,8 +366,8 @@ end
 
 # get a list of parameters
 function get_parameters(operator :: SPMSProjectorOperator{SPMSB_IN,SPMSB_OUT, SPO}; kwargs...) where {
-            SPMSB_IN   <: SPBasis{SPMSBS_IN} where {SPMSBS_IN<:Union{SPMSBasisState{BS} where BS, SPMSCompositeBasisState{B} where B}},
-            SPMSB_OUT  <: SPBasis{SPMSBS_OUT} where {SPMSBS_OUT<:Union{SPMSBasisState{BS} where BS, SPMSCompositeBasisState{B} where B}},
+            SPMSB_IN   <: SPBasis{SPMSBS_IN} where {SPMSBS_IN<:Union{SPMSBasisState{BS} where BS, SPMSCompositeBasisState{B} where B, DelocalizedBasisStateXYZ}},
+            SPMSB_OUT  <: SPBasis{SPMSBS_OUT} where {SPMSBS_OUT<:Union{SPMSBasisState{BS} where BS, SPMSCompositeBasisState{B} where B, DelocalizedBasisStateXYZ}},
             SPO <: AbstractSPMSOperator{SPMSB_IN}
         }
     return get_parameters(operator.operator; kwargs...)
