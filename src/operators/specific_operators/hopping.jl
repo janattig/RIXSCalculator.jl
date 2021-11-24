@@ -58,7 +58,19 @@ SPMSBS<:Union{SPMSBasisState{SPSSBS} where SPSSBS <: AbstractSPSSBasisState, Del
     end
 end
 
-
+function SPOrbitalHoppingOperator(basis :: SPMSB) where { 
+    SPMSBS <: DelocalizedBasisStateXYZ, 
+    SPMSB <: SPBasis{SPMSBS}}
+        # create a new operator
+        basis_internal = getMultiSiteBasis(getT2GBasisXYZ(),2)
+        op = SPOrbitalHoppingOperator(basis_internal)
+        # recalculate the matrix representation
+        recalculate!(op)
+        # build a projection operator around it
+        op_proj = SPMSProjectorOperator(op, basis)
+        # return the operator
+        return op_proj
+    end
 
 
 
