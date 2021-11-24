@@ -213,8 +213,8 @@ end
 # Type definition of local MS operators (SPSS operator only acting on a single site of many)
 """
     mutable struct SPMSProjectorOperator{
-            SPMSB_IN   <: SPBasis{SPMSBS_IN} where {SPMSBS_IN<:Union{SPMSBasisState{BS} where BS, SPMSCompositeBasisState{B} where B}},
-            SPMSB_OUT  <: SPBasis{SPMSBS_OUT} where {SPMSBS_OUT<:Union{SPMSBasisState{BS} where BS, SPMSCompositeBasisState{B} where B}},
+            SPMSB_IN   <: SPBasis{SPMSBS_IN} where {SPMSBS_IN<:Union{SPMSBasisState{BS} where BS, SPMSCompositeBasisState{B} where B, DelocalizedBasisStateXYZ}},
+            SPMSB_OUT  <: SPBasis{SPMSBS_OUT} where {SPMSBS_OUT<:Union{SPMSBasisState{BS} where BS, SPMSCompositeBasisState{B} where B, DelocalizedBasisStateXYZ}},
             SPO <: AbstractSPMSOperator{SPMSB_IN}
         } <: AbstractSPMSOperator{SPMSB_OUT}
 
