@@ -272,3 +272,34 @@ function overlap(state_1 :: SPMSCompositeBasisState{<:SPBasis{<:SPMSBasisState{S
     # return the overlap
     return ovl
 end
+
+
+
+######################################
+#  Delocalized Basis State overlaps  #
+######################################
+
+function overlap(state_1 :: DelocalizedBasisStateXYZ, state_2 :: DelocalizedBasisStateXYZ) :: Complex{Float64}
+    
+    # default diagonal overlap, check if the two states are identical in every field
+    if state_1 == state_2
+        return 1.0
+    else
+        return 0.0
+    end
+    
+end
+
+function overlap(state_1 :: SPMSBasisState{BasisStateXYZ}, state_2 :: DelocalizedBasisStateXYZ) :: Complex{Float64}
+    
+    if state_1.state.orbital == state_2.orbital && state_1.state.ms==state_2.ms
+
+        return 1.0*(-1.0)^(state_1.site!=1)
+        
+    else
+        return 0.0
+    end
+end
+function overlap(state_1 :: DelocalizedBasisStateXYZ, state_2 :: SPMSBasisState{BasisStateXYZ}) :: Complex{Float64}
+    return overlap(state_2,state_1)'
+end
