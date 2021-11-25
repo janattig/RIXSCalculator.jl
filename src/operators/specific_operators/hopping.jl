@@ -287,19 +287,22 @@ end
 
 # overwrite all add_hopping functions
 
-function add_hopping!(operator :: SPMSProjectorOperator{SPMSB_IN, SPMSB_OUT, SPO}, args...) where {SPMSBS <: DelocalizedBasisStateXYZ, SPMSB <: SPBasis{SPMSBS}, SPOHO<:SPOrbitalHoppingOperator{SPMSB}, N,MPB<:MPBasis{N,SPMSBasisState{SPSSBS}}}
+# add_hopping! for DelocalizedBasisState
+
+function add_hopping!(operator :: SPMSProjectorOperator{SPMSB_IN, SPMSB_OUT, SPO}, args...) where {SPMSBS <: DelocalizedBasisStateXYZ, SPMSB_IN<: SPBasis{SPMSBS}, SPMSB_OUT<: SPBasis{SPMSBS}, SPO}
     # pass further into the hopping operator
     add_hopping!(operator.operator, args...)
     # return nothing
     return nothing
 end
-function add_diagonal_hopping!(operator :: MPGeneralizedSPOperator{SPMSBS, MPB, SPOHO}, args...) where {SPSSBS <: AbstractSPSSBasisState, SPMSBS <: Union{SPMSBasisState{SPSSBS}, DelocalizedBasisStateXYZ}, SPMSB <: SPBasis{SPMSBS}, SPOHO<:SPOrbitalHoppingOperator{SPMSB}, N,MPB<:MPBasis{N,SPMSBasisState{SPSSBS}}}
+function add_diagonal_hopping!(operator :: SPMSProjectorOperator{SPMSB_IN, SPMSB_OUT, SPO}, args...) where {SPMSBS <: DelocalizedBasisStateXYZ, SPMSB_IN<: SPBasis{SPMSBS}, SPMSB_OUT<: SPBasis{SPMSBS}, SPO}
     # pass further into the hopping operator
     add_diagonal_hopping!(operator.operator, args...)
     # return nothing
     return nothing
 end
 
+# add_hopping! for MPGeneralizedSPOperator
 
 function add_hopping!(operator :: MPGeneralizedSPOperator{SPMSBS, MPB, SPOHO}, args...) where {SPSSBS <: AbstractSPSSBasisState, SPMSBS <: Union{SPMSBasisState{SPSSBS}, DelocalizedBasisStateXYZ}, SPMSB <: SPBasis{SPMSBS}, SPOHO<:SPOrbitalHoppingOperator{SPMSB}, N,MPB<:MPBasis{N,SPMSBasisState{SPSSBS}}}
     # pass further into the hopping operator
