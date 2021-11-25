@@ -16,9 +16,7 @@ export AbstractSPHoppingOperator
     mutable struct SPOrbitalHoppingOperator{
             SPMSB <: SPBasis{SPMSBS} where {SPMSBS<:SPMSBasisState{SPSSBS} where SPSSBS <: AbstractSPSSBasisState}
         } <: AbstractSPHoppingOperator{SPMSB}
-
 The object defines the single particle orbital hopping operator.
-
 # Fields
 - `basis :: SPMSB`, the single-particle multi-site basis;
 - `hopping_processes :: Vector{Tuple{Int64, Int64, Symbol}}`, the list of hopping orbitals;
@@ -26,10 +24,8 @@ The object defines the single particle orbital hopping operator.
 - `matrix_rep :: Matrix{Complex{Float64}}`, the matrix representation.
 """
 mutable struct SPOrbitalHoppingOperator{
-        SPMSB <: SPBasis{SPMSBS} where {
-SPMSBS<:Union{SPMSBasisState{SPSSBS} where SPSSBS <: AbstractSPSSBasisState, DelocalizedBasisStateXYZ} 
-                                        }
-                                        } <: AbstractSPHoppingOperator{SPMSB}
+        SPMSB <: SPBasis{SPMSBS} where {SPMSBS<:SPMSBasisState{SPSSBS} where SPSSBS <: AbstractSPSSBasisState}
+    } <: AbstractSPHoppingOperator{SPMSB}
 
     # the MS basis
     basis :: SPMSB
@@ -42,21 +38,16 @@ SPMSBS<:Union{SPMSBasisState{SPSSBS} where SPSSBS <: AbstractSPSSBasisState, Del
     matrix_rep :: Matrix{Complex{Float64}}
 
     # custom constructor
-    function SPOrbitalHoppingOperator(basis :: SPMSB) where {SPSSBS <: AbstractSPSSBasisState, 
-    SPMSBS <: Union{SPMSBasisState{SPSSBS},DelocalizedBasisStateXYZ}, 
-    SPMSB <: SPBasis{SPMSBS}}
+    function SPOrbitalHoppingOperator(basis :: SPMSB) where {SPSSBS <: AbstractSPSSBasisState, SPMSBS <: SPMSBasisState{SPSSBS}, SPMSB <: SPBasis{SPMSBS}}
         # create a new operator
-        basis_internal = getMultiSiteBasis(getT2GBasisXYZ(),2)
-        op = new{SPMSB}(basis_internal, Tuple{Int64, Int64, Symbol}[], 
-            Dict{Symbol, Complex{Float64}}(), zeros(Complex{Float64}, length(basis_internal), length(basis_internal)))
+        op = new{SPMSB}(basis, Tuple{Int64, Int64, Symbol}[], Dict{Symbol, Complex{Float64}}(), zeros(Complex{Float64}, length(basis), length(basis)))
         # recalculate the matrix representation
         recalculate!(op)
-        # build a projection operator around it
-        op_proj = SPMSProjectorOperator(op, basis)
         # return the operator
-        return op_proj
+        return op
     end
 end
+
 
 function SPOrbitalHoppingOperator(basis :: SPMSB) where { 
     SPMSBS <: DelocalizedBasisStateXYZ, 
