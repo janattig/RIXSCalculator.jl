@@ -289,13 +289,13 @@ end
 
 # add_hopping! for DelocalizedBasisState
 
-function add_hopping!(operator :: SPMSProjectorOperator{SPMSB_IN, SPMSB_OUT, SPO}, args...) where {SPMSBS <: DelocalizedBasisStateXYZ, SPMSB_IN<: SPBasis{SPMSBS}, SPMSB_OUT<: SPBasis{SPMSBS}, SPO}
+function add_hopping!(operator :: SPMSProjectorOperator{SPMSB_IN, SPMSB_OUT, SPO}, args...) where {SPSSBS <: AbstractSPSSBasisState, SPMSBS <: Union{SPMSBasisState{SPSSBS}, DelocalizedBasisStateXYZ}, SPMSB_IN<: SPBasis{SPMSBS}, SPMSB_OUT<: SPBasis{SPMSBS}, SPO}
     # pass further into the hopping operator
     add_hopping!(operator.operator, args...)
     # return nothing
     return nothing
 end
-function add_diagonal_hopping!(operator :: SPMSProjectorOperator{SPMSB_IN, SPMSB_OUT, SPO}, args...) where {SPMSBS <: DelocalizedBasisStateXYZ, SPMSB_IN<: SPBasis{SPMSBS}, SPMSB_OUT<: SPBasis{SPMSBS}, SPO}
+function add_diagonal_hopping!(operator :: SPMSProjectorOperator{SPMSB_IN, SPMSB_OUT, SPO}, args...) where {SPSSBS <: AbstractSPSSBasisState, SPMSBS <: Union{SPMSBasisState{SPSSBS}, DelocalizedBasisStateXYZ}, SPMSB_IN<: SPBasis{SPMSBS}, SPMSB_OUT<: SPBasis{SPMSBS}, SPO}
     # pass further into the hopping operator
     add_diagonal_hopping!(operator.operator, args...)
     # return nothing
