@@ -1,6 +1,6 @@
 # abstract operator super type to all SP MS operators
 abstract type AbstractSPMSOperator{
-        SPB <: SPBasis{SPMSBS} where {SPMSBS<:Union{SPMSBasisState{SPSSBS} where SPSSBS, SPMSCompositeBasisState{B} where B}}
+        SPB <: SPBasis{SPMSBS} where {SPMSBS<:Union{SPMSBasisState{SPSSBS} where SPSSBS, SPMSCompositeBasisState{B} where B, DelocalizedBasisStateXYZ}}
 } <: AbstractSPOperator{SPB} end
 export AbstractSPMSOperator
 
