@@ -188,7 +188,7 @@ end
 ################################################################################
 
 # add hopping from one orbital to another
-function add_hopping!(operator :: SPOrbitalHoppingOperator{SPMSB}, state_1 :: Int64, state_2 :: Int64, coupling :: Symbol) where {SPSSBS <: AbstractSPSSBasisState, SPMSBS <: Union{SPMSBasisState{SPSSBS}, DelocalizedBasisStateXYZ}, SPMSB <: SPBasis{SPMSBS}}
+function add_hopping!(operator :: SPOrbitalHoppingOperator{SPMSB}, state_1 :: Int64, state_2 :: Int64, coupling :: Symbol) where {SPSSBS <: AbstractSPSSBasisState, SPMSBS <: Union{SPMSBasisState{SPSSBS}}, SPMSB <: SPBasis{SPMSBS}}
     # push into the respective lists
     push!(operator.hopping_processes, (state_1, state_2, coupling))
     if !(coupling in keys(operator.hopping_strengths))
@@ -197,7 +197,7 @@ function add_hopping!(operator :: SPOrbitalHoppingOperator{SPMSB}, state_1 :: In
     # return nothing
     return nothing
 end
-function add_hopping!(operator :: SPOrbitalHoppingOperator{SPMSB}, state_1 :: Int64, state_2 :: Int64, coupling :: Symbol, value :: Number) where {SPSSBS <: AbstractSPSSBasisState, SPMSBS <: Union{SPMSBasisState{SPSSBS}, DelocalizedBasisStateXYZ}, SPMSB <: SPBasis{SPMSBS}}
+function add_hopping!(operator :: SPOrbitalHoppingOperator{SPMSB}, state_1 :: Int64, state_2 :: Int64, coupling :: Symbol, value :: Number) where {SPSSBS <: AbstractSPSSBasisState, SPMSBS <: Union{SPMSBasisState{SPSSBS}}, SPMSB <: SPBasis{SPMSBS}}
     # push into the respective lists
     add_hopping!(operator, state_1, state_2, coupling)
     operator.hopping_strengths[coupling] = value
@@ -206,7 +206,7 @@ function add_hopping!(operator :: SPOrbitalHoppingOperator{SPMSB}, state_1 :: In
 end
 
 # add hopping from one orbital to another by specifying sites explicitly
-function add_hopping!(operator :: SPOrbitalHoppingOperator{SPMSB}, state_1 :: Int64, site_1 :: Int64, state_2 :: Int64, site_2 :: Int64, coupling :: Symbol) where {SPSSBS <: AbstractSPSSBasisState, SPMSBS <: Union{SPMSBasisState{SPSSBS}, DelocalizedBasisStateXYZ}, SPMSB <: SPBasis{SPMSBS}}
+function add_hopping!(operator :: SPOrbitalHoppingOperator{SPMSB}, state_1 :: Int64, site_1 :: Int64, state_2 :: Int64, site_2 :: Int64, coupling :: Symbol) where {SPSSBS <: AbstractSPSSBasisState, SPMSBS <: Union{SPMSBasisState{SPSSBS}}, SPMSB <: SPBasis{SPMSBS}}
     # find the respective index
     state_1_ms = 0
     for j in 1:length(basis(operator))
@@ -231,7 +231,7 @@ function add_hopping!(operator :: SPOrbitalHoppingOperator{SPMSB}, state_1 :: In
     # add the hopping
     add_hopping!(operator, state_1_ms, state_2_ms, coupling)
 end
-function add_hopping!(operator :: SPOrbitalHoppingOperator{SPMSB}, state_1 :: Int64, site_1 :: Int64, state_2 :: Int64, site_2 :: Int64, coupling :: Symbol, value :: Number) where {SPSSBS <: AbstractSPSSBasisState, SPMSBS <: Union{SPMSBasisState{SPSSBS}, DelocalizedBasisStateXYZ}, SPMSB <: SPBasis{SPMSBS}}
+function add_hopping!(operator :: SPOrbitalHoppingOperator{SPMSB}, state_1 :: Int64, site_1 :: Int64, state_2 :: Int64, site_2 :: Int64, coupling :: Symbol, value :: Number) where {SPSSBS <: AbstractSPSSBasisState, SPMSBS <: Union{SPMSBasisState{SPSSBS}}, SPMSB <: SPBasis{SPMSBS}}
     # push into the respective lists
     add_hopping!(operator, state_1, site_1, state_2, site_2, coupling)
     operator.hopping_strengths[coupling] = value
@@ -240,7 +240,7 @@ function add_hopping!(operator :: SPOrbitalHoppingOperator{SPMSB}, state_1 :: In
 end
 
 # add hopping from one orbital to another by specifying strings of orbitals
-function add_hopping!(operator :: SPOrbitalHoppingOperator{SPMSB}, state_1 :: String, state_2 :: String, coupling :: Symbol) where {SPSSBS <: AbstractSPSSBasisState, SPMSBS <: Union{SPMSBasisState{SPSSBS}, DelocalizedBasisStateXYZ}, SPMSB <: SPBasis{SPMSBS}}
+function add_hopping!(operator :: SPOrbitalHoppingOperator{SPMSB}, state_1 :: String, state_2 :: String, coupling :: Symbol) where {SPSSBS <: AbstractSPSSBasisState, SPMSBS <: Union{SPMSBasisState{SPSSBS}}, SPMSB <: SPBasis{SPMSBS}}
     # find the respective indices
     state_1_ms = 0
     brackets = string(state_1[1]) * string(state_1[end])
@@ -261,14 +261,14 @@ function add_hopping!(operator :: SPOrbitalHoppingOperator{SPMSB}, state_1 :: St
     # add the hopping
     add_hopping!(operator, state_1_ms, state_2_ms, coupling)
 end
-function add_hopping!(operator :: SPOrbitalHoppingOperator{SPMSB}, state_1 :: String, state_2 :: String, coupling :: Symbol, value :: Number) where {SPSSBS <: AbstractSPSSBasisState, SPMSBS <: Union{SPMSBasisState{SPSSBS}, DelocalizedBasisStateXYZ}, SPMSB <: SPBasis{SPMSBS}}
+function add_hopping!(operator :: SPOrbitalHoppingOperator{SPMSB}, state_1 :: String, state_2 :: String, coupling :: Symbol, value :: Number) where {SPSSBS <: AbstractSPSSBasisState, SPMSBS <: Union{SPMSBasisState{SPSSBS}}, SPMSB <: SPBasis{SPMSBS}}
     # push into the respective lists
     add_hopping!(operator, state_1, state_2, coupling)
     operator.hopping_strengths[coupling] = value
     # return nothing
     return nothing
 end
-function add_diagonal_hopping!(operator :: SPOrbitalHoppingOperator{SPMSB}, site_1 :: Int64, site_2 :: Int64, coupling :: Symbol, value :: Number) where {SPSSBS <: AbstractSPSSBasisState, SPMSBS <: Union{SPMSBasisState{SPSSBS}, DelocalizedBasisStateXYZ}, SPMSB <: SPBasis{SPMSBS}}
+function add_diagonal_hopping!(operator :: SPOrbitalHoppingOperator{SPMSB}, site_1 :: Int64, site_2 :: Int64, coupling :: Symbol, value :: Number) where {SPSSBS <: AbstractSPSSBasisState, SPMSBS <: Union{SPMSBasisState{SPSSBS}}, SPMSB <: SPBasis{SPMSBS}}
     # find the number of site 1 and 2 states
     b1 = getSingleSiteBasis(basis(operator), site_1)
     b2 = getSingleSiteBasis(basis(operator), site_2)
@@ -304,13 +304,13 @@ end
 
 # add_hopping! for MPGeneralizedSPOperator
 
-function add_hopping!(operator :: MPGeneralizedSPOperator{SPMSBS, MPB, SPOHO}, args...) where {SPSSBS <: AbstractSPSSBasisState, SPMSBS <: Union{SPMSBasisState{SPSSBS}, DelocalizedBasisStateXYZ}, SPMSB <: SPBasis{SPMSBS}, SPOHO<:SPOrbitalHoppingOperator{SPMSB}, N,MPB<:MPBasis{N,SPMSBasisState{SPSSBS}}}
+function add_hopping!(operator :: MPGeneralizedSPOperator{SPMSBS, MPB, SPOHO}, args...) where {SPSSBS <: AbstractSPSSBasisState, SPMSBS <: Union{SPMSBasisState{SPSSBS}}, SPMSB <: SPBasis{SPMSBS}, SPOHO<:SPOrbitalHoppingOperator{SPMSB}, N,MPB<:MPBasis{N,SPMSBasisState{SPSSBS}}}
     # pass further into the hopping operator
     add_hopping!(operator.operator, args...)
     # return nothing
     return nothing
 end
-function add_diagonal_hopping!(operator :: MPGeneralizedSPOperator{SPMSBS, MPB, SPOHO}, args...) where {SPSSBS <: AbstractSPSSBasisState, SPMSBS <: Union{SPMSBasisState{SPSSBS}, DelocalizedBasisStateXYZ}, SPMSB <: SPBasis{SPMSBS}, SPOHO<:SPOrbitalHoppingOperator{SPMSB}, N,MPB<:MPBasis{N,SPMSBasisState{SPSSBS}}}
+function add_diagonal_hopping!(operator :: MPGeneralizedSPOperator{SPMSBS, MPB, SPOHO}, args...) where {SPSSBS <: AbstractSPSSBasisState, SPMSBS <: Union{SPMSBasisState{SPSSBS}}, SPMSB <: SPBasis{SPMSBS}, SPOHO<:SPOrbitalHoppingOperator{SPMSB}, N,MPB<:MPBasis{N,SPMSBasisState{SPSSBS}}}
     # pass further into the hopping operator
     add_diagonal_hopping!(operator.operator, args...)
     # return nothing
