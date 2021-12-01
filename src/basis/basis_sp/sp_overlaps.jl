@@ -294,7 +294,7 @@ function overlap(state_1 :: SPMSBasisState{BasisStateXYZ}, state_2 :: Delocalize
     
     if state_1.state.orbital == state_2.orbital && state_1.state.ms==state_2.ms
 
-        return 1.0*(-1.0)^(state_1.site!=1)
+        return (1/sqrt(2))*(-1.0)^(state_1.site!=1)
         
     else
         return 0.0
