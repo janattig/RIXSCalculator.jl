@@ -291,7 +291,7 @@ function Base.show(io::IO, op::OP) where {
     else
         print(io, "Projection to new basis of operator:\n")
         show(io, op.operator)
-        print(io, "New (outer basis) consists of "*string(length(basis(op)))*" states of type $(SPSSBS_OUT)\n")
+        print(io, "New (outer basis) consists of "*string(length(basis(op)))*" states of type $(SPMSBS_OUT)\n")
     end
 end
 
