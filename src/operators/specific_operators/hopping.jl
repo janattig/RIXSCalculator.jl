@@ -174,7 +174,7 @@ function get_parameter(operator :: SPOrbitalHoppingOperator{SPMSB}, parameter ::
 end
 
 # get a parameter (returns (found parameter?, parameter value or nothing))
-function get_parameters(operator :: SPOrbitalHoppingOperator{SPMSB}; kwargs...) where {SPSSBS <: AbstractSPSSBasisState, SPMSBS <: Union{SPMSBasisState{SPSSBS}, DelocalizedBasisState{SPSSBS} SPMSB <: SPBasis{SPMSBS}}
+function get_parameters(operator :: SPOrbitalHoppingOperator{SPMSB}; kwargs...) where {SPSSBS <: AbstractSPSSBasisState, SPMSBS <: Union{SPMSBasisState{SPSSBS}, DelocalizedBasisState{SPSSBS}, SPMSB <: SPBasis{SPMSBS}}
     return Symbol[k for k in keys(operator.hopping_strengths)]
 end
 
