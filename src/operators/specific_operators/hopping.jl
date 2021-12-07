@@ -50,8 +50,8 @@ end
 
 
 function SPOrbitalHoppingOperator(basis :: SPMSB) where { 
-    SPSSBS <: AbstractSPSSBasisState
-    SPMSBS <: DelocalizedBasisState{SPSSBS} 
+    SPSSBS <: AbstractSPSSBasisState,
+    SPMSBS <: DelocalizedBasisState{SPSSBS}, 
     SPMSB <: SPBasis{SPMSBS}}
     # create a new operator
     basis_internal = getMultiSiteBasis(getT2GBasisXYZ(),2)
