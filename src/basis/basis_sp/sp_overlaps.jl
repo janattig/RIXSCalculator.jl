@@ -279,27 +279,31 @@ end
 #  Delocalized Basis State overlaps  #
 ######################################
 
-function overlap(state_1 :: DelocalizedBasisStateXYZ, state_2 :: DelocalizedBasisStateXYZ) :: Complex{Float64}
+# Overlap between DBSs of different SPSSBSs
+function overlap(state_1 :: DelocalizedBasisState{BS1}, state_2 :: DelocalizedBasisState{BS2}) :: Complex{Float64} where 
+    {BS1<:AbstractSPSSBasisState, BS2<:AbstractSPSSBasisState}
     
-    # default diagonal overlap, check if the two states are identical in every field
-    if state_1 == state_2
-        return 1.0
-    else
-        return 0.0
+    b1= state_1.bonding_type == :antibonding ? -1.0 : 1.0
+    b2= state_2.bonding_type == :antibonding ? -1.0 : 1.0
+    return 0.5*(1 + b1*b2)*overlap(state_1.state,state_2.state)
+
+end
+# Overlap between LBS <: SPMSBS{SPSSBS} and DBS{SPSSBS}
+function overlap(state_1 :: SPMSBasisState{BS1}, state_2 :: DelocalizedBasisState{BS2}) :: Complex{Float64} where 
+    {BS1<:AbstractSPSSBasisState, BS2<:AbstractSPSSBasisState}
+    
+    if state_1.site==state_2.site1
+        return overlap(state_1.state,state_2.state)/sqrt(2)
+    elseif state_1.site==state_2.site2
+        return ( state_2.bonding_type == :antibonding ? -1.0 : 1.0 )*overlap(state_1.state,state_2.state)/sqrt(2)
+    else #site of state_1 is neither site1 or site2 of state_2
+        return 0
     end
     
 end
-
-function overlap(state_1 :: SPMSBasisState{BasisStateXYZ}, state_2 :: DelocalizedBasisStateXYZ) :: Complex{Float64}
+# <state_1|state_2>= (<state_2|state_1>)'
+function overlap(state_1 :: DelocalizedBasisState{BS1}, state_2 :: SPMSBasisState{BS2}) :: Complex{Float64} where 
+    {BS1<:AbstractSPSSBasisState, BS2<:AbstractSPSSBasisState}
     
-    if state_1.state.orbital == state_2.orbital && state_1.state.ms==state_2.ms
-
-        return (1/sqrt(2))*( state_2.bonding_type == :antibonding ? -1.0 : 1.0)^(state_1.site!=1)
-        
-    else
-        return 0.0
-    end
-end
-function overlap(state_1 :: DelocalizedBasisStateXYZ, state_2 :: SPMSBasisState{BasisStateXYZ}) :: Complex{Float64}
     return overlap(state_2,state_1)'
 end

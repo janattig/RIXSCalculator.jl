@@ -21,7 +21,7 @@ function Base.show(io::IO, state::DelocalizedBasisState{BS}) where {BS}
 
 end
 # custom summary function
-function summary(bs::DelocalizedBasisStateXYZ, brackets="()")
+function summary(bs::DelocalizedBasisState, brackets="()")
     return brackets[1]*"$(bs.bonding_type),$(bs.state),$(bs.state.ms>0 ? '↑' : '↓')"*brackets[2]
 end
 
