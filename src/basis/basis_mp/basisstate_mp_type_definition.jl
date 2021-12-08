@@ -37,7 +37,7 @@ function Base.show(io::IO, bs::MPBasisState{N}) where {N}
         for o in bs.occupation
             operator_string *= "($(o))"
         end
-        operator_string *= ">"
+        operator_string *= "⟩"
         print(io, operator_string)
     else
         # calculate the sign of the permutation
@@ -48,7 +48,7 @@ function Base.show(io::IO, bs::MPBasisState{N}) where {N}
         for o in bs.occupation
             operator_string *= " a^d_{$(o)}"
         end
-        print(io, operator_string * " |vac>" * (bs.basis_index > 0 ? "   (i=$(bs.basis_index))" : ""))
+        print(io, operator_string * " |vac⟩" * (bs.basis_index > 0 ? "   (i=$(bs.basis_index))" : ""))
     end
 end
 
