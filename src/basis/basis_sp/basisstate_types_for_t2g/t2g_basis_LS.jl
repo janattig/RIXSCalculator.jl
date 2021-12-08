@@ -29,9 +29,9 @@ import Base.show
 function Base.show(io::IO, bs::BasisStateLS)
     bsstr = haskey(io, :compact) ? "" : "LS"
     if bs.l == 1 && bs.s == 1//2
-        print(io, bsstr*"|"*(bs.ml>0 ? "+$(bs.ml)" : (bs.ml==0 ? " 0" : "$(bs.ml)"))*","*(bs.ms>0 ? '↑' : '↓')*">")
+        print(io, bsstr*"|"*(bs.ml>0 ? "+$(bs.ml)" : (bs.ml==0 ? " 0" : "$(bs.ml)"))*","*(bs.ms>0 ? '↑' : '↓')*"⟩")
     else
-        print(io, bsstr*"|"*string(bs.l)*","*string(bs.ml)*", "*string(bs.s)*","*string(bs.ms)*">")
+        print(io, bsstr*"|"*string(bs.l)*","*string(bs.ml)*", "*string(bs.s)*","*string(bs.ms)*"⟩")
     end
 end
 

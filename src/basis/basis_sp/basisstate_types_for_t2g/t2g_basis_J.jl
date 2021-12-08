@@ -32,7 +32,7 @@ end
 import Base.show
 function Base.show(io::IO, bs::BasisStateJ)
     bsstr = haskey(io, :compact) ? "" : "J"
-    print(io, bsstr*"|"*string(bs.j.num)*"/"*string(bs.j.den)*","*(bs.mj==0 ? " " : (bs.mj>0 ? "+" : "-"))*string(abs(bs.mj.num))*"/"*string(abs(bs.mj.den))*">")
+    print(io, bsstr*"|"*string(bs.j.num)*"/"*string(bs.j.den)*","*(bs.mj==0 ? " " : (bs.mj>0 ? "+" : "-"))*string(abs(bs.mj.num))*"/"*string(abs(bs.mj.den))*"⟩")
 end
 
 # custom summary function

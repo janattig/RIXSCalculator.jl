@@ -33,7 +33,7 @@ end
 import Base.show
 function Base.show(io::IO, bs::BasisStateXYZ)
     bsstr = haskey(io, :compact) ? "" : "XYZ"
-    print(io, bsstr*"|"*string(bs.orbital)*","*(bs.ms>0 ? '↑' : '↓')*">")
+    print(io, bsstr*"|"*string(bs.orbital)*","*(bs.ms>0 ? '↑' : '↓')*"⟩")
 end
 # custom summary function
 function summary(bs::BasisStateXYZ, brackets="()")

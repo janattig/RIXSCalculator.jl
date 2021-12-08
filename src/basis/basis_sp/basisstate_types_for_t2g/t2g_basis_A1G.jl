@@ -54,7 +54,7 @@ end
 # Custom show function
 function Base.show(io::IO, bs::BasisStateA1G)
     bsstr = haskey(io, :compact) ? "" : "A1G"
-    print(io, bsstr*"|"*orb_string_a1g(bs.orbital)*","*(bs.ms>0 ? '↑' : '↓')*">")
+    print(io, bsstr*"|"*orb_string_a1g(bs.orbital)*","*(bs.ms>0 ? '↑' : '↓')*"⟩")
 end
 # custom summary function
 function summary(bs::BasisStateA1G, brackets="()")
