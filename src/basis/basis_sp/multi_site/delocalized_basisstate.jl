@@ -12,24 +12,14 @@ end
 
 # custom print function
 
-function find_bsstr(io::IO, bs::BasisStateLS)
-    return haskey(io, :compact) ? "" : "LS"
-end
-function find_bsstr(io::IO, bs::BasisStateXYZ)
-    return haskey(io, :compact) ? "" : "XYZ"
-end
-function find_bsstr(io::IO, bs::BasisStateJ)
-    return haskey(io, :compact) ? "" : "J"
-end
-function find_bsstr(io::IO, bs::BasisStateA1G)
-    return haskey(io, :compact) ? "" : "A1G"
-end
-
 import Base.show
 function Base.show(io::IO, state::DelocalizedBasisState{BS} where BS) 
     
-    bsstr = find_bsstr(io, state.state)
-    print(io, bsstr*summary(state.state, ["|#1,","⟩ "])*( state.bonding_type == :bonding ? '+' : '-' )*" "*bsstr*summary(state.state, ["|#2,","⟩ "])
+    # note: state.state must be of a type whose name is "BasisState"*s, where s is a string of arbitrary legth
+    
+    bsstr =  haskey(io, :compact) ? "" : string(typeof(state.state))[11:length(string(typeof(state.state)))]
+    
+    print(io, bsstr*summary(state.state, ["|#1,","⟩ "])*( state.bonding_type == :bonding ? '+' : '-' )*summary(state.state, ["|#2,","⟩ "])
 )
 end
 
