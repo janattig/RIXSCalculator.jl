@@ -29,7 +29,7 @@ import Base.show
 function Base.show(io::IO, state::DelocalizedBasisState{BS} where BS) 
     
     bsstr = find_bsstr(io, state.state)
-    print(io, bsstr*summary(state.state, ["|#1,","⟩ "])*( state.bonding_type == :bonding ? '+' : '-' )*" "*bsstr**summary(state.state, ["|#2,","⟩ "])
+    print(io, bsstr*summary(state.state, ["|#1,","⟩ "])*( state.bonding_type == :bonding ? '+' : '-' )*" "*bsstr*summary(state.state, ["|#2,","⟩ "])
 )
 end
 
