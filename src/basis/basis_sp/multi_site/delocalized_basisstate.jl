@@ -11,52 +11,26 @@ struct DelocalizedBasisState{B<:AbstractSPSSBasisState} <: AbstractSPBasisState
 end
 
 # custom print function
+
+function find_bsstr(io::IO, bs::BasisStateLS)
+    return haskey(io, :compact) ? "" : "LS"
+end
+function find_bsstr(io::IO, bs::BasisStateXYZ)
+    return haskey(io, :compact) ? "" : "XYZ"
+end
+function find_bsstr(io::IO, bs::BasisStateJ)
+    return haskey(io, :compact) ? "" : "J"
+end
+function find_bsstr(io::IO, bs::BasisStateA1G)
+    return haskey(io, :compact) ? "" : "A1G"
+end
+
 import Base.show
-function Base.show(io::IO, state::DelocalizedBasisState{BS} where {BS <: BasisStateLS}) 
+function Base.show(io::IO, state::DelocalizedBasisState{BS} where BS) 
     
-    bsstr = haskey(io, :compact) ? "" : "LS"
-    
-    s=bsstr*"|#1,"*string(state.state.ml)*","*( state.state.ms == 1//2 ? '↑' : '↓' )*"⟩ "
-    s=s*( state.bonding_type == :bonding ? '+' : '-' )
-    s=s*" "*bsstr*"|#2,"*string(state.state.ml)*","*( state.state.ms == 1//2 ? '↑' : '↓' )*"⟩"
-    
-    print(io, s)
-end
-
-# custom show function for XYZ delocalized basis states
-function Base.show(io::IO, state::DelocalizedBasisState{BS} where {BS <: BasisStateXYZ}) 
-    
-    bsstr = haskey(io, :compact) ? "" : "XYZ"
-    
-    s=bsstr*"|#1,"*string(state.state.orbital)*","*( state.state.ms == 1//2 ? '↑' : '↓' )*"⟩ "
-    s=s*( state.bonding_type == :bonding ? '+' : '-' )
-    s=s*" "*bsstr*"|#2,"*string(state.state.orbital)*","*( state.state.ms == 1//2 ? '↑' : '↓' )*"⟩"
-    
-    print(io, s)
-end
-
-# custom show function for J delocalized basis states
-function Base.show(io::IO, state::DelocalizedBasisState{BS} where {BS <: BasisStateJ}) 
-    
-    bsstr = haskey(io, :compact) ? "" : "J"
-    
-    s=bsstr*"|#1,"*string(state.state.j.num)*"/"*string(state.state.j.den)*","*(state.state.mj==0 ? " " : (state.state.mj>0 ? "+" : "-"))*string(abs(state.state.mj.num))*"/"*string(abs(state.state.mj.den))*"⟩ "
-    s=s*( state.bonding_type == :bonding ? '+' : '-' )
-    s=s*" "*bsstr*"|#2,"*string(state.state.j.num)*"/"*string(state.state.j.den)*","*(state.state.mj==0 ? " " : (state.state.mj>0 ? "+" : "-"))*string(abs(state.state.mj.num))*"/"*string(abs(state.state.mj.den))*"⟩ "
-    
-    print(io, s)
-end
-
-# custom show function for A1G delocalized basis states
-function Base.show(io::IO, state::DelocalizedBasisState{BS} where {BS <: BasisStateA1G}) 
-    
-    bsstr = haskey(io, :compact) ? "" : "A1G"
-    
-    s=bsstr*"|#1,"*string(state.state.orbital)*","*( state.state.ms == 1//2 ? '↑' : '↓' )*"⟩ "
-    s=s*( state.bonding_type == :bonding ? '+' : '-' )
-    s=s*" "*bsstr*"|#2,"*string(state.state.orbital)*","*( state.state.ms == 1//2 ? '↑' : '↓' )*"⟩"
-    
-    print(io, s)
+    bsstr = find_bsstr(io, state.state)
+    print(io, bsstr*summary(state.state, ["|#1,","⟩ "])*( state.bonding_type == :bonding ? '+' : '-' )*summary(state.state, ["|#2,","⟩ "])
+)
 end
 
 # custom summary function
