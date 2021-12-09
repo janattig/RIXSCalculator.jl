@@ -19,7 +19,7 @@ function Base.show(io::IO, state::DelocalizedBasisState{BS} where BS)
     
     bsstr =  haskey(io, :compact) ? "" : string(typeof(state.state))[11:length(string(typeof(state.state)))]
     
-    print(io, bsstr*summary(state.state, ["|#1,","⟩ "])*( state.bonding_type == :bonding ? '+' : '-' )*" "*bsstr*summary(state.state, ["|#2,","⟩ "])
+    print(io, bsstr*summary(state.state, ["|#"*string(state.site1)*",","⟩ "])*( state.bonding_type == :bonding ? '+' : '-' )*" "*bsstr*summary(state.state, ["|#"*string(state.site2)*",","⟩ "])
 )
 end
 
