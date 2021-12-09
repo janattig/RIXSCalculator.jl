@@ -40,30 +40,20 @@ export DelocalizedBasisState
 
 
 """
-    getT2GDelocalizedBasisXYZ() :: SPBasis{DelocalizedBasisState{SPSSBS} where SPSSBS <: AbstractSPSSBasisState} 
+    getDelocalizedBasis(basis :: SPBasis{BS},site1::Int64, site2::Int64) :: SPBasis{DelocalizedBasisState{BS}} where {BS<:AbstractSPSSBasisState}
 
 This function provides the pre-implemented single particle - two site bonding and antibonding XYZ basis for the t2g.
 """
-function getT2GDelocalizedBasisXYZ() :: SPBasis{DelocalizedBasisState{SPSSBS} where SPSSBS <: AbstractSPSSBasisState} 
-    # reset the basis object in the RIXSSite object
-    XYZBasis=getT2GBasisXYZ()
-    states = DelocalizedBasisState[
-        # add all terms into the basis
-        DelocalizedBasisState(XYZBasis[1],:bonding,1,2),
-        DelocalizedBasisState(XYZBasis[1],:antibonding,1,2),
-        DelocalizedBasisState(XYZBasis[2],:bonding,1,2),
-        DelocalizedBasisState(XYZBasis[2],:antibonding,1,2),
-        DelocalizedBasisState(XYZBasis[3],:bonding,1,2),
-        DelocalizedBasisState(XYZBasis[3],:antibonding,1,2),
-        DelocalizedBasisState(XYZBasis[4],:bonding,1,2),
-        DelocalizedBasisState(XYZBasis[4],:antibonding,1,2),
-        DelocalizedBasisState(XYZBasis[5],:bonding,1,2),
-        DelocalizedBasisState(XYZBasis[5],:antibonding,1,2),
-        DelocalizedBasisState(XYZBasis[6],:bonding,1,2),
-        DelocalizedBasisState(XYZBasis[6],:antibonding,1,2),
-    ]
-    # return the basis
-    return SPBasis{DelocalizedBasisState}(states)
+function getDelocalizedBasis(basis :: SPBasis{BS},site1::Int64, site2::Int64) :: SPBasis{DelocalizedBasisState{BS}} where {BS<:AbstractSPSSBasisState}
+    # make a list of multisite states
+    delocalized_states = DelocalizedBasisState{BS}[]
+    # push all states for all sites
+    for b in states(basis)
+        push!(delocalized_states, DelocalizedBasisState{BS}(b, :bonding, site1, site2))
+        push!(delocalized_states, DelocalizedBasisState{BS}(b, :antibonding, site1, site2))
+    end
+    # return the multisite basis
+    return SPBasis{DelocalizedBasisState{BS}}(delocalized_states)
 end
 
-export getT2GDelocalizedBasisXYZ
+export getDelocalizedBasis
