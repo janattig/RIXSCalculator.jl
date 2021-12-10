@@ -34,7 +34,7 @@ function printMPState(
         for sps in b[c[1]].occupation
              bs *= " d_" * summary(b.single_particle_basis[sps])
         end
-        bs *= " |vac>"
+        bs *= " |vac⟩"
         println(bs, " * (", round.(c[2], digits=3), ")\t(", round(c[3]*100, digits=2), "%)")
         ci += 1
         if ci == max_contributions && length(contrib) != max_contributions
