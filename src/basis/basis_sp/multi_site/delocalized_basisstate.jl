@@ -25,7 +25,7 @@ end
 
 # custom summary function
 function summary(bs::DelocalizedBasisState, brackets="()")
-    return brackets[1]*"$(bs.bonding_type)"*summary(state.state,[',', brackets[2]])
+    return brackets[1]*"$(bs.bonding_type)"*summary(bs.state.state,[',', brackets[2]])
 end
 
 
