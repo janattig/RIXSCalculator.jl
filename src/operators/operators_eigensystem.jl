@@ -122,6 +122,37 @@ function print_energies(op :: AbstractOperator; digits::Int64=6, subtract_GS::Bo
 end
 export print_energies
 
+
+"""
+    printEDresults(op :: AbstractOperator; 
+                   basis::AbstractBasis = basis(op), kwargs...)
+
+The function projects the operator `op` to a basis `basis`. 
+The energies and the eigenvectors are subsequently displayed with colors.
+"""
+function printEDresults(op :: AbstractOperator; 
+        basis::AbstractBasis = basis(op), kwargs...)
+    
+    H=ProjectorOperator(op ,basis);
+    recalculate!(H)
+    
+    es=eigensystem(H)
+
+    printstyled("Energies:\n", color=:red, bold=true, underline=true)
+    print_energies(H)
+
+    printstyled("Eigenvectors:\n", color=:red, bold=true, underline=true)
+
+    for (i,eigvec) in enumerate(es[:vectors])
+        printstyled("state nr. $(i) for energy=$(round.(energies(H)[i], digits=1)):\n", color=:red, bold=true)
+        printMPState(eigvec,basis)
+    end
+    
+end
+export printEDresults
+
+
+
 function is_on_site(
         state :: Vector{<:Number},
         site  :: Integer,
