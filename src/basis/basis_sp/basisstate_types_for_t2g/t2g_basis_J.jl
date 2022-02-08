@@ -10,15 +10,15 @@
 
 The J basis is defined through the LS basis as follows:
 
-``\\left| \\frac{1}{2},-\\frac{1}{2} \\right>=\\frac{1}{\\sqrt{3}} \\left( \\left|0,\\downarrow\\right> - \\sqrt{\\frac{2}{3}} \\left| -1,\\uparrow\\right> \\right)``
+``\\left| \\frac{1}{2},-\\frac{1}{2} \\right>=\\frac{1}{\\sqrt{3}}  \\left|0,\\downarrow\\right> - \\sqrt{\\frac{2}{3}} \\left| -1,\\uparrow\\right> ``
 
-``\\left| \\frac{1}{2},+\\frac{1}{2} \\right>=\\frac{1}{\\sqrt{3}} \\left( \\left|0,\\uparrow\\right> - \\sqrt{\\frac{2}{3}} \\left| +1,\\downarrow\\right> \\right)``
+``\\left| \\frac{1}{2},+\\frac{1}{2} \\right>=\\frac{1}{\\sqrt{3}}  \\left|0,\\uparrow\\right> - \\sqrt{\\frac{2}{3}} \\left| +1,\\downarrow\\right> ``
 
 ``\\left| \\frac{3}{2},-\\frac{3}{2} \\right>=\\left| -1,\\downarrow \\right>``
 
-``\\left| \\frac{3}{2},-\\frac{1}{2} \\right>=\\sqrt{\\frac{2}{3}} \\left( \\left|0,\\downarrow\\right> + \\sqrt{\\frac{1}{3}} \\left| -1,\\uparrow\\right> \\right)``
+``\\left| \\frac{3}{2},-\\frac{1}{2} \\right>=\\sqrt{\\frac{2}{3}} \\left|0,\\downarrow\\right> + \\sqrt{\\frac{1}{3}} \\left| -1,\\uparrow\\right>``
 
-``\\left| \\frac{3}{2},+\\frac{1}{2} \\right>=\\sqrt{\\frac{2}{3}} \\left( \\left|0,\\uparrow\\right> + \\sqrt{\\frac{1}{3}} \\left| +1,\\downarrow\\right> \\right)``
+``\\left| \\frac{3}{2},+\\frac{1}{2} \\right>=\\sqrt{\\frac{2}{3}} \\left|0,\\uparrow\\right> + \\sqrt{\\frac{1}{3}} \\left| +1,\\downarrow\\right>``
 
 ``\\left| \\frac{3}{2},+\\frac{3}{2} \\right>=\\left| +1, \\uparrow \\right>``
 """
