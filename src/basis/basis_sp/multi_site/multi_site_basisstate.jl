@@ -41,6 +41,11 @@ function summary(bs::SPMSBasisState{BS}, brackets="()") where {BS}
 end
 
 # get the sites on which a state is defined
+"""
+    get_sites(basis::SPBasis{BS}) where {SPSSBS, BS <: SPMSBasisState{SPSSBS}}
+
+The function returns the number ``n`` of sites as an ``n``-element vector.
+"""
 function get_sites(basis::SPBasis{BS}) where {SPSSBS, BS <: SPMSBasisState{SPSSBS}}
     return unique([s.site for s in states(basis)])
 end
