@@ -16,6 +16,7 @@ include("basisstate_types_for_t2g/t2g_basis_A1G.jl")
 # include single particle - multi site description
 include("multi_site/multi_site_basisstate.jl")
 include("multi_site/delocalized_basisstate.jl")
+include("multi_site/tetramer_basisstate.jl")
 include("multi_site/multi_site_functions.jl")
 
 # include composite basis state definitions and functions
