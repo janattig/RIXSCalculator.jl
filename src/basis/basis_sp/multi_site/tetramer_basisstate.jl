@@ -52,13 +52,13 @@ function Base.show(io::IO, state::TetramerBasisState{BS} where BS)
     s=bsstr*""
     
     if state.bonding_type == :A0a
-        print(io,bsstr*"|"*state.state.orbital*",B+,"*(state.state.ms>0 ? '↑' : '↓')*"⟩ ")
+        print(io,bsstr*"|"*string(state.state.orbital)*",B+,"*(state.state.ms>0 ? '↑' : '↓')*"⟩ ")
     elseif state.bonding_type == :A0b
-        print(io,bsstr*"|"*state.state.orbital*",B-,"*(state.state.ms>0 ? '↑' : '↓')*"⟩ ")
+        print(io,bsstr*"|"*string(state.state.orbital)*",B-,"*(state.state.ms>0 ? '↑' : '↓')*"⟩ ")
     elseif state.bonding_type == :A0c
-        print(io,bsstr*"|"*state.state.orbital*",A+,"*(state.state.ms>0 ? '↑' : '↓')*"⟩ ")
+        print(io,bsstr*"|"*string(state.state.orbital)*",A+,"*(state.state.ms>0 ? '↑' : '↓')*"⟩ ")
     else
-        print(io,bsstr*"|"*state.state.orbital*",A-,"*(state.state.ms>0 ? '↑' : '↓')*"⟩ ")
+        print(io,bsstr*"|"*string(state.state.orbital)*",A-,"*(state.state.ms>0 ? '↑' : '↓')*"⟩ ")
     end
     
 end
