@@ -16,34 +16,54 @@ end
 # custom print function
 
 import Base.show
+# function Base.show(io::IO, state::TetramerBasisState{BS} where BS) 
+    
+#     # note: state.state must be of a type whose name is "BasisState"*s, where s is a string of arbitrary legth
+    
+#     bsstr =  haskey(io, :compact) ? "" : string(typeof(state.state))[11:length(string(typeof(state.state)))]
+    
+#     s=bsstr*summary(state.state, ["|#"*string(state.site1)*",","⟩ "])
+#     if state.bonding_type == :A0a || state.bonding_type == :A0b     
+#         s=s*"+"
+#     else
+#         s=s*"-"
+#     end
+#     s=s*" "*bsstr*summary(state.state, ["|#"*string(state.site2)*",","⟩ "])
+#     if state.bonding_type == :A0a || state.bonding_type == :A0c   
+#         s=s*"+"
+#     else
+#         s=s*"-"
+#     end
+#     s=s*" "*bsstr*summary(state.state, ["|#"*string(state.site3)*",","⟩ "])
+#     if state.bonding_type == :A0a || state.bonding_type == :A0d     
+#         s=s*"+"
+#     else
+#         s=s*"-"
+#     end
+#     s=s*" "*bsstr*summary(state.state, ["|#"*string(state.site4)*",","⟩ "])
+    
+#     print(io, s)
+# end
+
+# version 2
 function Base.show(io::IO, state::TetramerBasisState{BS} where BS) 
     
-    # note: state.state must be of a type whose name is "BasisState"*s, where s is a string of arbitrary legth
-    
     bsstr =  haskey(io, :compact) ? "" : string(typeof(state.state))[11:length(string(typeof(state.state)))]
+    s=bsstr*""
     
-    s=bsstr*summary(state.state, ["|#"*string(state.site1)*",","⟩ "])
-    if state.bonding_type == :A0a || state.bonding_type == :A0b     
-        s=s*"+"
+    if state.bonding_type == :A0a
+        print(io,bsstr*summary(state.state, ["|",", B+⟩ "]))
+    elseif state.bonding_type == :A0b
+        print(io,bsstr*summary(state.state, ["|",", B-⟩ "]))
+    elseif state.bonding_type == :A0c
+        print(io,bsstr*summary(state.state, ["|",", A+⟩ "]))
     else
-        s=s*"-"
+        print(io,bsstr*summary(state.state, ["|",", A-⟩ "]))
     end
-    s=s*" "*bsstr*summary(state.state, ["|#"*string(state.site2)*",","⟩ "])
-    if state.bonding_type == :A0a || state.bonding_type == :A0c   
-        s=s*"+"
-    else
-        s=s*"-"
-    end
-    s=s*" "*bsstr*summary(state.state, ["|#"*string(state.site3)*",","⟩ "])
-    if state.bonding_type == :A0a || state.bonding_type == :A0d     
-        s=s*"+"
-    else
-        s=s*"-"
-    end
-    s=s*" "*bsstr*summary(state.state, ["|#"*string(state.site4)*",","⟩ "])
     
-    print(io, s)
 end
+
+
 
 # custom summary function
 function summary(bs::TetramerBasisState, brackets="()")
