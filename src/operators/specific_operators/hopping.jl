@@ -36,16 +36,19 @@ mutable struct SPOrbitalHoppingOperator{
 
     # the matrix representation
     matrix_rep :: Matrix{Complex{Float64}}
+end
 
-    # custom constructor
-    function SPOrbitalHoppingOperator(basis :: SPMSB) where {SPSSBS <: AbstractSPSSBasisState, SPMSBS <: SPMSBasisState{SPSSBS}, SPMSB <: SPBasis{SPMSBS}}
-        # create a new operator
-        op = new{SPMSB}(basis, Tuple{Int64, Int64, Symbol}[], Dict{Symbol, Complex{Float64}}(), zeros(Complex{Float64}, length(basis), length(basis)))
-        # recalculate the matrix representation
-        recalculate!(op)
-        # return the operator
-        return op
-    end
+# custom constructor
+function SPOrbitalHoppingOperator(basis :: SPMSB) where {
+    SPSSBS <: AbstractSPSSBasisState, 
+    SPMSBS <: SPMSBasisState{SPSSBS}, 
+    SPMSB <: SPBasis{SPMSBS}}
+    # create a new operator
+    op = SPOrbitalHoppingOperator{SPMSB}(basis, Tuple{Int64, Int64, Symbol}[], Dict{Symbol, Complex{Float64}}(), zeros(Complex{Float64}, length(basis), length(basis)))
+     # recalculate the matrix representation
+    recalculate!(op)
+    # return the operator
+    return op
 end
 
 
