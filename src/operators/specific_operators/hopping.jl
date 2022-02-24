@@ -79,6 +79,20 @@ function SPOrbitalHoppingOperator(basis :: SPMSB) where {
     return op_proj
 end
 
+function SPOrbitalHoppingOperator(basis :: SPMSB) where { 
+    SPMSBS <: TdSymBasisState, 
+    SPMSB <: SPBasis{SPMSBS}}
+    # create a new operator
+    basis_internal = getTetramerBasis(getT2GBasisXYZ(),1,2,3,4)
+    op = SPOrbitalHoppingOperator(basis_internal)
+    # recalculate the matrix representation
+    recalculate!(op)
+    # build a projection operator around it
+    op_proj = SPMSProjectorOperator(op, basis)
+    # return the operator
+    return op_proj
+end
+
 
 
 # export operator type
@@ -98,7 +112,7 @@ end
 
 # show function
 import Base.show
-function Base.show(io::IO, op::SPOrbitalHoppingOperator{SPMSB}) where {SPSSBS <: AbstractSPSSBasisState, SPMSBS <: Union{SPMSBasisState{SPSSBS}, DelocalizedBasisState{SPSSBS}, TetramerBasisState{SPSSBS}}, SPMSB <: SPBasis{SPMSBS}}
+function Base.show(io::IO, op::SPOrbitalHoppingOperator{SPMSB}) where {SPSSBS <: AbstractSPSSBasisState, SPMSBS <: Union{SPMSBasisState{SPSSBS}, DelocalizedBasisState{SPSSBS}, TetramerBasisState{SPSSBS}, TdSymBasisState}, SPMSB <: SPBasis{SPMSBS}}
     if haskey(io, :compact)
         print(io, "orbital hopping operator (", length(op.hopping_processes), " hopping elements, couplings ", keys(op.hopping_strengths), ") ")
     else
@@ -120,17 +134,17 @@ end
 ################################################################################
 
 # obtain the current basis
-function basis(operator :: SPOrbitalHoppingOperator{SPMSB}) :: SPMSB where {SPSSBS <: AbstractSPSSBasisState, SPMSBS <: Union{SPMSBasisState{SPSSBS}, DelocalizedBasisState{SPSSBS}, TetramerBasisState{SPSSBS}}, SPMSB <: SPBasis{SPMSBS}}
+function basis(operator :: SPOrbitalHoppingOperator{SPMSB}) :: SPMSB where {SPSSBS <: AbstractSPSSBasisState, SPMSBS <: Union{SPMSBasisState{SPSSBS}, DelocalizedBasisState{SPSSBS}, TetramerBasisState{SPSSBS}, TdSymBasisState}, SPMSB <: SPBasis{SPMSBS}}
     return operator.basis
 end
 
 # obtain the matrix representation
-function matrix_representation(operator :: SPOrbitalHoppingOperator{SPMSB}) :: Matrix{Complex{Float64}} where {SPSSBS <: AbstractSPSSBasisState, SPMSBS <: Union{SPMSBasisState{SPSSBS}, DelocalizedBasisState{SPSSBS}, TetramerBasisState{SPSSBS}}, SPMSB <: SPBasis{SPMSBS}}
+function matrix_representation(operator :: SPOrbitalHoppingOperator{SPMSB}) :: Matrix{Complex{Float64}} where {SPSSBS <: AbstractSPSSBasisState, SPMSBS <: Union{SPMSBasisState{SPSSBS}, DelocalizedBasisState{SPSSBS}, TetramerBasisState{SPSSBS}, TdSymBasisState}, SPMSB <: SPBasis{SPMSBS}}
     return operator.matrix_rep
 end
 
 # possibly recalculate the matrix representation
-function recalculate!(operator :: SPOrbitalHoppingOperator{SPMSB}, recursive::Bool=true, basis_change::Bool=true) where {SPSSBS <: AbstractSPSSBasisState, SPMSBS <: Union{SPMSBasisState{SPSSBS}, DelocalizedBasisState{SPSSBS}, TetramerBasisState{SPSSBS}}, SPMSB <: SPBasis{SPMSBS}}
+function recalculate!(operator :: SPOrbitalHoppingOperator{SPMSB}, recursive::Bool=true, basis_change::Bool=true) where {SPSSBS <: AbstractSPSSBasisState, SPMSBS <: Union{SPMSBasisState{SPSSBS}, DelocalizedBasisState{SPSSBS}, TetramerBasisState{SPSSBS}, TdSymBasisState}, SPMSB <: SPBasis{SPMSBS}}
     # create new matrix
     operator.matrix_rep = zeros(Complex{Float64}, length(basis(operator)), length(basis(operator)))
     # recalculate the matrix elements
@@ -144,7 +158,7 @@ function recalculate!(operator :: SPOrbitalHoppingOperator{SPMSB}, recursive::Bo
 end
 
 # set a parameter (returns (found parameter?, changed matrix?))
-function set_parameter!(operator :: SPOrbitalHoppingOperator{SPMSB}, parameter :: Symbol, value; print_result::Bool=false, recalculate::Bool=true, site::Union{Int64, Symbol}=-1, kwargs...) where {SPSSBS <: AbstractSPSSBasisState, SPMSBS <: Union{SPMSBasisState{SPSSBS}, DelocalizedBasisState{SPSSBS}, TetramerBasisState{SPSSBS}}, SPMSB <: SPBasis{SPMSBS}}
+function set_parameter!(operator :: SPOrbitalHoppingOperator{SPMSB}, parameter :: Symbol, value; print_result::Bool=false, recalculate::Bool=true, site::Union{Int64, Symbol}=-1, kwargs...) where {SPSSBS <: AbstractSPSSBasisState, SPMSBS <: Union{SPMSBasisState{SPSSBS}, DelocalizedBasisState{SPSSBS}, TetramerBasisState{SPSSBS}, TdSymBasisState}, SPMSB <: SPBasis{SPMSBS}}
     if parameter in keys(operator.hopping_strengths)
         if operator.hopping_strengths[parameter] == value
             if print_result
@@ -174,7 +188,7 @@ function set_parameter!(operator :: SPOrbitalHoppingOperator{SPMSB}, parameter :
 end
 
 # get a parameter (returns (found parameter?, parameter value or nothing))
-function get_parameter(operator :: SPOrbitalHoppingOperator{SPMSB}, parameter :: Symbol; print_result::Bool=false, site::Union{Int64, Symbol}=-1, kwargs...) where {SPSSBS <: AbstractSPSSBasisState, SPMSBS <: Union{SPMSBasisState{SPSSBS}, DelocalizedBasisState{SPSSBS}, TetramerBasisState{SPSSBS}}, SPMSB <: SPBasis{SPMSBS}}
+function get_parameter(operator :: SPOrbitalHoppingOperator{SPMSB}, parameter :: Symbol; print_result::Bool=false, site::Union{Int64, Symbol}=-1, kwargs...) where {SPSSBS <: AbstractSPSSBasisState, SPMSBS <: Union{SPMSBasisState{SPSSBS}, DelocalizedBasisState{SPSSBS}, TetramerBasisState{SPSSBS}, TdSymBasisState}, SPMSB <: SPBasis{SPMSBS}}
     if parameter in keys(operator.hopping_strengths)
         if print_result
             println("Parameter :$(parameter) found and returned its value $(operator.hopping_strengths[parameter])")
@@ -189,7 +203,7 @@ function get_parameter(operator :: SPOrbitalHoppingOperator{SPMSB}, parameter ::
 end
 
 # get a parameter (returns (found parameter?, parameter value or nothing))
-function get_parameters(operator :: SPOrbitalHoppingOperator{SPMSB}; kwargs...) where {SPSSBS <: AbstractSPSSBasisState, SPMSBS <: Union{SPMSBasisState{SPSSBS}, DelocalizedBasisState{SPSSBS}, TetramerBasisState{SPSSBS}}, SPMSB <: SPBasis{SPMSBS}}
+function get_parameters(operator :: SPOrbitalHoppingOperator{SPMSB}; kwargs...) where {SPSSBS <: AbstractSPSSBasisState, SPMSBS <: Union{SPMSBasisState{SPSSBS}, DelocalizedBasisState{SPSSBS}, TetramerBasisState{SPSSBS}, TdSymBasisState}, SPMSB <: SPBasis{SPMSBS}}
     return Symbol[k for k in keys(operator.hopping_strengths)]
 end
 
@@ -311,7 +325,7 @@ function add_hopping!(operator :: SPMSProjectorOperator{SPMSB_IN, SPMSB_OUT, SPO
     # return nothing
     return nothing
 end
-function add_diagonal_hopping!(operator :: SPMSProjectorOperator{SPMSB_IN, SPMSB_OUT, SPO}, args...) where {SPSSBS <: AbstractSPSSBasisState, SPMSBS <: Union{SPMSBasisState{SPSSBS}, DelocalizedBasisState{SPSSBS}, TetramerBasisState{SPSSBS}}, SPMSB_IN<: SPBasis{SPMSBS}, SPMSB_OUT<: SPBasis{SPMSBS}, SPO <: AbstractSPOperator}
+function add_diagonal_hopping!(operator :: SPMSProjectorOperator{SPMSB_IN, SPMSB_OUT, SPO}, args...) where {SPSSBS <: AbstractSPSSBasisState, SPMSBS <: Union{SPMSBasisState{SPSSBS}, DelocalizedBasisState{SPSSBS}, TetramerBasisState{SPSSBS}, TdSymBasisState}, SPMSB_IN<: SPBasis{SPMSBS}, SPMSB_OUT<: SPBasis{SPMSBS}, SPO <: AbstractSPOperator}
     # pass further into the hopping operator
     add_diagonal_hopping!(operator.operator, args...)
     # return nothing
