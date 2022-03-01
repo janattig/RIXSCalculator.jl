@@ -26,7 +26,7 @@ end
 
 # custom summary function
 function summary(bs::TdSymBasisState, brackets="()")
-    return brackets[1]*"$(bs.symmetry_type), $(bs.ms)"*brackets[2]
+    return brackets[1]*"$(bs.symmetry_type), $(bs.ms>0 ? '↑' : '↓')"*brackets[2]
 end
 
 
