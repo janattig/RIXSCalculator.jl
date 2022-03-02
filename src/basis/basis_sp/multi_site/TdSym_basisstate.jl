@@ -29,6 +29,7 @@ function summary(bs::TdSymBasisState, brackets="()")
     return brackets[1]*"$(bs.symmetry_type), $(bs.ms>0 ? '↑' : '↓')"*brackets[2]
 end
 
+export TdSymBasisState
 
 # α, β functions for the hopping parameters A,B,C
 α(A,B,C)= (A-B)/C - 1/2 +(1/(2*C))*sqrt(4*(A-B)*(A-B-C)+9*C^2)
