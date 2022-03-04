@@ -402,7 +402,7 @@ function overlap(state_1 :: TetramerBasisState{BS}, state_2 :: TdSymBasisState) 
         
         if state_2.symmetry_type==:a_1
 
-            if state_1.bonding_type==:A0b
+            if state_1.bonding_type==:Bm
                 if state_1.state.orbital == :y
                     return -1/sqrt(3)
                 else
@@ -414,7 +414,7 @@ function overlap(state_1 :: TetramerBasisState{BS}, state_2 :: TdSymBasisState) 
 
         elseif state_2.symmetry_type==:e_alpha
 
-            if state_1.bonding_type==:A0b
+            if state_1.bonding_type==:Bm
                 if state_1.state.orbital == :x
                     return 0
                 else
@@ -425,7 +425,7 @@ function overlap(state_1 :: TetramerBasisState{BS}, state_2 :: TdSymBasisState) 
             end
 
         elseif state_2.symmetry_type==:e_beta
-            if state_1.bonding_type==:A0b
+            if state_1.bonding_type==:Bm
                 if state_1.state.orbital == :x
                     return -2/sqrt(6)
                 elseif state_1.state.orbital == :y
@@ -438,93 +438,93 @@ function overlap(state_1 :: TetramerBasisState{BS}, state_2 :: TdSymBasisState) 
             end
 
         elseif state_2.symmetry_type==:t_2alpha
-            if state_1.bonding_type==:A0c && state_1.state.orbital == :z
+            if state_1.bonding_type==:Ap && state_1.state.orbital == :z
                 return -1/sqrt(2+α(state_2.A,state_2.B,state_2.C)^2)
-            elseif state_1.bonding_type==:A0c && state_1.state.orbital == :y
+            elseif state_1.bonding_type==:Ap && state_1.state.orbital == :y
                 return 1/sqrt(2+α(state_2.A,state_2.B,state_2.C)^2)
-            elseif state_1.bonding_type==:A0a && state_1.state.orbital==:x
+            elseif state_1.bonding_type==:Bp && state_1.state.orbital==:x
                 return α(state_2.A,state_2.B,state_2.C)/sqrt(2+α(state_2.A,state_2.B,state_2.C)^2)
             else 
                 return 0
             end
 
         elseif state_2.symmetry_type==:t_2beta
-            if state_1.bonding_type==:A0d && state_1.state.orbital == :z
+            if state_1.bonding_type==:Am && state_1.state.orbital == :z
                 return -0.5*β(state_2.A,state_2.B,state_2.C)/sqrt(1+β(state_2.A,state_2.B,state_2.C)^2/2)
-            elseif state_1.bonding_type==:A0c && state_1.state.orbital == :x
+            elseif state_1.bonding_type==:Ap && state_1.state.orbital == :x
                 return -0.5*β(state_2.A,state_2.B,state_2.C)/sqrt(1+β(state_2.A,state_2.B,state_2.C)^2/2)
-            elseif state_1.bonding_type==:A0a && state_1.state.orbital == :y
+            elseif state_1.bonding_type==:Bp && state_1.state.orbital == :y
                 return 1/sqrt(1+β(state_2.A,state_2.B,state_2.C)^2/2)
             else
                 return 0
             end
 
         elseif state_2.symmetry_type==:t_2gamma
-            if state_1.bonding_type==:A0a && state_1.state.orbital == :z
+            if state_1.bonding_type==:Bp && state_1.state.orbital == :z
                 return α(state_2.A,state_2.B,state_2.C)/sqrt(2+α(state_2.A,state_2.B,state_2.C)^2)
-            elseif state_1.bonding_type==:A0d && state_1.state.orbital == :x
+            elseif state_1.bonding_type==:Am && state_1.state.orbital == :x
                     return -1/sqrt(2+α(state_2.A,state_2.B,state_2.C)^2)
-            elseif state_1.bonding_type==:A0d && state_1.state.orbital == :y
+            elseif state_1.bonding_type==:Am && state_1.state.orbital == :y
                 return 1/sqrt(2+α(state_2.A,state_2.B,state_2.C)^2)
             else
                 return 0
             end
 
         elseif state_2.symmetry_type==:t_balpha
-            if state_1.bonding_type==:A0c && state_1.state.orbital == :z
+            if state_1.bonding_type==:Ap && state_1.state.orbital == :z
                 return -1/sqrt(2+β(state_2.A,state_2.B,state_2.C)^2)
-            elseif state_1.bonding_type==:A0a && state_1.state.orbital == :x
+            elseif state_1.bonding_type==:Bp && state_1.state.orbital == :x
                 return β(state_2.A,state_2.B,state_2.C)/sqrt(2+β(state_2.A,state_2.B,state_2.C)^2)
-            elseif state_1.bonding_type==:A0c && state_1.state.orbital == :y
+            elseif state_1.bonding_type==:Ap && state_1.state.orbital == :y
                 return 1/sqrt(2+β(state_2.A,state_2.B,state_2.C)^2)
             else
                 return 0
             end
 
         elseif state_2.symmetry_type==:t_bbeta
-            if state_1.bonding_type==:A0d && state_1.state.orbital == :z
+            if state_1.bonding_type==:Am && state_1.state.orbital == :z
                 return -α(state_2.A,state_2.B,state_2.C)/sqrt(4+2*α(state_2.A,state_2.B,state_2.C)^2)
-            elseif state_1.bonding_type==:A0c && state_1.state.orbital == :x
+            elseif state_1.bonding_type==:Ap && state_1.state.orbital == :x
                 return -α(state_2.A,state_2.B,state_2.C)/sqrt(4+2*α(state_2.A,state_2.B,state_2.C)^2)
-            elseif state_1.bonding_type==:A0a && state_1.state.orbital == :y
+            elseif state_1.bonding_type==:Bp && state_1.state.orbital == :y
                 return 2/sqrt(4+2*α(state_2.A,state_2.B,state_2.C)^2)
             else
                 return 0
             end
 
         elseif state_2.symmetry_type==:t_bgamma
-            if state_1.bonding_type==:A0a && state_1.state.orbital == :z
+            if state_1.bonding_type==:Bp && state_1.state.orbital == :z
                 return β(state_2.A,state_2.B,state_2.C)/sqrt(2+β(state_2.A,state_2.B,state_2.C)^2)
-            elseif state_1.bonding_type==:A0d && state_1.state.orbital == :x
+            elseif state_1.bonding_type==:Am && state_1.state.orbital == :x
                 return -1/sqrt(2+β(state_2.A,state_2.B,state_2.C)^2)
-            elseif state_1.bonding_type==:A0d && state_1.state.orbital == :y
+            elseif state_1.bonding_type==:Am && state_1.state.orbital == :y
                 return 1/sqrt(2+β(state_2.A,state_2.B,state_2.C)^2)
             else
                 return 0
             end
 
         elseif state_2.symmetry_type==:t_aalpha
-            if state_1.bonding_type==:A0c && state_1.state.orbital == :z
+            if state_1.bonding_type==:Ap && state_1.state.orbital == :z
                 return 1/sqrt(2)
-            elseif state_1.bonding_type==:A0c && state_1.state.orbital == :y
+            elseif state_1.bonding_type==:Ap && state_1.state.orbital == :y
                 return 1/sqrt(2)
             else
                 return 0
             end
 
         elseif state_2.symmetry_type==:t_abeta
-            if state_1.bonding_type==:A0d && state_1.state.orbital == :z
+            if state_1.bonding_type==:Am && state_1.state.orbital == :z
                 return -1/sqrt(2)
-            elseif state_1.bonding_type==:A0c && state_1.state.orbital == :x
+            elseif state_1.bonding_type==:Ap && state_1.state.orbital == :x
                 return 1/sqrt(2)
             else
                 return 0
             end
 
         else #if state_2.symmetry_type==:t_agamma
-            if state_1.bonding_type==:A0d && state_1.state.orbital == :x
+            if state_1.bonding_type==:Am && state_1.state.orbital == :x
                 return 1/sqrt(2)
-            elseif state_1.bonding_type==:A0d && state_1.state.orbital == :y
+            elseif state_1.bonding_type==:Am && state_1.state.orbital == :y
                 return 1/sqrt(2)
             else
                 return 0
