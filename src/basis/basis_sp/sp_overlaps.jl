@@ -326,24 +326,49 @@ function overlap(state_1 :: TetramerBasisState{BS1}, state_2 :: TetramerBasisSta
 end
 
 
-
 # Overlap between LBS <: SPMSBS{SPSSBS} and DBS{SPSSBS}
 function overlap(state_1 :: SPMSBasisState{BS1}, state_2 :: TetramerBasisState{BS2}) :: Complex{Float64} where 
     {BS1<:AbstractSPSSBasisState, BS2<:AbstractSPSSBasisState}
     
-    if state_1.site==state_2.site1
-        return overlap(state_1.state,state_2.state)/2
-    elseif state_1.site==state_2.site2
-        return (((state_2.bonding_type == :A0c) || (state_2.bonding_type == :A0d))  ? -1.0 : 1.0)*overlap(state_1.state,state_2.state)/2
-    elseif state_1.site==state_2.site3
-        return (((state_2.bonding_type == :A0b) || (state_2.bonding_type == :A0d))  ? -1.0 : 1.0)*overlap(state_1.state,state_2.state)/2
-    elseif state_1.site==state_2.site4
-        return (((state_2.bonding_type == :A0b) || (state_2.bonding_type == :A0c))  ? -1.0 : 1.0)*overlap(state_1.state,state_2.state)/2
-    else # if there is no site compatibility
-        return 0
+    if state_2.bonding_type == :Bp
+        return overlap(state_1.state, state_2.state)/2
+        
+    elseif state_2.bonding_type == :Bm
+        if state_1.site == state_2.site1
+            return overlap(state_1.state, state_2.state)/2
+        elseif state_1.site == state_2.site2
+            return ((state_2.state.orbital == :z) ? +1.0 : -1.0)*overlap(state_1.state,state_2.state)/2
+        elseif state_1.site == state_2.site3
+            return ((state_2.state.orbital == :y) ? +1.0 : -1.0)*overlap(state_1.state,state_2.state)/2
+        else #if state_1.site == state_2.site4
+            return ((state_2.state.orbital == :x) ? +1.0 : -1.0)*overlap(state_1.state,state_2.state)/2
+        end
+            
+    elseif state_2.bonding_type == :Ap
+        if state_1.site == state_2.site1
+            return overlap(state_1.state, state_2.state)/2
+        elseif state_1.site == state_2.site2
+            return ((state_2.state.orbital == :z) ? -1.0 : +1.0)*overlap(state_1.state,state_2.state)/2
+        elseif state_1.site == state_2.site3
+            return ((state_2.state.orbital == :z) ? +1.0 : -1.0)*overlap(state_1.state,state_2.state)/2
+        else #if state_1.site == state_2.site4
+            return -1.0*overlap(state_1.state,state_2.state)/2
+        end
+    else #if state_2.bonding_type == :Am
+        if state_1.site == state_2.site1
+            return overlap(state_1.state, state_2.state)/2
+        elseif state_1.site == state_2.site2
+            return -1.0*overlap(state_1.state,state_2.state)/2
+        elseif state_1.site == state_2.site3
+            return ((state_2.state.orbital == :x) ? +1.0 : -1.0)*overlap(state_1.state,state_2.state)/2
+        else #if state_1.site == state_2.site4
+            return ((state_2.state.orbital == :x) ? -1.0 : 1.0)*overlap(state_1.state,state_2.state)/2
+        end
+ 
     end
     
 end
+
 # <state_1|state_2>= (<state_2|state_1>)'
 function overlap(state_1 :: TetramerBasisState{BS1}, state_2 :: SPMSBasisState{BS2}) :: Complex{Float64} where 
     {BS1<:AbstractSPSSBasisState, BS2<:AbstractSPSSBasisState}
