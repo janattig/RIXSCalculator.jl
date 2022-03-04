@@ -51,13 +51,13 @@ function Base.show(io::IO, state::TetramerBasisState{BS} where BS)
     bsstr =  haskey(io, :compact) ? "" : string(typeof(state.state))[11:length(string(typeof(state.state)))]
     s=bsstr*""
     
-    if state.bonding_type == :A0a
+    if state.bonding_type == :Ap
         print(io,bsstr*"|"*string(state.state.orbital)*",B+,"*(state.state.ms>0 ? '↑' : '↓')*"⟩ ")
-    elseif state.bonding_type == :A0b
+    elseif state.bonding_type == :Am
         print(io,bsstr*"|"*string(state.state.orbital)*",B-,"*(state.state.ms>0 ? '↑' : '↓')*"⟩ ")
-    elseif state.bonding_type == :A0c
+    elseif state.bonding_type == :Ap
         print(io,bsstr*"|"*string(state.state.orbital)*",A+,"*(state.state.ms>0 ? '↑' : '↓')*"⟩ ")
-    else
+    else # :Am
         print(io,bsstr*"|"*string(state.state.orbital)*",A-,"*(state.state.ms>0 ? '↑' : '↓')*"⟩ ")
     end
     
@@ -92,10 +92,10 @@ function getTetramerBasis(basis :: SPBasis{BS}, site1::Int64, site2::Int64, site
     tetramer_states = TetramerBasisState{BS}[]
     # push all states for all sites
     for b in states(basis)
-        push!(tetramer_states, TetramerBasisState{BS}(b, :A0a, site1, site2, site3, site4))
-        push!(tetramer_states, TetramerBasisState{BS}(b, :A0b, site1, site2, site3, site4))
-        push!(tetramer_states, TetramerBasisState{BS}(b, :A0c, site1, site2, site3, site4))
-        push!(tetramer_states, TetramerBasisState{BS}(b, :A0d, site1, site2, site3, site4))
+        push!(tetramer_states, TetramerBasisState{BS}(b, :Bp, site1, site2, site3, site4))
+        push!(tetramer_states, TetramerBasisState{BS}(b, :Bm, site1, site2, site3, site4))
+        push!(tetramer_states, TetramerBasisState{BS}(b, :Ap, site1, site2, site3, site4))
+        push!(tetramer_states, TetramerBasisState{BS}(b, :Am, site1, site2, site3, site4))
     end
     # return the multisite basis
     return SPBasis{TetramerBasisState{BS}}(tetramer_states)
