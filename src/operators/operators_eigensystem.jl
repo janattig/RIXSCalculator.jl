@@ -142,7 +142,7 @@ function printEDresults(op :: AbstractOperator; kwargs...)
 
     for (i,eigvec) in enumerate(es[:vectors])
         printstyled("state nr. $(i) for energy=$(round.(energies(op)[i], digits=1)):\n", color=:red, bold=true)
-        printMPState(eigvec,basis(op))
+        printMPState(eigvec,basis(op); kwargs...)
     end
     
 end
@@ -161,7 +161,7 @@ function printEDresults(op :: AbstractOperator,
 
     for (i,eigvec) in enumerate(es[:vectors])
         printstyled("state nr. $(i) for energy=$(round.(energies(H)[i], digits=1)):\n", color=:red, bold=true)
-        printMPState(eigvec,basis)
+        printMPState(eigvec,basis; kwargs...)
     end
     
 end
