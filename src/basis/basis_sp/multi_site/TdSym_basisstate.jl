@@ -91,3 +91,9 @@ function getTdSymBasis(A::Float64, B::Float64, C::Float64,
 end
 
 export getTdSymBasis
+
+
+
+function get_sites(basis::SPBasis{BS}) where {BS <: TdSymBasisState}
+    return unique([basis[1].site1, basis[1].site2, basis[1].site3, basis[1].site4])
+end
