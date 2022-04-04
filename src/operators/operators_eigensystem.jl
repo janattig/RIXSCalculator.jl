@@ -130,7 +130,8 @@ export print_energies
 The function displays energies and the eigenvectors of an hamiltonian `op` in colors.
 If a basis `basis` is given, the function projects `op` onto the given basis before computing the results.
 """
-function printEDresults(op :: AbstractOperator; kwargs...)
+function printEDresults(op :: AbstractOperator; 
+                        stop :: Int64 = 1, kwargs...)
     # version without projection
     
     es=eigensystem(op)
@@ -143,11 +144,15 @@ function printEDresults(op :: AbstractOperator; kwargs...)
     for (i,eigvec) in enumerate(es[:vectors])
         printstyled("state nr. $(i) for energy=$(round.(energies(op)[i], digits=1)):\n", color=:red, bold=true)
         printMPState(eigvec,basis(op); kwargs...)
+        if i==stop
+            break
+        end
     end
     
 end
 function printEDresults(op :: AbstractOperator, 
-                        basis::AbstractBasis; kwargs...)
+                        basis::AbstractBasis; 
+                        stop :: Int64 =1, kwargs...)
     
     H=ProjectorOperator(op ,basis);
     recalculate!(H)
@@ -162,6 +167,9 @@ function printEDresults(op :: AbstractOperator,
     for (i,eigvec) in enumerate(es[:vectors])
         printstyled("state nr. $(i) for energy=$(round.(energies(H)[i], digits=1)):\n", color=:red, bold=true)
         printMPState(eigvec,basis; kwargs...)
+        if i==stop
+            break
+        end
     end
     
 end
