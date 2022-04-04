@@ -136,7 +136,7 @@ function printEDresults(op :: AbstractOperator; kwargs...)
     es=eigensystem(op)
 
     printstyled("Energies:\n", color=:red, bold=true, underline=true)
-    print_energies(op)
+    print_energies(op; kwargs...)
 
     printstyled("Eigenvectors:\n", color=:red, bold=true, underline=true)
 
@@ -155,7 +155,7 @@ function printEDresults(op :: AbstractOperator,
     es=eigensystem(H)
 
     printstyled("Energies:\n", color=:red, bold=true, underline=true)
-    print_energies(H)
+    print_energies(H; kwargs...)
 
     printstyled("Eigenvectors:\n", color=:red, bold=true, underline=true)
 
