@@ -131,13 +131,13 @@ The function displays energies and the eigenvectors of an hamiltonian `op` in co
 If a basis `basis` is given, the function projects `op` onto the given basis before computing the results.
 """
 function printEDresults(op :: AbstractOperator; 
-                        stop :: Int64 = 1, kwargs...)
+                        stop :: Int64 = 1, subtract_GS::Bool = false, kwargs...)
     # version without projection
     
     es=eigensystem(op)
 
     printstyled("Energies:\n", color=:red, bold=true, underline=true)
-    print_energies(op; kwargs...)
+    print_energies(op; subtract_GS)
 
     printstyled("Eigenvectors:\n", color=:red, bold=true, underline=true)
 
@@ -152,7 +152,9 @@ function printEDresults(op :: AbstractOperator;
 end
 function printEDresults(op :: AbstractOperator, 
                         basis::AbstractBasis; 
-                        stop :: Int64 =1, kwargs...)
+                        stop :: Int64 =1, 
+                        subtract_GS::Bool = false,
+                        kwargs...)
     
     H=ProjectorOperator(op ,basis);
     recalculate!(H)
@@ -160,7 +162,7 @@ function printEDresults(op :: AbstractOperator,
     es=eigensystem(H)
 
     printstyled("Energies:\n", color=:red, bold=true, underline=true)
-    print_energies(H; kwargs...)
+    print_energies(H; subtract_GS)
 
     printstyled("Eigenvectors:\n", color=:red, bold=true, underline=true)
 
