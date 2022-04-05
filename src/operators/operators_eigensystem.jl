@@ -165,6 +165,7 @@ function printEDresults(op :: AbstractOperator;
         
     end
 end
+
 function printEDresults(op :: AbstractOperator, 
                         basis::AbstractBasis;
                         states :: Union{Symbol, Vector{Int64}, Int64} = :all, 
@@ -184,16 +185,16 @@ function printEDresults(op :: AbstractOperator,
     if states == :all || states == :All
         
         for (i,eigvec) in enumerate(es[:vectors])
-            printstyled("state nr. $(i) of $(length(es[:vectors])) for energy=$(round.(energies(op)[i], digits=1)):\n", color=:red, bold=true)
-            printMPState(eigvec,basis(op); kwargs...)
+            printstyled("state nr. $(i) of $(length(es[:vectors])) for energy=$(round.(energies(H)[i], digits=1)):\n", color=:red, bold=true)
+            printMPState(eigvec,basis; kwargs...)
         end
         
     else
         
         for (i,eigvec) in enumerate(es[:vectors])
             if i in states
-                printstyled("state nr. $(i) of $(length(es[:vectors])) for energy=$(round.(energies(op)[i], digits=1)):\n", color=:red, bold=true)
-                printMPState(eigvec,basis(op); kwargs...)
+                printstyled("state nr. $(i) of $(length(es[:vectors])) for energy=$(round.(energies(H)[i], digits=1)):\n", color=:red, bold=true)
+                printMPState(eigvec,basis; kwargs...)
             end
         end
         
