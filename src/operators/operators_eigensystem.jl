@@ -124,14 +124,20 @@ export print_energies
 
 
 """
-    printEDresults(op :: AbstractOperator; 
-                   basis::AbstractBasis = basis(op), kwargs...)
+    printEDresults(op :: AbstractOperator;
+                        states :: Union{Symbol, Vector{Int64}, Int64} = :all,
+                        subtract_GS::Bool = false, 
+                        kwargs...)
 
 The function displays energies and the eigenvectors of an hamiltonian `op` in colors.
 If a basis `basis` is given, the function projects `op` onto the given basis before computing the results.
+If the input `states` is given as an integer vector or an integer number, it prints only those states. If no input `states` is given,
+it will print all the states.
 """
-function printEDresults(op :: AbstractOperator; 
-                        stop :: Int64 = 1, subtract_GS::Bool = false, kwargs...)
+function printEDresults(op :: AbstractOperator;
+                        states :: Union{Symbol, Vector{Int64}, Int64} = :all,
+                        subtract_GS::Bool = false, 
+                        kwargs...)
     # version without projection
     
     es=eigensystem(op)
@@ -141,18 +147,27 @@ function printEDresults(op :: AbstractOperator;
 
     printstyled("Eigenvectors:\n", color=:red, bold=true, underline=true)
 
-    for (i,eigvec) in enumerate(es[:vectors])
-        printstyled("state nr. $(i) of $(length(es[:vectors])) for energy=$(round.(energies(op)[i], digits=1)):\n", color=:red, bold=true)
-        printMPState(eigvec,basis(op); kwargs...)
-        if i==stop
-            break
+    if states == :all || states == :All
+        
+        for (i,eigvec) in enumerate(es[:vectors])
+            printstyled("state nr. $(i) of $(length(es[:vectors])) for energy=$(round.(energies(op)[i], digits=1)):\n", color=:red, bold=true)
+            printMPState(eigvec,basis(op); kwargs...)
         end
+        
+    else
+        
+        for (i,eigvec) in enumerate(es[:vectors])
+            if i in states
+                printstyled("state nr. $(i) of $(length(es[:vectors])) for energy=$(round.(energies(op)[i], digits=1)):\n", color=:red, bold=true)
+                printMPState(eigvec,basis(op); kwargs...)
+            end
+        end
+        
     end
-    
 end
 function printEDresults(op :: AbstractOperator, 
-                        basis::AbstractBasis; 
-                        stop :: Int64 =1, 
+                        basis::AbstractBasis;
+                        states :: Union{Symbol, Vector{Int64}, Int64} = :all, 
                         subtract_GS::Bool = false,
                         kwargs...)
     
@@ -166,12 +181,22 @@ function printEDresults(op :: AbstractOperator,
 
     printstyled("Eigenvectors:\n", color=:red, bold=true, underline=true)
 
-    for (i,eigvec) in enumerate(es[:vectors])
-        printstyled("state nr. $(i) of $(length(es[:vectors])) for energy=$(round.(energies(H)[i], digits=1)):\n", color=:red, bold=true)
-        printMPState(eigvec,basis; kwargs...)
-        if i==stop
-            break
+    if states == :all || states == :All
+        
+        for (i,eigvec) in enumerate(es[:vectors])
+            printstyled("state nr. $(i) of $(length(es[:vectors])) for energy=$(round.(energies(op)[i], digits=1)):\n", color=:red, bold=true)
+            printMPState(eigvec,basis(op); kwargs...)
         end
+        
+    else
+        
+        for (i,eigvec) in enumerate(es[:vectors])
+            if i in states
+                printstyled("state nr. $(i) of $(length(es[:vectors])) for energy=$(round.(energies(op)[i], digits=1)):\n", color=:red, bold=true)
+                printMPState(eigvec,basis(op); kwargs...)
+            end
+        end
+        
     end
     
 end
