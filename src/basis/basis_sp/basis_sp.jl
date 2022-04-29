@@ -18,6 +18,7 @@ include("multi_site/multi_site_basisstate.jl")
 include("multi_site/delocalized_basisstate.jl")
 include("multi_site/tetramer_basisstate.jl")
 include("multi_site/TdSym_basisstate.jl")
+include("multi_site/mixed_basisstate.jl")
 include("multi_site/multi_site_functions.jl")
 
 # include composite basis state definitions and functions

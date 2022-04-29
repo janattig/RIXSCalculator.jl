@@ -559,3 +559,40 @@ function overlap(state_1 :: TdSymBasisState, state_2 :: SPMSBasisState{BS}) :: C
     {BS<:BasisStateXYZ}
     return overlap(state_2,state_1)'
 end
+
+
+
+
+
+################################
+#  Mixed Basis State overlaps  #
+################################
+
+# Overlap between DBSs of different SPSSBSs
+function overlap(state_1 :: MixedBasisState{BS1,BS2}, state_2 :: MixedBasisState{BS1,BS2}) :: Complex{Float64} where 
+    {BS1<:AbstractSPSSBasisState, BS2<:AbstractSPSSBasisState}
+    
+    b1= state_1.bonding_type == :ab ? -1.0 : 1.0
+    b2= state_2.bonding_type == :ab ? -1.0 : 1.0
+    return 0.5*(1*overlap(state_1.state1,state_2.state1) + b1*b2*overlap(state_1.state2,state_2.state2))
+
+end
+# Overlap between LBS <: SPMSBS{SPSSBS} and DBS{SPSSBS}
+function overlap(state_1 :: SPMSBasisState{BS}, state_2 :: MixedBasisState{BS1,BS2}) :: Complex{Float64} where 
+    {BS<:AbstractSPSSBasisState, BS1<:AbstractSPSSBasisState, BS2<:AbstractSPSSBasisState}
+    
+    if state_1.site==state_2.site1
+        return overlap(state_1.state,state_2.state1)/sqrt(2)
+    elseif state_1.site==state_2.site2
+        return ( state_2.bonding_type == :ab ? -1.0 : 1.0 )*overlap(state_1.state,state_2.state2)/sqrt(2)
+    else #site of state_1 is neither site1 or site2 of state_2
+        return 0
+    end
+    
+end
+# <state_1|state_2>= (<state_2|state_1>)'
+function overlap(state_1 :: MixedBasisState{BS1,BS2}, state_2 :: SPMSBasisState{BS}) :: Complex{Float64} where 
+    {BS<:AbstractSPSSBasisState, BS1<:AbstractSPSSBasisState, BS2<:AbstractSPSSBasisState}
+    
+    return overlap(state_2,state_1)'
+end
