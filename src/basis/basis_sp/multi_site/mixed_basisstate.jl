@@ -34,7 +34,7 @@ end
 
 
 # export the basis type
-# export MixedBasisState
+export MixedBasisState
 
 
 """
@@ -54,3 +54,5 @@ function getMixedBasis(basis1 :: SPBasis{BS1},basis2 :: SPBasis{BS2},site1::Int6
     # return the multisite basis
     return SPBasis{MixedBasisState{BS1,BS2}}(mixed_states)
 end
+
+export getMixedBasis
