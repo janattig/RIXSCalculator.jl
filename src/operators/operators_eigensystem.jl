@@ -136,7 +136,7 @@ it will print all the states.
 """
 function printEDresults(op :: AbstractOperator;
                         states :: Union{Symbol, Vector{Int64}, Int64} = :all,
-                        subtract_GS::Bool = false, 
+                        subtract_GS::Bool = false,
                         kwargs...)
     # version without projection
     
@@ -153,6 +153,8 @@ function printEDresults(op :: AbstractOperator;
             printstyled("state nr. $(i) of $(length(es[:vectors])) for energy=$(round.(energies(op)[i], digits=1)):\n", color=:red, bold=true)
             printMPState(eigvec,basis(op); kwargs...)
         end
+        
+    elseif states == :none || states == :None
         
     else
         
@@ -188,6 +190,8 @@ function printEDresults(op :: AbstractOperator,
             printstyled("state nr. $(i) of $(length(es[:vectors])) for energy=$(round.(energies(H)[i], digits=1)):\n", color=:red, bold=true)
             printMPState(eigvec,basis; kwargs...)
         end
+        
+    elseif states == :none || states == :None
         
     else
         
