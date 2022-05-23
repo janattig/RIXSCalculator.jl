@@ -48,7 +48,7 @@ function Base.show(io::IO, op::SumOperator{B, O1, O2}) where {BS<:AbstractBasisS
         print(io, "\n+ ")
         show(io, op.op_2)
     else
-        print(io, "Operator sum of the following operators:\n  ")
+        printstyled(io, "Operator sum of the following operators:\n  ", bold=true)
         show(IOContext(io, :compact=>true), op.op_1)
         print(io, "\n+ ")
         show(IOContext(io, :compact=>true), op.op_2)
