@@ -139,12 +139,11 @@ function printEDresults(op :: AbstractOperator;
                         subtract_GS::Bool = false,
                         kwargs...)
     
-    global particle_type
     # choose color:
-    if particle_type==:hole
-        color=:red
-    else
+    if global particle_type==:electron
         color=:blue
+    else
+        color=:red
     end
     
     # version without projection
@@ -183,12 +182,11 @@ function printEDresults(op :: AbstractOperator,
                         subtract_GS::Bool = false,
                         kwargs...)
     
-    global particle_type
     # choose color:
-    if particle_type==:hole
-        color=:red
-    else
+    if global particle_type==:electron
         color=:blue
+    else
+        color=:red
     end
     
     #project matrix
