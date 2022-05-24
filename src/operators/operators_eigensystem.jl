@@ -137,8 +137,9 @@ it will print all the states.
 function printEDresults(op :: AbstractOperator;
                         states :: Union{Symbol, Vector{Int64}, Int64} = :all,
                         subtract_GS::Bool = false,
-                        particle_type::Symbol=:hole,
                         kwargs...)
+    
+    global particle_type
     # choose color:
     if particle_type==:hole
         color=:red
@@ -180,9 +181,9 @@ function printEDresults(op :: AbstractOperator,
                         basis::AbstractBasis;
                         states :: Union{Symbol, Vector{Int64}, Int64} = :all, 
                         subtract_GS::Bool = false,
-                        particle_type::Symbol=:hole,
                         kwargs...)
     
+    global particle_type
     # choose color:
     if particle_type==:hole
         color=:red
