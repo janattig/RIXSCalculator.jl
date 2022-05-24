@@ -137,20 +137,28 @@ it will print all the states.
 function printEDresults(op :: AbstractOperator;
                         states :: Union{Symbol, Vector{Int64}, Int64} = :all,
                         subtract_GS::Bool = false,
+                        particle_type::Symbol=:hole,
                         kwargs...)
+    # choose color:
+    if particle_type==:hole
+        color=:red
+    else
+        color=:blue
+    end
+    
     # version without projection
     
     es=eigensystem(op)
 
-    printstyled("Energies:\n", color=:red, bold=true, underline=true)
+    printstyled("Energies:\n", color=color, bold=true, underline=true)
     print_energies(op; subtract_GS)
 
-    printstyled("Eigenvectors:\n", color=:red, bold=true, underline=true)
+    printstyled("Eigenvectors:\n", color=color, bold=true, underline=true)
 
     if states == :all || states == :All
         
         for (i,eigvec) in enumerate(es[:vectors])
-            printstyled("state nr. $(i) of $(length(es[:vectors])) for energy=$(round.(energies(op)[i], digits=1)):\n", color=:red, bold=true)
+            printstyled("state nr. $(i) of $(length(es[:vectors])) for energy=$(round.(energies(op)[i], digits=1)):\n", color=color, bold=true)
             printMPState(eigvec,basis(op); kwargs...)
         end
         
@@ -160,7 +168,7 @@ function printEDresults(op :: AbstractOperator;
         
         for (i,eigvec) in enumerate(es[:vectors])
             if i in states
-                printstyled("state nr. $(i) of $(length(es[:vectors])) for energy=$(round.(energies(op)[i], digits=1)):\n", color=:red, bold=true)
+                printstyled("state nr. $(i) of $(length(es[:vectors])) for energy=$(round.(energies(op)[i], digits=1)):\n", color=color, bold=true)
                 printMPState(eigvec,basis(op); kwargs...)
             end
         end
@@ -172,22 +180,32 @@ function printEDresults(op :: AbstractOperator,
                         basis::AbstractBasis;
                         states :: Union{Symbol, Vector{Int64}, Int64} = :all, 
                         subtract_GS::Bool = false,
+                        particle_type::Symbol=:hole,
                         kwargs...)
     
+    # choose color:
+    if particle_type==:hole
+        color=:red
+    else
+        color=:blue
+    end
+    
+    #project matrix
     H=ProjectorOperator(op ,basis);
     recalculate!(H)
     
+    #pick eigensystem
     es=eigensystem(H)
 
-    printstyled("Energies:\n", color=:red, bold=true, underline=true)
+    printstyled("Energies:\n", color=color, bold=true, underline=true)
     print_energies(H; subtract_GS)
 
-    printstyled("Eigenvectors:\n", color=:red, bold=true, underline=true)
+    printstyled("Eigenvectors:\n", color=color, bold=true, underline=true)
 
     if states == :all || states == :All
         
         for (i,eigvec) in enumerate(es[:vectors])
-            printstyled("state nr. $(i) of $(length(es[:vectors])) for energy=$(round.(energies(H)[i], digits=1)):\n", color=:red, bold=true)
+            printstyled("state nr. $(i) of $(length(es[:vectors])) for energy=$(round.(energies(H)[i], digits=1)):\n", color=color, bold=true)
             printMPState(eigvec,basis; kwargs...)
         end
         
@@ -197,7 +215,7 @@ function printEDresults(op :: AbstractOperator,
         
         for (i,eigvec) in enumerate(es[:vectors])
             if i in states
-                printstyled("state nr. $(i) of $(length(es[:vectors])) for energy=$(round.(energies(H)[i], digits=1)):\n", color=:red, bold=true)
+                printstyled("state nr. $(i) of $(length(es[:vectors])) for energy=$(round.(energies(H)[i], digits=1)):\n", color=color, bold=true)
                 printMPState(eigvec,basis; kwargs...)
             end
         end
