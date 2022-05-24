@@ -153,10 +153,10 @@ function printEDresults(op :: AbstractOperator;
     printstyled("Energies:\n", color=color, bold=true, underline=true)
     print_energies(op; subtract_GS)
 
-    printstyled("Eigenvectors:\n", color=color, bold=true, underline=true)
+    
 
     if states == :all || states == :All
-        
+        printstyled("Eigenvectors:\n", color=color, bold=true, underline=true)
         for (i,eigvec) in enumerate(es[:vectors])
             printstyled("state nr. $(i) of $(length(es[:vectors])) for energy=$(round.(energies(op)[i], digits=1)):\n", color=color, bold=true)
             printMPState(eigvec,basis(op); kwargs...)
@@ -165,7 +165,7 @@ function printEDresults(op :: AbstractOperator;
     elseif states == :none || states == :None
         
     else
-        
+        printstyled("Eigenvectors:\n", color=color, bold=true, underline=true)
         for (i,eigvec) in enumerate(es[:vectors])
             if i in states
                 printstyled("state nr. $(i) of $(length(es[:vectors])) for energy=$(round.(energies(op)[i], digits=1)):\n", color=color, bold=true)
@@ -200,10 +200,10 @@ function printEDresults(op :: AbstractOperator,
     printstyled("Energies:\n", color=color, bold=true, underline=true)
     print_energies(H; subtract_GS)
 
-    printstyled("Eigenvectors:\n", color=color, bold=true, underline=true)
+    
 
     if states == :all || states == :All
-        
+        printstyled("Eigenvectors:\n", color=color, bold=true, underline=true)
         for (i,eigvec) in enumerate(es[:vectors])
             printstyled("state nr. $(i) of $(length(es[:vectors])) for energy=$(round.(energies(H)[i], digits=1)):\n", color=color, bold=true)
             printMPState(eigvec,basis; kwargs...)
@@ -212,7 +212,7 @@ function printEDresults(op :: AbstractOperator,
     elseif states == :none || states == :None
         
     else
-        
+        printstyled("Eigenvectors:\n", color=color, bold=true, underline=true)
         for (i,eigvec) in enumerate(es[:vectors])
             if i in states
                 printstyled("state nr. $(i) of $(length(es[:vectors])) for energy=$(round.(energies(H)[i], digits=1)):\n", color=color, bold=true)
