@@ -77,7 +77,8 @@
             @test SPLocalMSOperator <: AbstractSPMSOperator
             
             @testset "Multi-Particle Operators definitions" begin
-                @test MPGeneralizedSPOperator <: AbstractMP1POperator
+                @test MPHoleGeneralizedSPOperator <: AbstractMP1POperator
+                @test MPElectronGeneralizedSPOperator <: AbstractMP1POperator
                 
                 @test MPElectronDensityDensityOperator <: AbstractMPDensityDensityOperator
                 @test MPHoleDensityDensityOperator <: AbstractMPDensityDensityOperator
