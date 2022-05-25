@@ -467,8 +467,8 @@
                     E1=-lambda/2
                     E2=+lambda
                     energies=zeros(length(es[:values]))
-                    energies[1:2]=E1*ones(2)
-                    energies[3:6]=E2*ones(4)
+                    energies[1:4]=E1*ones(4)
+                    energies[5:6]=E2*ones(2)
 
                     #test
                     @test abs.(es[:values]-energies)<1e-6*ones(length(es[:values]))
@@ -503,8 +503,8 @@
                     E1=-lambda/2
                     E2=+lambda
                     energies=zeros(length(es[:values]))
-                    energies[1:2]=E1*ones(2)
-                    energies[3:6]=E2*ones(4)
+                    energies[1:4]=E1*ones(4)
+                    energies[5:6]=E2*ones(2)
 
                     #test
                     @test abs.(es[:values]-energies)<1e-6*ones(length(es[:values]))
