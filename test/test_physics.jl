@@ -59,7 +59,7 @@
                     basis_mp=getMultiParticleBasis(basis_ms,h)
 
                     # hamiltonian construction
-                    hamiltonian=MagneticFieldOperator(basis_mp, 1, Bstr, Bdir)
+                    hamiltonian=MagneticFieldOperator(basis_mp, 1, Bstr, Bdir; particle_type=particle_type)
 
                     # obtain eigensystem
                     es=eigensystem(hamiltonian)
@@ -81,39 +81,6 @@
             end # end 1h, 1s
             
             @testset "1e, 1s" begin
-                
-                @testset "1e, 1s: single-particle picture" begin
-
-                    e=1
-                    s=1
-                    particle_type=:electron
-                    
-                    Bstr=1.0
-                    Bdir=generate_rvos()
-                    B=Bstr*Bdir
-
-                    # basis construction
-                    basis_sp=getT2GBasisLS()        
-
-                    # hamiltonian construction
-                    hamiltonian=MagneticFieldOperator(basis_sp, Bstr, Bdir)
-
-                    # obtain eigensystem
-                    es=eigensystem(hamiltonian)
-
-                    @test size(matrix_representation(hamiltonian))==(6,6)
-                    @test length(es[:values])==6
-                    @test length(es[:vectors])==6
-
-                    # correct results:
-                    Epm=norm(B)/2
-                    E1=-Epm
-                    E2=Epm
-
-                    #test
-                    @test abs.(es[:values]-[E1,E1,E1,E2,E2,E2])<1e-6*ones(6)
-
-                end
 
                 @testset "1e, 1s: multi-particle picture" begin
 
@@ -131,7 +98,7 @@
                     basis_mp=getMultiParticleBasis(basis_ms,e)
 
                     # hamiltonian construction
-                    hamiltonian=MagneticFieldOperator(basis_mp, 1, Bstr, Bdir)
+                    hamiltonian=MagneticFieldOperator(basis_mp, 1, Bstr, Bdir; particle_type=particle_type)
 
                     # obtain eigensystem
                     es=eigensystem(hamiltonian)
@@ -168,7 +135,7 @@
                 basis_mp=getMultiParticleBasis(basis_ms,h)
 
                 # hamiltonian construction
-                hamiltonian=MagneticFieldOperator(basis_mp, 1, Bstr, Bdir)
+                hamiltonian=MagneticFieldOperator(basis_mp, 1, Bstr, Bdir; particle_type=particle_type)
 
                 # obtain eigensystem
                 es=eigensystem(hamiltonian)
@@ -210,7 +177,7 @@
                 basis_mp=getMultiParticleBasis(basis_ms,e)
 
                 # hamiltonian construction
-                hamiltonian=MagneticFieldOperator(basis_mp, 1, Bstr, Bdir)
+                hamiltonian=MagneticFieldOperator(basis_mp, 1, Bstr, Bdir; particle_type=particle_type)
 
                 # obtain eigensystem
                 es=eigensystem(hamiltonian)
@@ -252,7 +219,7 @@
                 basis_mp=getMultiParticleBasis(basis_ms,h)
 
                 # hamiltonian construction
-                hamiltonian=MagneticFieldOperator(basis_mp, 1, Bstr, Bdir)
+                hamiltonian=MagneticFieldOperator(basis_mp, 1, Bstr, Bdir; particle_type=particle_type)
 
                 # obtain eigensystem
                 es=eigensystem(hamiltonian)
@@ -296,7 +263,7 @@
                 basis_mp=getMultiParticleBasis(basis_ms,e)
 
                 # hamiltonian construction
-                hamiltonian=MagneticFieldOperator(basis_mp, 1, Bstr, Bdir)
+                hamiltonian=MagneticFieldOperator(basis_mp, 1, Bstr, Bdir; particle_type=particle_type)
 
                 # obtain eigensystem
                 es=eigensystem(hamiltonian)
@@ -414,7 +381,7 @@
                     basis_mp=getMultiParticleBasis(basis_ms,h)
 
                     # hamiltonian construction
-                    hamiltonian=SpinOrbitOperator(basis_mp, 1, lambda)
+                    hamiltonian=SpinOrbitOperator(basis_mp, 1, lambda; particle_type=particle_type)
 
                     # obtain eigensystem
                     es=eigensystem(hamiltonian)
@@ -439,41 +406,6 @@
             end # end 1h, 1s 
             
             @testset "1e, 1s" begin
-                
-                @testset "1e, 1s: single-particle picture" begin
-
-                    e=1
-                    s=1
-                    particle_type=:electron
-                    
-                    lambda=3.0
-
-                    # basis construction
-                    basis_sp=getT2GBasisLS()        
-
-                    # hamiltonian construction
-                    hamiltonian=SpinOrbitOperator(basis_sp, lambda)
-
-                    # obtain eigensystem
-                    es=eigensystem(hamiltonian)
-                    es[:values]
-
-                    # consistency tests
-                    @test size(matrix_representation(hamiltonian))==(6,6)
-                    @test length(es[:values])==6
-                    @test length(es[:vectors])==6
-
-                    # correct results:
-                    E1=-lambda/2
-                    E2=+lambda
-                    energies=zeros(length(es[:values]))
-                    energies[1:4]=E1*ones(4)
-                    energies[5:6]=E2*ones(2)
-
-                    #test
-                    @test abs.(es[:values]-energies)<1e-6*ones(length(es[:values]))
-
-                end
 
                 @testset "1e, 1s: multi-particle picture" begin
 
@@ -488,7 +420,7 @@
                     basis_mp=getMultiParticleBasis(basis_ms,e)
 
                     # hamiltonian construction
-                    hamiltonian=SpinOrbitOperator(basis_mp, 1, lambda)
+                    hamiltonian=SpinOrbitOperator(basis_mp, 1, lambda; particle_type=particle_type)
 
                     # obtain eigensystem
                     es=eigensystem(hamiltonian)
