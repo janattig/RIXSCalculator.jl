@@ -117,7 +117,7 @@
 
                 @testset "1e, 1s: multi-particle picture" begin
 
-                    h=1
+                    e=1
                     s=1
                     particle_type=:electron
                     
@@ -128,7 +128,7 @@
                     # basis construction
                     basis_sp=getT2GBasisLS()        
                     basis_ms=getMultiSiteBasis(basis_sp,s)
-                    basis_mp=getMultiParticleBasis(basis_ms,h)
+                    basis_mp=getMultiParticleBasis(basis_ms,e)
 
                     # hamiltonian construction
                     hamiltonian=MagneticFieldOperator(basis_mp, 1, Bstr, Bdir)
@@ -156,6 +156,8 @@
                
                 h=2
                 s=1
+                particle_type=:hole
+                
                 Bstr=1.0
                 Bdir=generate_rvos()
                 B=Bstr*Bdir
@@ -164,6 +166,48 @@
                 basis_sp=getT2GBasisLS()        
                 basis_ms=getMultiSiteBasis(basis_sp,s)
                 basis_mp=getMultiParticleBasis(basis_ms,h)
+
+                # hamiltonian construction
+                hamiltonian=MagneticFieldOperator(basis_mp, 1, Bstr, Bdir)
+
+                # obtain eigensystem
+                es=eigensystem(hamiltonian)
+                es[:values]
+                
+                
+                # consistency tests
+                @test size(matrix_representation(hamiltonian))==(15,15)
+                @test length(es[:values])==15
+                @test length(es[:vectors])==15
+                
+                
+                # correct results:
+                E1=-Bstr
+                E2=0.0
+                E3=Bstr
+                energies=zeros(15)
+                energies[1:3]=E1*ones(3)
+                energies[13:15]=E3*ones(3)
+
+                # test 
+                @test abs.(es[:values]-energies)<1e-6*ones(15)
+                
+            end
+            
+            @testset "2e, 1s" begin
+               
+                e=2
+                s=1
+                particle_type=:electron
+                
+                Bstr=1.0
+                Bdir=generate_rvos()
+                B=Bstr*Bdir
+
+                # basis construction
+                basis_sp=getT2GBasisLS()        
+                basis_ms=getMultiSiteBasis(basis_sp,s)
+                basis_mp=getMultiParticleBasis(basis_ms,e)
 
                 # hamiltonian construction
                 hamiltonian=MagneticFieldOperator(basis_mp, 1, Bstr, Bdir)
