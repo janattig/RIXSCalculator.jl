@@ -107,7 +107,7 @@
             
             @testset "Projector Operator types" begin
                 @test SPSSProjectorOperator <: AbstractSPSSOperator
-                @test SPMSProjectorOperator <: AbstractSPMSOperator
+                @test SPMSProjectorOperator <: AbstractSPMSOperator{SPMSB} where SPMSB
                 @test MPProjectorOperator <: AbstractMPOperator
                 @test GeneralProjectorOperator <: AbstractOperator
             end
