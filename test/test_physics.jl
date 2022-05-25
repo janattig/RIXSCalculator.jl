@@ -14,6 +14,8 @@
 
                     h=1
                     s=1
+                    particle_type=:hole
+                    
                     Bstr=1.0
                     Bdir=generate_rvos()
                     B=Bstr*Bdir
@@ -45,6 +47,8 @@
 
                     h=1
                     s=1
+                    particle_type=:hole
+                    
                     Bstr=1.0
                     Bdir=generate_rvos()
                     B=Bstr*Bdir
@@ -75,6 +79,78 @@
                 end
                 
             end # end 1h, 1s
+            
+            @testset "1e, 1s" begin
+                
+                @testset "1e, 1s: single-particle picture" begin
+
+                    e=1
+                    s=1
+                    particle_type=:electron
+                    
+                    Bstr=1.0
+                    Bdir=generate_rvos()
+                    B=Bstr*Bdir
+
+                    # basis construction
+                    basis_sp=getT2GBasisLS()        
+
+                    # hamiltonian construction
+                    hamiltonian=MagneticFieldOperator(basis_sp, Bstr, Bdir)
+
+                    # obtain eigensystem
+                    es=eigensystem(hamiltonian)
+
+                    @test size(matrix_representation(hamiltonian))==(6,6)
+                    @test length(es[:values])==6
+                    @test length(es[:vectors])==6
+
+                    # correct results:
+                    Epm=norm(B)/2
+                    E1=-Epm
+                    E2=Epm
+
+                    #test
+                    @test abs.(es[:values]-[E1,E1,E1,E2,E2,E2])<1e-6*ones(6)
+
+                end
+
+                @testset "1e, 1s: multi-particle picture" begin
+
+                    h=1
+                    s=1
+                    particle_type=:electron
+                    
+                    Bstr=1.0
+                    Bdir=generate_rvos()
+                    B=Bstr*Bdir
+
+                    # basis construction
+                    basis_sp=getT2GBasisLS()        
+                    basis_ms=getMultiSiteBasis(basis_sp,s)
+                    basis_mp=getMultiParticleBasis(basis_ms,h)
+
+                    # hamiltonian construction
+                    hamiltonian=MagneticFieldOperator(basis_mp, 1, Bstr, Bdir)
+
+                    # obtain eigensystem
+                    es=eigensystem(hamiltonian)
+
+                    @test size(matrix_representation(hamiltonian))==(6,6)
+                    @test length(es[:values])==6
+                    @test length(es[:vectors])==6
+
+                    # correct results:
+                    Epm=norm(B)/2
+                    E1=-Epm
+                    E2=Epm
+
+                    #test
+                    @test abs.(es[:values]-[E1,E1,E1,E2,E2,E2])<1e-6*ones(6)
+
+                end
+                
+            end # end 1e, 1s
             
             @testset "2h, 1s" begin
                
