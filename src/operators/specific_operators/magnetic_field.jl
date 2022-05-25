@@ -321,9 +321,16 @@ end
 ##############################################################
 
 # creating a magnetic field operator on a multi site basis
-function MagneticFieldOperator(basis::MPB, site::Int64, B::Real, B_dir::Vector{<:Real}=[0,0,1]) where {SPSSBS<:AbstractSPSSBasisState, N,MPB<:MPBasis{N,SPMSBasisState{SPSSBS}}}
+function MagneticFieldOperator(basis::MPB, site::Int64, B::Real, B_dir::Vector{<:Real}=[0,0,1]; particle_type::Symbol=:hole) where {SPSSBS<:AbstractSPSSBasisState, N,MPB<:MPBasis{N,SPMSBasisState{SPSSBS}}}
     # construct new single site operator
     op = MagneticFieldOperator(basis.single_particle_basis, site, B, B_dir)
     # construct new multi particle operator out of that
-    return MPGeneralizedSPOperator(basis, op)
+    if particle_type == :electron
+        return MPElectronGeneralizedSPOperator(basis, op)
+    elseif particle_type == :hole
+        return MPHoleGeneralizedSPOperator(basis, op)
+    else 
+        @error "Invalid particle type '$(particle_type)'; returned ':hole' version instead" stacktrace()
+        return MPHoleGeneralizedSPOperator(basis, op)
+    end
 end

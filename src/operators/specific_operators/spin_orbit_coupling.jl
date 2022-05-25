@@ -256,9 +256,16 @@ end
 
 
 # creating a spin orbit operator on a multi site basis
-function SpinOrbitOperator(basis::MPB, site::Int64, lambda::Real) where {SPSSBS<:AbstractSPSSBasisState, N,MPB<:MPBasis{N,SPMSBasisState{SPSSBS}}}
+function SpinOrbitOperator(basis::MPB, site::Int64, lambda::Real; particle_type::Symbol=:hole) where {SPSSBS<:AbstractSPSSBasisState, N,MPB<:MPBasis{N,SPMSBasisState{SPSSBS}}}
     # construct new single site local operator
     op = SpinOrbitOperator(basis.single_particle_basis, site, lambda)
     # construct new multi particle operator out of that
-    return MPGeneralizedSPOperator(basis, op)
+    if particle_type == :electron
+        return MPElectronGeneralizedSPOperator(basis, op)
+    elseif particle_type == :hole
+        return MPHoleGeneralizedSPOperator(basis, op)
+    else 
+        @error "Invalid particle type '$(particle_type)'; returned ':hole' instead" stacktrace()
+        return MPHoleGeneralizedSPOperator(basis, op)
+    end
 end
