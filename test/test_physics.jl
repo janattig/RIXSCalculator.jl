@@ -439,7 +439,7 @@
                     energies[5:6]=E2*ones(2)
 
                     #test
-                    @test abs.(es[:values]-energies)<1e-6*ones(length(es[:values]))
+                    @test (abs.(es[:values]-energies).<1e-6*ones(length(es[:values]))) == trues(length(energies))
 
                 end
             end # end 1e, 1s 
@@ -475,11 +475,11 @@
 
                 energies=zeros(length(es[:values]))
                 energies[1]=E1
-                energies[2:8]=E2*ones(7)
-                energies[9:15]=E3*ones(7)
+                energies[2:9]=E2*ones(7)
+                energies[10:15]=E3*ones(7)
 
                 #test
-                @test abs.(es[:values]-energies)<1e-6*ones(length(es[:values])) 
+                @test (abs.(es[:values]-energies).<1e-6*ones(length(es[:values]))) == trues(length(energies))
                 
             end
             
@@ -518,7 +518,7 @@
                 energies[15]=E3
 
                 #test
-                @test abs.(es[:values]-energies)<1e-6*ones(length(es[:values])) 
+                @test (abs.(es[:values]-energies).<1e-6*ones(length(es[:values]))) == trues(length(energies))
                 
             end
             
