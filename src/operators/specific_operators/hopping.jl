@@ -118,11 +118,16 @@ end
 export SPOrbitalHoppingOperator
 
 # creating a magnetic field operator on a multi site basis
-function SPOrbitalHoppingOperator(basis::MPB) where {SPSSBS<:AbstractSPSSBasisState, N,MPB<:MPBasis{N,SPMSBasisState{SPSSBS}}}
+function SPOrbitalHoppingOperator(basis::MPB; particle_type::Symbol = :hole) where {SPSSBS<:AbstractSPSSBasisState, N,MPB<:MPBasis{N,SPMSBasisState{SPSSBS}}}
     # construct new single site operator
     op = SPOrbitalHoppingOperator(basis.single_particle_basis)
     # construct new multi particle operator out of that
-    return MPGeneralizedSPOperator(basis, op)
+    if particle_type == :hole
+        return MPHoleGeneralizedSPOperator(basis, op)
+    else
+        return MPHoleGeneralizedSPOperator(basis, op)
+    end
+    
 end
 
 
