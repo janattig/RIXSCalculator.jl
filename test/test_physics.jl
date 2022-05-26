@@ -508,14 +508,14 @@
                 @test length(es[:vectors])==15
 
                 # correct results:
-                E1=-2*lambda
-                E2=-lambda/2
-                E3=lambda
+                E1=-lambda
+                E2=+lambda/2
+                E3=2*lambda
 
                 energies=zeros(length(es[:values]))
-                energies[1]=E1
-                energies[2:8]=E2*ones(7)
-                energies[9:15]=E3*ones(7)
+                energies[1:6]=E1*ones(6)
+                energies[7:14]=E2*ones(8)
+                energies[15]=E3
 
                 #test
                 @test abs.(es[:values]-energies)<1e-6*ones(length(es[:values])) 
