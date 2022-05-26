@@ -39,7 +39,7 @@
                     E2=Epm
 
                     #test
-                    @test (abs.(es[:values]-[E1,E1,E1,E2,E2,E2])<1e-6*ones(6)) == trues(6)
+                    @test (abs.(es[:values]-[E1,E1,E1,E2,E2,E2]).<1e-6*ones(6)) == trues(6)
 
                 end
 
@@ -72,9 +72,10 @@
                     Epm=norm(B)/2
                     E1=-Epm
                     E2=Epm
+                    energies=[E1,E1,E1,E2,E2,E2]
 
                     #test
-                    @test (abs.(es[:values]-[E1,E1,E1,E2,E2,E2])<1e-6*ones(6)) == trues(6)
+                    @test (abs.(es[:values]-[E1,E1,E1,E2,E2,E2]).<1e-6*ones(length(energies))) == trues(length(energies))
 
                 end
                 
@@ -111,9 +112,9 @@
                     Epm=norm(B)/2
                     E1=-Epm
                     E2=Epm
-
+                    energies=[E1,E1,E1,E2,E2,E2]
                     #test
-                    @test (abs.(es[:values]-energies)<1e-6*ones(length(es[:values]))) == trues(length(energies))
+                    @test (abs.(es[:values]-energies).<1e-6*ones(length(es[:values]))) == trues(length(energies))
 
                 end
                 
@@ -157,7 +158,7 @@
                 energies[13:15]=E3*ones(3)
 
                 # test 
-                @test (abs.(es[:values]-energies)<1e-6*ones(length(es[:values]))) == trues(length(energies))
+                @test (abs.(es[:values]-energies).<1e-6*ones(length(es[:values]))) == trues(length(energies))
                 
             end
             
@@ -199,7 +200,7 @@
                 energies[13:15]=E3*ones(3)
 
                 # test 
-                @test (abs.(es[:values]-energies)<1e-6*ones(length(es[:values]))) == trues(length(energies))
+                @test (abs.(es[:values]-energies).<1e-6*ones(length(es[:values]))) == trues(length(energies))
                 
             end
             
@@ -243,7 +244,7 @@
                 energies[20]=E4
 
                 # test 
-                @test (abs.(es[:values]-energies)<1e-6*ones(length(es[:values]))) == trues(length(energies))
+                @test (abs.(es[:values]-energies).<1e-6*ones(length(es[:values]))) == trues(length(energies))
 
             end
             
@@ -287,7 +288,7 @@
                 energies[20]=E4
 
                 # test 
-                @test (abs.(es[:values]-energies)<1e-6*ones(length(es[:values]))) == trues(length(energies))
+                @test (abs.(es[:values]-energies).<1e-6*ones(length(es[:values]))) == trues(length(energies))
 
             end
             
@@ -322,7 +323,7 @@
                 energies[10:12]=(Bstr/2)*ones(3)
 
                 # #test
-                @test (abs.(es[:values]-energies)<1e-6*ones(length(es[:values]))) == trues(length(energies))
+                @test (abs.(es[:values]-energies).<1e-6*ones(length(es[:values]))) == trues(length(energies))
                 
             end
             
@@ -363,7 +364,7 @@
                     energies[3:6]=E2*ones(4)
 
                     #test
-                    @test (abs.(es[:values]-energies)<1e-6*ones(length(es[:values]))) == trues(length(energies))
+                    @test (abs.(es[:values]-energies).<1e-6*ones(length(es[:values]))) == trues(length(energies))
 
                 end
 
@@ -400,7 +401,7 @@
                     energies[3:6]=E2*ones(4)
 
                     #test
-                    @test (abs.(es[:values]-energies)<1e-6*ones(length(es[:values]))) == trues(length(energies))
+                    @test (abs.(es[:values]-energies).<1e-6*ones(length(es[:values]))) == trues(length(energies))
 
                 end
             end # end 1h, 1s 
@@ -557,7 +558,7 @@
                 energies[17:20]=E3*ones(4)
 
                 #test
-                @test (abs.(es[:values]-energies)<1e-6*ones(length(es[:values]))) == trues(length(energies))
+                @test (abs.(es[:values]-energies).<1e-6*ones(length(es[:values]))) == trues(length(energies))
                 
             end
             
@@ -592,7 +593,7 @@
                 energies[9:12]=E2*ones(4)
 
                 #test
-                @test abs.(es[:values]-energies)<1e-6*ones(length(es[:values]))
+                @test (abs.(es[:values]-energies).<1e-6*ones(length(energies)) ) == trues(length(energies))
                 
             end
             
@@ -650,7 +651,7 @@
             energies[5:6]=E3*ones(2)
 
             #test
-            @test abs.(es[:values]-energies)<1e-6*ones(6)
+            @test (abs.(es[:values]-energies).<1e-6*ones(length(energies)) ) == trues(length(energies))
             
         end
         
@@ -709,7 +710,7 @@
                 es=eigensystem(hamiltonian)
                 @test length(es[:values])==6
     
-                @test abs.(es[:values]-E1h(U2)*ones(6))<1e-6*ones(6)
+                @test (abs.(es[:values]-E1h(U2)*ones(6)).<1e-6*ones(6)) == trues(6)
                 
             end
             
@@ -741,7 +742,7 @@
                 energies[15]=E2h_00(U2,J_H)
                 
                 # test
-                @test abs.(es[:values]-energies)<1e-6*ones(15) 
+                @test (abs.(es[:values]-energies).<1e-6*ones(length(energies)) ) == trues(length(energies)) 
                 
             end
             
@@ -792,7 +793,7 @@
                 es=eigensystem(hamiltonian)
                 @test length(es[:values])==6
     
-                @test abs.(es[:values]-E1h(U2)*ones(6))<1e-6*ones(6)
+                @test (abs.(es[:values]-E1h(U2)*ones(6)).<1e-6*ones(6)) == trues(6)
                 
             end
             
@@ -824,7 +825,7 @@
                 energies[15]=E2h_00(U2,J_H)
                 
                 # test
-                @test abs.(es[:values]-energies)<1e-6*ones(15) 
+                @test (abs.(es[:values]-energies).<1e-6*ones(length(energies)) ) == trues(length(energies))
                 
             end
             
