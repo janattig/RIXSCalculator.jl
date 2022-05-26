@@ -444,44 +444,44 @@
                 end
             end # end 1e, 1s 
             
-#             @testset "2h, 1s" begin
+            @testset "2h, 1s" begin
                 
-#                 h=2
-#                 s=1
-#                 particle_type=:hole
-#                 lambda=3.0
+                h=2
+                s=1
+                particle_type=:hole
+                lambda=3.0
 
-#                 # basis construction
-#                 basis_sp=getT2GBasisLS()        
-#                 basis_ms=getMultiSiteBasis(basis_sp,s)
-#                 basis_mp=getMultiParticleBasis(basis_ms,h)
+                # basis construction
+                basis_sp=getT2GBasisLS()        
+                basis_ms=getMultiSiteBasis(basis_sp,s)
+                basis_mp=getMultiParticleBasis(basis_ms,h)
 
-#                 # hamiltonian construction
-#                 hamiltonian=SpinOrbitOperator(basis_mp, 1, lambda; particle_type=particle_type)
+                # hamiltonian construction
+                hamiltonian=SpinOrbitOperator(basis_mp, 1, lambda; particle_type=particle_type)
 
-#                 # obtain eigensystem
-#                 es=eigensystem(hamiltonian)
-#                 es[:values]
+                # obtain eigensystem
+                es=eigensystem(hamiltonian)
+                es[:values]
                 
-#                 # consistency tests
-#                 @test size(matrix_representation(hamiltonian))==(15,15)
-#                 @test length(es[:values])==15
-#                 @test length(es[:vectors])==15
+                # consistency tests
+                @test size(matrix_representation(hamiltonian))==(15,15)
+                @test length(es[:values])==15
+                @test length(es[:vectors])==15
 
-#                 # correct results:
-#                 E1=-2*lambda
-#                 E2=-lambda/2
-#                 E3=lambda
+                # correct results:
+                E1=-2*lambda
+                E2=-lambda/2
+                E3=lambda
 
-#                 energies=zeros(length(es[:values]))
-#                 energies[1]=E1
-#                 energies[2:9]=E2*ones(8)
-#                 energies[10:15]=E3*ones(6)
+                energies=zeros(length(es[:values]))
+                energies[1]=E1
+                energies[2:9]=E2*ones(8)
+                energies[10:15]=E3*ones(6)
 
-#                 #test
-#                 @test (abs.(es[:values]-energies).<1e-6*ones(length(es[:values]))) == trues(length(energies))
+                #test
+                @test (abs.(es[:values]-energies).<1e-6*ones(length(es[:values]))) == trues(length(energies))
                 
-#             end
+            end
             
 #             @testset "2e, 1s" begin
                 
