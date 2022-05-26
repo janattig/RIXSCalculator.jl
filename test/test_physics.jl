@@ -475,8 +475,13 @@
 
                 energies=zeros(length(es[:values]))
                 energies[1]=E1
+<<<<<<< HEAD
                 energies[2:9]=E2*ones(8)
                 energies[10:15]=E3*ones(6)
+=======
+                energies[2:8]=E2*ones(7)
+                energies[9:15]=E3*ones(7)
+>>>>>>> 0124d8a3173d4b9ecc4d56034845819d012a3bc9
 
                 #test
                 @test (abs.(es[:values]-energies).<1e-6*ones(length(es[:values]))) == trues(length(energies))
