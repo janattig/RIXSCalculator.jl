@@ -39,7 +39,7 @@
                     E2=Epm
 
                     #test
-                    @test abs.(es[:values]-[E1,E1,E1,E2,E2,E2])<1e-6*ones(6)
+                    @test (abs.(es[:values]-[E1,E1,E1,E2,E2,E2])<1e-6*ones(6)) == trues(6)
 
                 end
 
@@ -74,7 +74,7 @@
                     E2=Epm
 
                     #test
-                    @test abs.(es[:values]-[E1,E1,E1,E2,E2,E2])<1e-6*ones(6)
+                    @test (abs.(es[:values]-[E1,E1,E1,E2,E2,E2])<1e-6*ones(6)) == trues(6)
 
                 end
                 
@@ -113,7 +113,7 @@
                     E2=Epm
 
                     #test
-                    @test abs.(es[:values]-[E1,E1,E1,E2,E2,E2])<1e-6*ones(6)
+                    @test (abs.(es[:values]-energies)<1e-6*ones(length(es[:values]))) == trues(length(energies))
 
                 end
                 
@@ -157,7 +157,7 @@
                 energies[13:15]=E3*ones(3)
 
                 # test 
-                @test abs.(es[:values]-energies)<1e-6*ones(15)
+                @test (abs.(es[:values]-energies)<1e-6*ones(length(es[:values]))) == trues(length(energies))
                 
             end
             
@@ -199,7 +199,7 @@
                 energies[13:15]=E3*ones(3)
 
                 # test 
-                @test abs.(es[:values]-energies)<1e-6*ones(15)
+                @test (abs.(es[:values]-energies)<1e-6*ones(length(es[:values]))) == trues(length(energies))
                 
             end
             
@@ -243,7 +243,7 @@
                 energies[20]=E4
 
                 # test 
-                @test abs.(es[:values]-energies)<1e-6*ones(20)
+                @test (abs.(es[:values]-energies)<1e-6*ones(length(es[:values]))) == trues(length(energies))
 
             end
             
@@ -287,7 +287,7 @@
                 energies[20]=E4
 
                 # test 
-                @test abs.(es[:values]-energies)<1e-6*ones(20)
+                @test (abs.(es[:values]-energies)<1e-6*ones(length(es[:values]))) == trues(length(energies))
 
             end
             
@@ -322,7 +322,7 @@
                 energies[10:12]=(Bstr/2)*ones(3)
 
                 # #test
-                @test abs.(es[:values]-energies)<1e-6*ones(12)
+                @test (abs.(es[:values]-energies)<1e-6*ones(length(es[:values]))) == trues(length(energies))
                 
             end
             
@@ -363,7 +363,7 @@
                     energies[3:6]=E2*ones(4)
 
                     #test
-                    @test abs.(es[:values]-energies)<1e-6*ones(length(es[:values]))
+                    @test (abs.(es[:values]-energies)<1e-6*ones(length(es[:values]))) == trues(length(energies))
 
                 end
 
@@ -400,7 +400,7 @@
                     energies[3:6]=E2*ones(4)
 
                     #test
-                    @test abs.(es[:values]-energies)<1e-6*ones(length(es[:values]))
+                    @test (abs.(es[:values]-energies)<1e-6*ones(length(es[:values]))) == trues(length(energies))
 
                 end
             end # end 1h, 1s 
@@ -526,6 +526,7 @@
                 
                 h=3
                 s=1
+                particle_type=:hole
                 lambda=3.0
 
                 # basis construction
@@ -534,7 +535,7 @@
                 basis_mp=getMultiParticleBasis(basis_ms,h)
 
                 # hamiltonian construction
-                hamiltonian=SpinOrbitOperator(basis_mp, 1, lambda)
+                hamiltonian=SpinOrbitOperator(basis_mp, 1, lambda; particle_type=particle_type)
 
                 # obtain eigensystem
                 es=eigensystem(hamiltonian)
@@ -556,7 +557,7 @@
                 energies[17:20]=E3*ones(4)
 
                 #test
-                @test abs.(es[:values]-energies)<1e-6*ones(length(es[:values])) 
+                @test (abs.(es[:values]-energies)<1e-6*ones(length(es[:values]))) == trues(length(energies))
                 
             end
             
