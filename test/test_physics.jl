@@ -644,7 +644,8 @@
             basis_mp=getMultiParticleBasis(getMultiSiteBasis(basis_sp,s),p)
 
             # hamiltonian construction
-            hamiltonian=DistortionOperator(basis_mp,1,-Delta, [0,0,1]) + SpinOrbitOperator(basis_mp, 1, -lambda)
+            hamiltonian=DistortionOperator(basis_mp,1,-Delta, [0,0,1]; particle_type=particle_type) + 
+                        SpinOrbitOperator(basis_mp, 1,-lambda; particle_type=particle_type)
             es=eigensystem(hamiltonian)
 
             # ament solution
@@ -686,7 +687,8 @@
             basis_mp=getMultiParticleBasis(getMultiSiteBasis(basis_sp,s),p)
 
             # hamiltonian construction
-            hamiltonian=DistortionOperator(basis_mp,1,-Delta, [0,0,1]) + SpinOrbitOperator(basis_mp, 1, -lambda)
+            hamiltonian=DistortionOperator(basis_mp,1,-Delta, [0,0,1]; particle_type=particle_type) + 
+                        SpinOrbitOperator(basis_mp, 1,-lambda; particle_type=particle_type)
             es=eigensystem(hamiltonian)
 
             # ament solution
