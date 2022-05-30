@@ -29,9 +29,9 @@
                     # obtain eigensystem
                     es=eigensystem(hamiltonian)
 
-                    @test size(matrix_representation(hamiltonian))==(6,6)
-                    @test length(es[:values])==6
-                    @test length(es[:vectors])==6
+                    @test size(matrix_representation(hamiltonian)) == (6,6)
+                    @test length(es[:values]) == 6
+                    @test length(es[:vectors]) == 6
 
                     # correct results:
                     Epm=norm(B)/2
@@ -617,7 +617,7 @@
     
     @testset "Literature tests" begin
         
-        @testset "Comparison with Ament et al." begin #Khaliullin and van der Brink
+        @testset "Comparison with Ament et al., holes" begin #Khaliullin and van der Brink
             
             # auxiliary functions
             function theta(lambda, Delta)
@@ -634,10 +634,56 @@
             # choice of parameters
             lambda=rand(-10.0:10.0)
             Delta=rand(-10.0:10.0)
+            
+            s=1
+            p=1
+            particle_type=:hole
 
             # basis construction
             basis_sp=getT2GBasisXYZ()
-            basis_mp=getMultiParticleBasis(getMultiSiteBasis(basis_sp,1),1)
+            basis_mp=getMultiParticleBasis(getMultiSiteBasis(basis_sp,s),p)
+
+            # hamiltonian construction
+            hamiltonian=DistortionOperator(basis_mp,1,-Delta, [0,0,1]) + SpinOrbitOperator(basis_mp, 1, -lambda)
+            es=eigensystem(hamiltonian)
+
+            # ament solution
+            energies=zeros(6)
+            E1,E2,E3=ament_energies(lambda, Delta, theta(lambda,Delta))
+            energies[1:2]=E1*ones(2)
+            energies[3:4]=E2*ones(2)
+            energies[5:6]=E3*ones(2)
+
+            #test
+            @test (abs.(es[:values]-energies).<1e-6*ones(length(energies)) ) == trues(length(energies))
+            
+        end
+        
+        @testset "Comparison with Ament et al., electrons" begin #Khaliullin and van der Brink
+            
+            # auxiliary functions
+            function theta(lambda, Delta)
+                return 0.5*atan( 2*sqrt(2)*lambda/(lambda-2*Delta) )
+            end
+            function ament_energies(lambda, Delta, theta)
+                Ef=lambda/( sqrt(2)*tan(theta) )
+                Eg=-Delta-lambda/2
+                Eh=-( lambda*tan(theta) )/sqrt(2)
+                # make sure to return sort(list)
+                return sort([Ef,Eh,Eg])
+            end
+            
+            # choice of parameters
+            lambda=rand(-10.0:10.0)
+            Delta=rand(-10.0:10.0)
+            
+            s=1
+            p=5
+            particle_type=:electron
+
+            # basis construction
+            basis_sp=getT2GBasisXYZ()
+            basis_mp=getMultiParticleBasis(getMultiSiteBasis(basis_sp,s),p)
 
             # hamiltonian construction
             hamiltonian=DistortionOperator(basis_mp,1,-Delta, [0,0,1]) + SpinOrbitOperator(basis_mp, 1, -lambda)
