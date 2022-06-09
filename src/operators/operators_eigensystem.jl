@@ -126,13 +126,15 @@ export print_energies
 """
     printEDresults(op :: AbstractOperator;
                         states :: Union{Symbol, Vector{Int64}, Int64} = :all,
-                        subtract_GS::Bool = false, 
+                        subtract_GS::Bool = false,
+                        particle_type::Symbol =:hole,
                         kwargs...)
 
 The function displays energies and the eigenvectors of an hamiltonian `op` in colors.
 If a basis `basis` is given, the function projects `op` onto the given basis before computing the results.
 If the input `states` is given as an integer vector or an integer number, it prints only those states. If no input `states` is given,
 it will print all the states.
+If the keyword argument `particle_type` is not given, :hole is chosen as keyword argument.
 """
 function printEDresults(op :: AbstractOperator;
                         states :: Union{Symbol, Vector{Int64}, Int64} = :all,
