@@ -1100,6 +1100,226 @@
             
             end # end 1s0h6e
             
+            
+            
+            
+            @testset "1s,1h,5e" begin
+                function check_eigensystems(
+                        eigensystem1 :: Dict,
+                        eigensystem2 :: Dict,
+                        index :: Integer
+                        ;
+                        subtract_GS :: Bool=false,
+                        cutoff :: Real = 0.01,
+                        digits :: Integer = 3,
+                        print_results :: Bool = true
+                    )
+                    # get the state and the eigenenergy
+                    hole_state  = eigensystem1[:vectors][index]
+                    hole_energy = eigensystem1[:values][index]
+
+                    electron_state  = eigensystem2[:vectors][index]
+                    electron_energy = eigensystem2[:values][index]
+
+                    new_state = 1im.*zeros(length(electron_state))
+
+                    # put minus sign when necessary
+                    for i in 1:length(electron_state)
+                        occ=basis(eigensystem2[:operator])[i].occupation
+                        # add minus sign when sum of occ is odd
+                        new_state[i] = (-1)^sum(occ) * electron_state[i]        
+                    end
+
+                    if subtract_GS
+                        hole_energy -= eigensystem[:values][1]
+                        electron_energy -= eigensystem[:values][1]
+                    end
+
+                    # compute the overlap; dot already conjugates the first vector
+                    ov=dot(hole_state,reverse(new_state))
+
+                    # print the overlap
+                    if print_results==true
+                        printstyled("The overlap of eigenvector nr. $(index) is:\n", bold=true, color=:light_green)
+                        println(round(abs(ov),digits=3))
+                    end
+
+                    return (new_state,abs(ov))
+                end
+
+                #---------------------------------------------------------------------------------------------------------------
+                #---------------------------------------------------------------------------------------------------------------
+
+                # set parameters
+                lambda = rand()
+                Delta  = rand()
+                B_dir=generate_rvos()
+                B=rand()
+
+                U=rand()
+                J_H=rand()
+
+                P=rand(1:6)
+
+
+                #---------------------------------------------------------------------------------------------------------------
+                #---------------------------------------------------------------------------------------------------------------
+
+
+                s=1
+                p=P
+                particle_type=:hole
+
+
+                ################
+                # BASIS
+                ################
+
+                # single particle basis for the t2gs
+                basis_sp   = getT2GBasisJ()
+
+                # single particle basis for s sites (from single particle basis of t2gs)
+                basis_ms = getMultiSiteBasis(basis_sp, s)
+
+                # multi particle basis that occupies single particle 1 site basis with p particles
+                basis_mp   = getMultiParticleBasis(basis_ms, p)
+
+                # write interaction basis
+                basis_interaction = getMultiParticleBasis(getMultiSiteBasis(getT2GBasisXYZ(), s), p)
+
+
+
+                ################
+                # HAMILTONIAN
+                ################
+
+                # build the sum of all contributing terms (L*S + Delta * Lz^2)
+                # Hamiltonian construction
+
+                # compute interaction term in the xyz basis
+                if particle_type==:electron
+                    interaction = MPElectronPerkinsWoelfleHamiltonian(basis_interaction, 1, 0.0,0.0,0.0)
+                else
+                    interaction = MPHolePerkinsWoelfleHamiltonian(basis_interaction, 1, 0.0,0.0,0.0)
+                end
+
+                # project to chosen basis
+                hamiltonian = ProjectorOperator(interaction, basis_mp)
+
+                # SP terms
+                K=Pair(:K,0.0)
+
+                hamiltonian += DistortionOperator(basis_mp, 1, 0.0, [0,0,1]; particle_type=particle_type) +
+                                SpinOrbitOperator(basis_mp, 1, 0.0; particle_type=particle_type) + 
+                                MagneticFieldOperator(basis_mp, 1, 0.0, [0,0,1]; particle_type=particle_type)+
+                                K*JzOperator(basis_mp,1; particle_type=particle_type)
+
+
+
+                # recalculate the hamiltonian (set matrices to correct values etc.)
+                recalculate!(hamiltonian);
+
+                set_parameter!(hamiltonian,      :lambda, lambda, site=:all)
+                set_parameter!(hamiltonian,      :Delta,  Delta, site=:all)
+                set_parameter!(hamiltonian,      :B,      B, site=:all)
+                set_parameter!(hamiltonian,      :B_dir,  B_dir, site=:all)
+
+                set_parameter!(hamiltonian, :U,  U, site=:all)
+                set_parameter!(hamiltonian, :J_H,  J_H, site=:all)
+
+
+                recalculate!(hamiltonian)
+
+                esh=eigensystem(hamiltonian)
+
+                #---------------------------------------------------------------------------------------------------------------
+                #---------------------------------------------------------------------------------------------------------------
+
+                s=1
+                p=6-P
+                particle_type=:electron
+
+
+                ################
+                # BASIS
+                ################
+
+                # single particle basis for the t2gs
+                basis_sp   = getT2GBasisJ()
+
+                # single particle basis for s sites (from single particle basis of t2gs)
+                basis_ms = getMultiSiteBasis(basis_sp, s)
+
+                # multi particle basis that occupies single particle 1 site basis with p particles
+                basis_mp   = getMultiParticleBasis(basis_ms, p)
+
+                # write interaction basis
+                basis_interaction = getMultiParticleBasis(getMultiSiteBasis(getT2GBasisXYZ(), s), p)
+
+
+
+                ################
+                # HAMILTONIAN
+                ################
+
+                # build the sum of all contributing terms (L*S + Delta * Lz^2)
+                # Hamiltonian construction
+
+                # compute interaction term in the xyz basis
+                if particle_type==:electron
+                    interaction = MPElectronPerkinsWoelfleHamiltonian(basis_interaction, 1, 0.0,0.0,0.0)
+                else
+                    interaction = MPHolePerkinsWoelfleHamiltonian(basis_interaction, 1, 0.0,0.0,0.0)
+                end
+
+                # project to chosen basis
+                hamiltonian = ProjectorOperator(interaction, basis_mp)
+
+
+
+                # SP terms
+                K=Pair(:K,0.0)
+            
+                hamiltonian += DistortionOperator(basis_mp, 1, 0.0, [0,0,1]; particle_type=particle_type) +
+                                SpinOrbitOperator(basis_mp, 1, 0.0; particle_type=particle_type) + 
+                                MagneticFieldOperator(basis_mp, 1, 0.0, [0,0,1]; particle_type=particle_type)+
+                                K*JzOperator(basis_mp,1; particle_type=particle_type)
+
+                # recalculate the hamiltonian (set matrices to correct values etc.)
+                recalculate!(hamiltonian);
+
+
+                set_parameter!(hamiltonian,      :lambda, lambda, site=:all)
+                set_parameter!(hamiltonian,      :Delta,  Delta, site=:all)
+                set_parameter!(hamiltonian,      :B,      B, site=:all)
+                set_parameter!(hamiltonian,      :B_dir,  B_dir, site=:all)
+
+                set_parameter!(hamiltonian, :U,  U, site=:all)
+                set_parameter!(hamiltonian, :J_H,  J_H, site=:all)
+
+
+                recalculate!(hamiltonian)
+
+                ese=eigensystem(hamiltonian)
+
+
+
+                #---------------------------------------------------------------------------------------------------------------
+                #---------------------------------------------------------------------------------------------------------------
+
+
+                # TESTING (test each state; note that the total number of test varies wrt the number of particles, which is randomized)
+                sum=0
+                for i in 1:length(esh[:vectors])
+                    new_state,ov=check_eigensystems(esh,ese,i; print_results=false)
+
+                    sum+=ov
+
+                end
+                @test abs(sum-6.0)<1e-6
+            
+            end # end 1s1h5e
+            
         end #end testset e-h equivalence
         
         
