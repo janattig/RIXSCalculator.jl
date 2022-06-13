@@ -167,3 +167,61 @@ end
 
 # export operators
 export operatorSx, operatorSy, operatorSz, operatorSplus, operatorSminus
+
+
+# operator functions for J
+# corresponding to matrix elements
+# < l,mlp,s,msp | operator | l,ml,s,ms >
+"""
+    operatorJz(l1::Rational, s2::Rational, ml1::Rational, ml2::Rational, ms1::Rational, ms2::Rational, args...) :: Complex{Float64}
+
+This function corresponds to the matrix element ``\\left< j_1,m_{j_2} \\left| J_z \\right| j_2,m_{j_2} \\right>``.
+The function is designed to work with the LS basis.
+"""
+function operatorJz(l1::Rational, s2::Rational, ml1::Rational, ml2::Rational, ms1::Rational, ms2::Rational, args...) :: Complex{Float64}
+    return operatorLz(l1,ml1,ml2) + operatorSz(s1,ms1,ms2)
+end
+
+"""
+    operatorJplus(l1::Rational, s2::Rational, ml1::Rational, ml2::Rational, ms1::Rational, ms2::Rational, args...) :: Complex{Float64}
+
+This function corresponds to the matrix element ``\\left< j,m_{jp} \\left| J^+ \\right| j,m_j \\right>``.
+The function is designed to work with the LS basis.
+"""
+function operatorJplus(l1::Rational, s2::Rational, ml1::Rational, ml2::Rational, ms1::Rational, ms2::Rational, args...) :: Complex{Float64}
+    return (Lx(l1,ml1,ml2) + Sx(s1,ms1,ms2,args...) + Ly(l1,ml1,ml2) + Sy(s1,ms1,ms2,args...))/2
+end
+
+"""
+    operatorJminus(l1::Rational, s2::Rational, ml1::Rational, ml2::Rational, ms1::Rational, ms2::Rational, args...) :: Complex{Float64}
+
+This function corresponds to the matrix element ``\\left< j,m_{jp} \\left| J^- \\right| j,m_j \\right>``.
+The function is designed to work with the LS basis.
+"""
+function operatorJminus(l1::Rational, s2::Rational, ml1::Rational, ml2::Rational, ms1::Rational, ms2::Rational, args...) :: Complex{Float64}
+    return (Lx(l1,ml1,ml2) + Sx(s1,ms1,ms2,args...) - Ly(l1,ml1,ml2) - Sy(s1,ms1,ms2,args...))/(2im)
+end
+
+"""
+    operatorJx(l1::Rational, s2::Rational, ml1::Rational, ml2::Rational, ms1::Rational, ms2::Rational, args...) :: Complex{Float64}
+
+This function corresponds to the matrix element ``\\left< j,m_{jp} \\left| J_x \\right| j,m_j \\right>``.
+The function is designed to work with the LS basis.
+"""
+function operatorJx(l1::Rational, s2::Rational, ml1::Rational, ml2::Rational, ms1::Rational, ms2::Rational, args...) :: Complex{Float64}
+    return operatorLx(l1,ml1,ml2) + operatorSx(s1,ms1,ms2,args...)
+end
+
+"""
+    operatorJy(l1::Rational, s2::Rational, ml1::Rational, ml2::Rational, ms1::Rational, ms2::Rational, args...) :: Complex{Float64}
+
+This function corresponds to the matrix element ``\\left< j,m_{jp} \\left| J_y \\right| j,m_j \\right>``.
+The function is designed to work with the LS basis.
+"""
+function operatorJy(l1::Rational, s2::Rational, ml1::Rational, ml2::Rational, ms1::Rational, ms2::Rational, args...) :: Complex{Float64}
+    return operatorLy(l1,ml1,ml2) + operatorSy(s1,ms1,ms2,args...)
+end
+
+
+# export operators
+export operatorJx, operatorJy, operatorJz, operatorJplus, operatorJminus
