@@ -883,7 +883,7 @@
         
         @testset "electron-hole equivalence" begin
 
-            @testset "1s,0h,6e"
+            @testset "1s,0h,6e" begin
                 function check_eigensystems(
                         eigensystem1 :: Dict,
                         eigensystem2 :: Dict,
