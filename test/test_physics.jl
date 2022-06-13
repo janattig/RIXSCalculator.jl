@@ -1089,14 +1089,15 @@
 
 
                 # TESTING (test each state; note that the total number of test varies wrt the number of particles, which is randomized)
-                sum=0
+                summa=0
                 for i in 1:length(esh[:vectors])
                     new_state,ov=check_eigensystems(esh,ese,i; print_results=false)
 
-                    sum+=ov
+                    summa+=ov
 
                 end
-                @test abs(sum-1.0)<1e-6
+                #check if overlaps are 1.0, check if states are 1 in total
+                @test abs(summa-1.0)<1e-6
             
             end # end 1s0h6e
             
@@ -1309,14 +1310,15 @@
 
 
                 # TESTING (test each state; note that the total number of test varies wrt the number of particles, which is randomized)
-                sum=0
+                summa=0
                 for i in 1:length(esh[:vectors])
                     new_state,ov=check_eigensystems(esh,ese,i; print_results=false)
 
-                    sum+=ov
+                    summa+=ov
 
                 end
-                @test abs(sum-6.0)<1e-6
+                #check if overlaps are 1.0, check if states are 6 in total
+                @test abs(summa-6.0)<1e-6
             
             end # end 1s1h5e
             
