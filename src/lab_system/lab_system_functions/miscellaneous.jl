@@ -1,5 +1,5 @@
 # recalculation of dipole operator
-function recalculate_dipole_operators!(lab::LabSystem; new_objects::Bool=false)
+function recalculate_dipole_operators!(lab::LabSystem; new_objects::Bool=false, particle_type::Symbol=:hole)
     # check if new objects necessary
     if new_objects
         # new site dipole operators
@@ -53,22 +53,42 @@ function recalculate_dipole_operators!(lab::LabSystem; new_objects::Bool=false)
         # build sums of diple operators
         N = length(basis(lab.hamiltonian)[1].occupation)
         basis_dipole = getMultiParticleBasis(getMultiSiteBasis(getT2GBasisXYZ(), length(lab.sites)), N)
-        lab.dipole_hor = ProjectorOperator( sum([
-            MPGeneralizedSPOperator(
-                basis_dipole,
-                ProjectorOperator(
-                    dh, basis_dipole.single_particle_basis
+        if particle_type==:electron
+            lab.dipole_hor = ProjectorOperator( sum([
+                MPElectronGeneralizedSPOperator(
+                    basis_dipole,
+                    ProjectorOperator(
+                        dh, basis_dipole.single_particle_basis
+                    )
                 )
-            )
-            for dh in lab.dipoles_hor  ]), basis(lab.hamiltonian))
-        lab.dipole_ver = ProjectorOperator( sum([
-            MPGeneralizedSPOperator(
-                basis_dipole,
-                ProjectorOperator(
-                    dv, basis_dipole.single_particle_basis
+                for dh in lab.dipoles_hor  ]), basis(lab.hamiltonian))
+            lab.dipole_ver = ProjectorOperator( sum([
+                MPElectronGeneralizedSPOperator(
+                    basis_dipole,
+                    ProjectorOperator(
+                        dv, basis_dipole.single_particle_basis
+                    )
                 )
-            )
-            for dv in lab.dipoles_ver  ]), basis(lab.hamiltonian))
+                for dv in lab.dipoles_ver  ]), basis(lab.hamiltonian))
+        else
+            lab.dipole_hor = ProjectorOperator( sum([
+                MPHoleGeneralizedSPOperator(
+                    basis_dipole,
+                    ProjectorOperator(
+                        dh, basis_dipole.single_particle_basis
+                    )
+                )
+                for dh in lab.dipoles_hor  ]), basis(lab.hamiltonian))
+            lab.dipole_ver = ProjectorOperator( sum([
+                MPHoleGeneralizedSPOperator(
+                    basis_dipole,
+                    ProjectorOperator(
+                        dv, basis_dipole.single_particle_basis
+                    )
+                )
+                for dv in lab.dipoles_ver  ]), basis(lab.hamiltonian))
+        end
+        
     else
         # update the dipole operators
         for s in 1:length(lab.sites)

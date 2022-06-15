@@ -65,7 +65,7 @@ mutable struct LabSystem
 end
 
 
-function LabSystem(hamiltonian :: AbstractOperator)
+function LabSystem(hamiltonian :: AbstractOperator; particle_type::Symbol=:hole)
     ls = LabSystem(
         hamiltonian,
         Dict{Symbol,Any}(),
@@ -83,7 +83,7 @@ function LabSystem(hamiltonian :: AbstractOperator)
         [0,1,0],
         [1,0,1]
     )
-    recalculate_dipole_operators!(ls, new_objects=true)
+    recalculate_dipole_operators!(ls, new_objects=true; particle_type=particle_type)
     recalculate_hamiltonian!(ls, true, true)
     return ls
 end
@@ -95,7 +95,7 @@ export LabSystem
 # custom show function
 import Base.show
 function show(io::IO, lab::LabSystem)
-    print(io, "LabSystem object\n")
+    printstyled(io, "LabSystem object\n", bold=true, underline=true)
     # beam properties
     print(io, "Incoming beam parameters:\n")
     print(io, " -> q vector     = $(round.(lab.q_in, digits=3))\n")
