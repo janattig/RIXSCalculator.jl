@@ -125,6 +125,7 @@ export print_energies
 
 """
     printEDresults(op :: AbstractOperator;
+                        print_eigenvalues::Bool = true,
                         states :: Union{Symbol, Vector{Int64}, Int64} = :all,
                         subtract_GS::Bool = false,
                         particle_type::Symbol =:hole,
@@ -137,6 +138,7 @@ it will print all the states.
 If the keyword argument `particle_type` is not given, :hole is chosen as keyword argument.
 """
 function printEDresults(op :: AbstractOperator;
+                        print_eigenvalues::Bool = true,
                         states :: Union{Symbol, Vector{Int64}, Int64} = :all,
                         subtract_GS::Bool = false,
                         particle_type::Symbol =:hole,
@@ -152,9 +154,10 @@ function printEDresults(op :: AbstractOperator;
     # version without projection
     
     es=eigensystem(op)
-
-    printstyled("Energies:\n", color=color, bold=true, underline=true)
-    print_energies(op; subtract_GS)
+    if print_eigenvalues
+        printstyled("Energies:\n", color=color, bold=true, underline=true)
+        print_energies(op; subtract_GS)
+    end
 
     
 
@@ -181,6 +184,7 @@ end
 
 function printEDresults(op :: AbstractOperator, 
                         basis::AbstractBasis;
+                        print_eigenvalues::Bool = true,
                         states :: Union{Symbol, Vector{Int64}, Int64} = :all, 
                         subtract_GS::Bool = false,
                         particle_type::Symbol =:hole,
@@ -199,10 +203,11 @@ function printEDresults(op :: AbstractOperator,
     
     #pick eigensystem
     es=eigensystem(H)
-
-    printstyled("Energies:\n", color=color, bold=true, underline=true)
-    print_energies(H; subtract_GS)
-
+    
+    if print_eigenvalues
+        printstyled("Energies:\n", color=color, bold=true, underline=true)
+        print_energies(H; subtract_GS)
+    end
     
 
     if states == :all || states == :All
